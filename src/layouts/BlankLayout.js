@@ -1,9 +1,7 @@
 import React from 'react';
 
-
-
-export default class Text extends React.Component {
-    render() {
-        return '132';
-    }
+export default class BlankLayout extends React.Component {
+	render() {
+		return 'BlankLayout';
+	}
 }

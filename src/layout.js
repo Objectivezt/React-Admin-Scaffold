@@ -11,41 +11,27 @@ import IndexPage from './containers/IndexPage';
 const { ConnectedRouter } = routerRedux;
 const { AuthorizedRoute } = Authorized;
 dynamic.setDefaultLoadingComponent(() => {
-    return <Spin size="large" className={styles.globalSpin} />;
+	return <Spin size="large" className={styles.globalSpin} />;
 });
 
 function RouterConfig({ history, app }) {
-    const routerData = getRouterData(app);
-    console.log(routerData);
-    // const UserLayout = routerData['/user'].component;
-    const BlankLayout = routerData['/'].component;
+	const routerData = getRouterData(app);
+	console.log(routerData);
+	// const UserLayout = routerData['/user'].component;
+	const BlankLayout = routerData['/normal'].component;
+	const TouristLayout = routerData['/tourist'].component;
 
-    return (
-        <LocaleProvider locale={zhCN}>
-            <ConnectedRouter history={history}>
-                <Switch>
-                    {/* <Route path="/" exact component={IndexPage} /> */}
-                    <Route path="/" component={BlankLayout} />
-                </Switch>
-            </ConnectedRouter>
-        </LocaleProvider>
-    );
+	return (
+		<LocaleProvider locale={zhCN}>
+			<ConnectedRouter history={history}>
+				<Switch>
+					{/* <Route path="/" exact component={IndexPage} /> */}
+					<Route path="/normal" component={BlankLayout} />
+					<Route path="/tourist" component={TouristLayout} />
+				</Switch>
+			</ConnectedRouter>
+		</LocaleProvider>
+	);
 }
 
 export default RouterConfig;
-
-// import React from 'react';
-// import { Router, Route, Switch } from 'dva/router';
-// import IndexPage from './containers/IndexPage';
-
-// function RouterConfig({ history }) {
-//     return (
-//         <Router history={history}>
-//             <Switch>
-//                 <Route path="/" exact component={IndexPage} />
-//             </Switch>
-//         </Router>
-//     );
-// }
-
-// export default RouterConfig;
