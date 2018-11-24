@@ -6,32 +6,29 @@ import dynamic from 'dva/dynamic';
 import { getRouterData } from './common/router';
 import Authorized from './utils/Authorized';
 import styles from './index.less';
-import IndexPage from './containers/IndexPage';
 
 const { ConnectedRouter } = routerRedux;
 const { AuthorizedRoute } = Authorized;
 dynamic.setDefaultLoadingComponent(() => {
-	return <Spin size="large" className={styles.globalSpin} />;
+    return <Spin size="large" className={styles.globalSpin} />;
 });
 
 function RouterConfig({ history, app }) {
-	const routerData = getRouterData(app);
-	console.log(routerData);
-	// const UserLayout = routerData['/user'].component;
-	const BlankLayout = routerData['/normal'].component;
-	const TouristLayout = routerData['/tourist'].component;
+    const routerData = getRouterData(app);
+    const BlankLayout = routerData['/normal'].component;
+    const TouristLayout = routerData['/tourist'].component;
 
-	return (
-		<LocaleProvider locale={zhCN}>
-			<ConnectedRouter history={history}>
-				<Switch>
-					{/* <Route path="/" exact component={IndexPage} /> */}
-					<Route path="/normal" component={BlankLayout} />
-					<Route path="/tourist" component={TouristLayout} />
-				</Switch>
-			</ConnectedRouter>
-		</LocaleProvider>
-	);
+    return (
+        <LocaleProvider locale={zhCN}>
+            <ConnectedRouter history={history}>
+                <Switch>
+                    {/* <Route path="/" exact component={IndexPage} /> */}
+                    <Route path="/normal" component={BlankLayout} />
+                    <Route path="/tourist" component={TouristLayout} />
+                </Switch>
+            </ConnectedRouter>
+        </LocaleProvider>
+    );
 }
 
 export default RouterConfig;
