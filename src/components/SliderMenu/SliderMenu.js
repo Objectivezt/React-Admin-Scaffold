@@ -34,7 +34,7 @@ export const getMeunMatchKeys = (flatMenuKeys, path) => {
   });
 };
 
-export default class SiderMenu extends PureComponent {
+export default class SliderMenu extends PureComponent {
   constructor(props) {
     super(props);
     this.menus = props.menuData;
@@ -81,7 +81,7 @@ export default class SiderMenu extends PureComponent {
   /**
    * 判断是否是http链接.返回 Link 或 a
    * Judge whether it is http link.return a or Link
-   * @memberof SiderMenu
+   * @memberof SliderMenu
    */
   getMenuItemPath = item => {
     const itemPath = this.conversionPath(item.path);
@@ -147,7 +147,7 @@ export default class SiderMenu extends PureComponent {
   };
   /**
    * 获得菜单子节点
-   * @memberof SiderMenu
+   * @memberof SliderMenu
    */
   getNavMenuItems = menusData => {
     if (!menusData) {

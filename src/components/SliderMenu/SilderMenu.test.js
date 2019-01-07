@@ -1,4 +1,4 @@
-import { getMeunMatchKeys } from './SiderMenu';
+import { getMeunMatchKeys } from './SliderMenu';
 
 const meun = ['/dashboard', '/userinfo', '/dashboard/name', '/userinfo/:id', '/userinfo/:id/info'];
 

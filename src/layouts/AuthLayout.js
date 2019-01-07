@@ -1,24 +1,22 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { Layout, Icon, message, Tabs } from 'antd';
-import DocumentTitle from 'react-document-title';
-import { connect } from 'dva';
-import { Route, Redirect, Switch, routerRedux } from 'dva/router';
-import { ContainerQuery } from 'react-container-query';
-import classNames from 'classnames';
-import pathToRegexp from 'path-to-regexp';
-// import { enquireScreen, unenquireScreen } from 'enquire-js';
-import GlobalHeader from '../components/GlobalHeader';
-import GlobalFooter from '../components/GlobalFooter';
-import SliderMenu from '../components/SliderMenu';
-import NotFound from '../containers/Exception/404';
-import { getRoutes } from '../utils/utils';
 import Authorized from '../utils/Authorized';
-import { getMenuData } from '../common/menu';
-import logo from '../assets/favicon.ico';
+import DocumentTitle from 'react-document-title';
+import GlobalFooter from '../components/GlobalFooter';
+import GlobalHeader from '../components/GlobalHeader';
+import NotFound from '../containers/Exception/404';
+import PropTypes from 'prop-types';
+import SliderMenu from '../components/SliderMenu';
 import TabController from './TabLayout';
+import classNames from 'classnames';
+import logo from '../assets/favicon.ico';
+import pathToRegexp from 'path-to-regexp';
+import { ContainerQuery } from 'react-container-query';
+import { Layout, Icon, Tabs } from 'antd';
+import { Route, Redirect, Switch } from 'dva/router';
+import { connect } from 'dva';
+import { getMenuData } from '../common/menu';
+import { getRoutes } from '../utils/utils';
 import { isUrl } from '../utils/utils';
-import reqwest from 'reqwest';
 
 const { Content, Header, Footer } = Layout;
 const { AuthorizedRoute, check } = Authorized;
@@ -85,55 +83,25 @@ const query = {
 	},
 };
 
-let isMobile;
-// enquireScreen(b => {
-//   isMobile = b;
-// });
-
-class BasicLayout extends React.PureComponent {
+@connect(({ global }) => ({
+	global
+}))
+export default class AuthLayout extends React.PureComponent {
 	static childContextTypes = {
 		location: PropTypes.object,
-		breadcrumbNameMap: PropTypes.object,
 	};
-	state = {
-		isMobile,
-	};
-	getChildContext() {
-		const { location, routerData } = this.props;
-		return {
-			location,
-			breadcrumbNameMap: getBreadcrumbNameMap(getMenuData(), routerData),
-		};
-	}
+
 	componentDidMount() {
-		// this.enquireHandler = enquireScreen(mobile => {
-		//   this.setState({
-		//     isMobile: mobile,
-		//   });
-		// });
 		this.props.dispatch({
 			type: 'user/fetchCurrent',
 		});
-	}
-	componentWillUnmount() {
-		// unenquireScreen(this.enquireHandler);
-	}
-	getPageTitle() {
-		const { routerData, location } = this.props;
-		const { pathname } = location;
-		let title = 'multipage';
-		let currRouterData = null;
-		// match params path
-		Object.keys(routerData).forEach(key => {
-			if (pathToRegexp(key).test(pathname)) {
-				currRouterData = routerData[key];
-			}
-		});
-		if (currRouterData && currRouterData.name) {
-			title = `${currRouterData.name} - multipage`;
-		}
-		return title;
-	}
+	};
+
+	getChildContext() {
+		const { location } = this.props;
+		return { location };
+	};
+
 	getBashRedirect = () => {
 		// According to the url parameter to redirect
 		// 这里是重定向的,重定向到 url 的 redirect 参数所示地址
@@ -154,37 +122,31 @@ class BasicLayout extends React.PureComponent {
 		}
 		return redirect;
 	};
+
 	handleMenuCollapse = collapsed => {
 		this.props.dispatch({
 			type: 'global/changeLayoutCollapsed',
 			payload: collapsed,
 		});
 	};
-	handleNoticeClear = type => {
-		message.success(`清空了${type}`);
-		this.props.dispatch({
-			type: 'global/clearNotices',
-			payload: type,
+
+	getPageTitle() {
+		const { routerData, location } = this.props;
+		const { pathname } = location;
+		let title = 'multipage';
+		let currRouterData = null;
+		// match params path
+		Object.keys(routerData).forEach(key => {
+			if (pathToRegexp(key).test(pathname)) {
+				currRouterData = routerData[key];
+			}
 		});
-	};
-	handleMenuClick = ({ key }) => {
-		if (key === 'triggerError') {
-			this.props.dispatch(routerRedux.push('/exception/trigger'));
-			return;
+		if (currRouterData && currRouterData.name) {
+			title = `${currRouterData.name} - multipage`;
 		}
-		if (key === 'logout') {
-			this.props.dispatch({
-				type: 'login/logout',
-			});
-		}
-	};
-	handleNoticeVisibleChange = visible => {
-		if (visible) {
-			this.props.dispatch({
-				type: 'global/fetchNotices',
-			});
-		}
-	};
+		return title;
+	}
+
 	formatter = (data, parentPath = '/', parentAuthority) => {
 		return data.map(item => {
 			let { path } = item;
@@ -205,10 +167,6 @@ class BasicLayout extends React.PureComponent {
 
 	render() {
 		const {
-			currentUser,
-			collapsed,
-			fetchingNotices,
-			notices,
 			routerData,
 			match,
 			location,
@@ -227,29 +185,20 @@ class BasicLayout extends React.PureComponent {
 			<Layout>
 				<SliderMenu
 					logo={logo}
-					// 不带Authorized参数的情况下如果没有权限,会强制跳到403界面
-					// If you do not have the Authorized parameter
-					// you will be forced to jump to the 403 interface without permission
 					Authorized={Authorized}
 					menuData={getMenuData()}
-					collapsed={collapsed}
+					collapsed={true}
 					location={location}
-					isMobile={this.state.isMobile}
 					onCollapse={this.handleMenuCollapse}
 				/>
 				<Layout>
 					<Header style={{ padding: 0 }}>
 						<GlobalHeader
 							logo={logo}
-							currentUser={currentUser}
-							fetchingNotices={fetchingNotices}
-							notices={notices}
-							collapsed={collapsed}
-							isMobile={this.state.isMobile}
-							onNoticeClear={this.handleNoticeClear}
+							currentUser={{ name: '213' }}
+							collapsed={true}
 							onCollapse={this.handleMenuCollapse}
 							onMenuClick={this.handleMenuClick}
-							onNoticeVisibleChange={this.handleNoticeVisibleChange}
 						/>
 					</Header>
 					<Content style={{ margin: '0', height: '100%', borderLeft: '1px solid #e8e8e8' }}>
@@ -288,12 +237,6 @@ class BasicLayout extends React.PureComponent {
 									href: 'https://github.com/Jack-Rose',
 									blankTarget: true,
 								},
-								{
-									key: 'pro-multipage',
-									title: 'pro-multipage',
-									href: 'https://github.com/Jack-Rose/ant-desgin-pro-multipagen',
-									blankTarget: true,
-								},
 							]}
 							copyright={
 								<Fragment>
@@ -315,10 +258,3 @@ class BasicLayout extends React.PureComponent {
 		);
 	}
 }
-
-export default connect(({ user, global, loading }) => ({
-	currentUser: user.currentUser,
-	collapsed: global.collapsed,
-	fetchingNotices: loading.effects['global/fetchNotices'],
-	notices: global.notices,
-}))(BasicLayout);
