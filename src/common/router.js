@@ -3,7 +3,6 @@ import dynamic from 'dva/dynamic';
 import pathToRegexp from 'path-to-regexp';
 import { getMenuData } from './menu';
 
-
 let routerDataCache;
 
 const modelNotExisted = (app, model) =>
