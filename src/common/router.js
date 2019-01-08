@@ -1,17 +1,14 @@
 import { createElement } from 'react';
 import dynamic from 'dva/dynamic';
 import pathToRegexp from 'path-to-regexp';
-import { getMenuData } from './menu';
 
 let routerDataCache;
 
-const modelNotExisted = (app, model) =>
-	// eslint-disable-next-line
-	!app._models.some(({
-		namespace,
-	}) => {
+const modelNotExisted = (app, model) => (
+	!app._models.some(({ namespace, }) => {
 		return namespace === model.substring(model.lastIndexOf('/') + 1);
-	});
+	})
+);
 
 const dynamicWrapper = (app, models, component) => {
 	if (component.toString().indexOf('.then(') < 0) {
@@ -52,41 +49,22 @@ const dynamicWrapper = (app, models, component) => {
 	});
 };
 
-function getFlatMenuData(menus) {
-	let keys = {};
-	menus.forEach(item => {
-		if (item.children) {
-			keys[item.path] = {
-				...item,
-			};
-			keys = {
-				...keys,
-				...getFlatMenuData(item.children),
-			};
-		} else {
-			keys[item.path] = {
-				...item,
-			};
-		}
-	});
-	return keys;
-}
 
 export const getRouterData = app => {
 	const routerConfig = {
 		'/': {
-			component: dynamicWrapper(app, [], () => import('../layouts/BlankLayout')),
+			component: dynamicWrapper(app, [], () => import('layouts/BlankLayout')),
 		},
 		'/user': {
-			component: dynamicWrapper(app, [], () => import('../layouts/UserLayout')),
+			component: dynamicWrapper(app, [], () => import('layouts/UserLayout')),
 		},
 
 		'/tourist': {
-			component: dynamicWrapper(app, [], () => import('../layouts/TouristLayout')),
+			component: dynamicWrapper(app, [], () => import('layouts/TouristLayout')),
 		},
 
 		'/auth': {
-			component: dynamicWrapper(app, [], () => import('../layouts/AuthLayout')),
+			component: dynamicWrapper(app, ['globalModel'], () => import('layouts/AuthLayout')),
 		},
 
 		'/exception/403': {
@@ -102,7 +80,37 @@ export const getRouterData = app => {
 				import('../containers/Exception/500')),
 		},
 	};
-	const menuData = getFlatMenuData(getMenuData());
+	const getFlatMenuData = function (menus) {
+		let keys = {};
+		menus.forEach(item => {
+			if (item.children) {
+				keys[item.path] = { ...item };
+				keys = { ...keys, ...getFlatMenuData(item.children), };
+			} else {
+				keys[item.path] = { ...item };
+			}
+		});
+		return keys;
+	}
+
+	const formatter = (data, parentPath = '/') => data.map((item) => {
+		let { path } = item;
+		if (!isUrl(path)) {
+			path = parentPath + item.path;
+		}
+		const result = {
+			...item,
+			path,
+		};
+		if (item.children) {
+			result.children = this.formatter(item.children, `${parentPath}${item.path}/`);
+		}
+		return result;
+	});
+
+	const menuDataOldCache = [];
+	const getMenuData = (data) => formatter(data);
+	const menuData = getFlatMenuData(getMenuData(menuDataOldCache));
 	const routerData = {};
 	Object.keys(routerConfig).forEach(path => {
 		const pathRegexp = pathToRegexp(path);

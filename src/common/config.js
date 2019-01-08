@@ -19,14 +19,13 @@ export { default as globalModalProps } from './props/Modal.config';
 
 export const globalFormItemLayout = {
 	labelCol: { sm: { span: 8 } },
-	warpperCol: { sm: { span: 16 } },
+	wrapperCol: { sm: { span: 16 } },
 };
 
 export const globalRequire = {
 	colon: true,
 	required: true,
 };
-
 
 // 系统配置属性
 export const projectName = 'Scaffold';
@@ -52,3 +51,24 @@ export const baseRouterUrl = [
 export const fileType = '';// 文件处理
 
 export const fileMaxSize = '';
+
+export const queryLayout = {
+	'screen-xs': {
+		maxWidth: 575,
+	},
+	'screen-sm': {
+		minWidth: 576,
+		maxWidth: 767,
+	},
+	'screen-md': {
+		minWidth: 768,
+		maxWidth: 991,
+	},
+	'screen-lg': {
+		minWidth: 992,
+		maxWidth: 1199,
+	},
+	'screen-xl': {
+		minWidth: 1200,
+	},
+};

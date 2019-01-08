@@ -22,7 +22,6 @@ function RouterConfig({ history, app }) {
 		<LocaleProvider locale={zhCN}>
 			<ConnectedRouter history={history}>
 				<Switch>
-
 					<Route path="/" component={BlankLayout} exact />
 					<Route path="/tourist" component={TouristLayout} strict />
 					<Route
@@ -30,7 +29,6 @@ function RouterConfig({ history, app }) {
 						strict
 						render={props => <AuthLayout {...props} />}
 					/>
-
 				</Switch>
 			</ConnectedRouter>
 		</LocaleProvider>

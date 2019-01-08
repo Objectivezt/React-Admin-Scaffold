@@ -18,7 +18,6 @@ import { getMenuData } from '../common/menu';
 import logo from '../assets/favicon.ico';
 import TabController from './TabLayout';
 import { isUrl } from '../utils/utils';
-import reqwest from 'reqwest';
 
 const { Content, Header, Footer } = Layout;
 const { AuthorizedRoute, check } = Authorized;
