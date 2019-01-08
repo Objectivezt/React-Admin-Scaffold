@@ -2,12 +2,12 @@ import React from 'react';
 import Authorized from '../utils/Authorized';
 import DocumentTitle from 'react-document-title';
 import NotFound from '../containers/Exception/404';
-import PropTypes from 'prop-types';
+import PropTypes, { func } from 'prop-types';
 import SliderMenu from '../components/SliderMenu';
 import classNames from 'classnames';
 import logo from '../assets/favicon.ico';
 import { ContainerQuery } from 'react-container-query';
-import { Layout } from 'antd';
+import { Layout, Spin } from 'antd';
 import { Route, Redirect, Switch } from 'dva/router';
 import { connect } from 'dva';
 import { getRoutes, formatterMenu } from '../utils/utils';
@@ -24,8 +24,10 @@ class AuthLayout extends React.PureComponent {
 
 	componentDidMount() {
 		this.props.dispatch({
-			type: 'user/fetchCurrent',
-		});
+			type: 'userModel/getMenuData',
+		}).then(() => {
+
+		})
 	};
 
 	getChildContext() {
@@ -74,12 +76,12 @@ class AuthLayout extends React.PureComponent {
 		const {
 			collapsed,
 			globalModel,
+			userModel,
 			location,
 			match,
 			routerData,
 		} = this.props;
-		const { loadingLayoutMenu = true, menuData = [] } = globalModel;
-
+		const { menuData = [], loadingLayoutMenu = true } = userModel;
 		const bashRedirect = this.getBashRedirect();
 		const layout = (
 			<Layout>
@@ -139,4 +141,8 @@ class AuthLayout extends React.PureComponent {
 	}
 }
 
-export default connect(({ globalModel }) => ({ globalModel }))(AuthLayout)
+export default connect(({
+	globalModel, userModel
+}) => ({
+	globalModel, userModel
+}))(AuthLayout)

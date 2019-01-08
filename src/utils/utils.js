@@ -172,7 +172,7 @@ export function formatterMenu(data, parentPath = '/') {
 			path,
 		};
 		if (item.children) {
-			result.children = this.formatter(item.children, `${parentPath}${item.path}/`);
+			result.children = formatterMenu(item.children, `${parentPath}${item.path}/`);
 		}
 		return result;
 	});

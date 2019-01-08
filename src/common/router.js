@@ -64,7 +64,7 @@ export const getRouterData = app => {
 		},
 
 		'/auth': {
-			component: dynamicWrapper(app, ['globalModel'], () => import('layouts/AuthLayout')),
+			component: dynamicWrapper(app, ['basic/globalModel', 'user/userModel'], () => import('layouts/AuthLayout')),
 		},
 
 		'/exception/403': {
