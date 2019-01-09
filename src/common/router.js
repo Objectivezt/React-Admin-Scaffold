@@ -56,7 +56,7 @@ export const getRouterData = app => {
 			component: dynamicWrapper(app, [], () => import('layouts/BlankLayout')),
 		},
 		'/user': {
-			component: dynamicWrapper(app, [], () => import('layouts/UserLayout')),
+			component: dynamicWrapper(app, [], () => import('layouts/UserLayout/index')),
 		},
 
 		'/tourist': {
@@ -67,17 +67,26 @@ export const getRouterData = app => {
 			component: dynamicWrapper(app, ['basic/globalModel', 'user/userModel'], () => import('layouts/AuthLayout')),
 		},
 
+		'/auth/app': {
+			component: dynamicWrapper(app, [], () => import('containers/Home')),
+			name: 'app'
+		},
+		'/auth/project/task': {
+			component: dynamicWrapper(app, [], () => import('containers/Project/Task.js')),
+			name: 'task'
+		},
+
 		'/exception/403': {
-			component: dynamicWrapper(app, [], () =>
-				import('../containers/Exception/403')),
+			component: dynamicWrapper(app, [], () => import('containers/Exception/403')),
+			name: '403'
 		},
 		'/exception/404': {
-			component: dynamicWrapper(app, [], () =>
-				import('../containers/Exception/404')),
+			component: dynamicWrapper(app, [], () => import('containers/Exception/404')),
+			name: '404'
 		},
 		'/exception/500': {
-			component: dynamicWrapper(app, [], () =>
-				import('../containers/Exception/500')),
+			component: dynamicWrapper(app, [], () => import('containers/Exception/500')),
+			name: '500'
 		},
 	};
 	const getFlatMenuData = function (menus) {
@@ -123,7 +132,6 @@ export const getRouterData = app => {
 		router = {
 			...router,
 			name: router.name || menuItem.name,
-			authority: router.authority || menuItem.authority,
 			hideInBreadcrumb: router.hideInBreadcrumb || menuItem.hideInBreadcrumb,
 		};
 		routerData[path] = router;

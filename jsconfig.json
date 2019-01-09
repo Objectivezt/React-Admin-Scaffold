@@ -4,6 +4,7 @@
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 		"paths": {
+			"assets/*": ["./src/assets/*"],
 			"common/*": ["./src/common/*"],
 			"components/*": ["./src/components/*"],
 			"containers/*": ["./src/containers/*"],

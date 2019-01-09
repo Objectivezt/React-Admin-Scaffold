@@ -13,6 +13,7 @@ const proxyUrl = proxyObj.proxyName;
 
 const config = {
 	alias: {
+		assets: path.resolve(__dirname, 'src/assets/'),
 		common: path.resolve(__dirname, 'src/common/'),
 		components: path.resolve(__dirname, 'src/components/'),
 		containers: path.resolve(__dirname, 'src/containers/'),

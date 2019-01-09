@@ -2,8 +2,9 @@ import React from 'react';
 import Authorized from '../utils/Authorized';
 import DocumentTitle from 'react-document-title';
 import NotFound from '../containers/Exception/404';
-import PropTypes, { func } from 'prop-types';
+import PropTypes from 'prop-types';
 import SliderMenu from '../components/SliderMenu';
+import TabLayout from 'layouts/TabLayout';
 import classNames from 'classnames';
 import logo from '../assets/favicon.ico';
 import { ContainerQuery } from 'react-container-query';
@@ -75,12 +76,22 @@ class AuthLayout extends React.PureComponent {
 	render() {
 		const {
 			collapsed,
-			globalModel,
 			userModel,
 			location,
 			match,
 			routerData,
+			dispatch
 		} = this.props;
+
+		const tasParams = {
+			...routerData[location.pathname],
+			keys: location.pathname,
+			location,
+			dispatch: dispatch,
+			match,
+		}
+
+		console.log(tasParams);
 		const { menuData = [], loadingLayoutMenu = true } = userModel;
 		const bashRedirect = this.getBashRedirect();
 		const layout = (
@@ -96,7 +107,8 @@ class AuthLayout extends React.PureComponent {
 					<Header style={{ padding: 0 }}>
 					</Header>
 					<Content style={{ margin: '0', height: '100%', borderLeft: '1px solid #e8e8e8' }}>
-						<Switch>
+						<TabLayout {...tasParams} />
+						{/* <Switch>
 							{redirectData.map(item => (
 								<Redirect key={item.from} exact from={item.from} to={item.to} />
 							))}
@@ -111,7 +123,7 @@ class AuthLayout extends React.PureComponent {
 							))}
 							<Redirect exact from="/" to={bashRedirect} />
 							<Route render={NotFound} />
-						</Switch>
+						</Switch> */}
 					</Content>
 					<Footer />
 				</Layout>
