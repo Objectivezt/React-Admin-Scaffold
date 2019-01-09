@@ -2,22 +2,23 @@ export default {
 	namespace: 'globalModel',
 	state: {
 		collapsed: false,
-		spa: true,
+		isMultiPage: true,
 	},
 	effects: {
 
 	},
 	reducers: {
-		changeLayoutCollapsed(state, { payload }) {
+		changeLayoutCollapsed(state, { payloadCollapsed }) {
+			console.log(payloadCollapsed);
 			return {
 				...state,
-				collapsed: payload,
+				collapsed: payloadCollapsed,
 			}
 		},
-		changeSpaLayout(state, { payloadSpa }) {
+		changeMultiPage(state, { payloadMultiPage }) {
 			return {
 				...state,
-				spa: payloadSpa,
+				isMultiPage: payloadMultiPage,
 			}
 		},
 	}

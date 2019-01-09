@@ -1,6 +1,6 @@
 import React from 'react';
 import dynamic from 'dva/dynamic';
-import styles from './index.less';
+import styles from './styles/index.less';
 import zhCN from 'antd/lib/locale-provider/zh_CN';
 import { LocaleProvider, Spin } from 'antd';
 import { getRouterData } from './common/router';
@@ -19,6 +19,7 @@ function RouterConfig({ history, app }) {
 	const BlankLayout = routerData['/'].component;
 	const TouristLayout = routerData['/tourist'].component;
 	const UserLayout = routerData['/user'].component;
+	const UsersLayout = routerData['/users'].component;
 	return (
 		<LocaleProvider locale={zhCN}>
 			<ConnectedRouter history={history}>
@@ -26,6 +27,11 @@ function RouterConfig({ history, app }) {
 					<Route component={BlankLayout} path="/" exact />
 					<Route component={TouristLayout} path="/tourist" strict />
 					<Route component={UserLayout} path="/user" strict />
+					<Route
+						path="/users"
+						render={props => <UsersLayout {...props} />}
+						strict
+					/>
 					<Route
 						path="/auth"
 						render={props => <AuthLayout {...props} />}

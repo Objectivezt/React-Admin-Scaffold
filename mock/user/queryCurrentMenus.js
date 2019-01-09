@@ -169,7 +169,7 @@ const auth = [
 		]
 	},
 	{
-		path: 'user/activity',
+		path: 'users/activity',
 		icon: 'smile',
 		name: '活动中心',
 		children: [
@@ -187,7 +187,7 @@ const auth = [
 		]
 	},
 	{
-		path: 'user/study',
+		path: 'users/study',
 		icon: 'database',
 		name: '学习中心',
 		children: [
@@ -200,7 +200,7 @@ const auth = [
 		]
 	},
 	{
-		path: 'user/archives',
+		path: 'users/archives',
 		icon: 'hdd',
 		name: '档案中心',
 		children: [
@@ -213,7 +213,7 @@ const auth = [
 		]
 	},
 	{
-		path: 'user/news',
+		path: 'users/news',
 		icon: 'read',
 		name: '新闻中心',
 		children: []
