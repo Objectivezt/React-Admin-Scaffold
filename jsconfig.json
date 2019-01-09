@@ -4,14 +4,15 @@
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 		"paths": {
+			"common/*": ["./src/common/*"],
 			"components/*": ["./src/components/*"],
 			"containers/*": ["./src/containers/*"],
 			"layouts/*": ["./src/layouts/*"],
-			"services/*": ["./src/services/*"],
-			"common/*": ["./src/common/*"],
+			"mock/*": ["./mock/*"],
 			"models/*": ["./src/models/*"],
-			"utils/*": ["./src/utils/*"],
+			"services/*": ["./src/services/*"],
 			"styles/*": ["./src/styles/*"],
+			"utils/*": ["./src/utils/*"],
 		}
 	}
 }
