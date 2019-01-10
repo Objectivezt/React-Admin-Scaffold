@@ -3,7 +3,6 @@ import { Icon, Layout, Menu } from 'antd';
 import pathToRegexp from 'path-to-regexp';
 import { Link } from 'dva/router';
 import styles from './index.less';
-import logoBig from '../../assets/favicon.png';
 
 const { Sider } = Layout;
 const { SubMenu } = Menu;

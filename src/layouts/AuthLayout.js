@@ -5,10 +5,10 @@ import {
 	Layout,
 	Spin,
 } from 'antd';
-import Authorized from '../utils/Authorized';
+import Authorized from 'utils/Authorized';
 import DocumentTitle from 'react-document-title';
 import GlobalHeader from 'components/GlobalHeader';
-import NotFound from '../containers/Exception/404';
+import NotFound from 'containers/Exception/404';
 import PropTypes from 'prop-types';
 import SliderMenu from '../components/SliderMenu';
 import TabLayout from 'layouts/TabLayout';
@@ -17,7 +17,7 @@ import logo from '../assets/favicon.ico';
 import { ContainerQuery } from 'react-container-query';
 import { Route, Redirect, Switch, routerRedux } from 'dva/router';
 import { connect } from 'dva';
-import { getRoutes, formatterMenu } from '../utils/utils';
+import { getRoutes, formatterMenu, getBashRedirect } from 'utils/utils';
 import { queryLayout } from 'common/config';
 
 const { Content, Header, Footer } = Layout;
@@ -47,22 +47,6 @@ class AuthLayout extends React.PureComponent {
 		return { location };
 	};
 
-	getBashRedirect = () => {
-		const urlParams = new URL(window.location.href);
-		const redirect = urlParams.searchParams.get('redirect');
-		if (redirect) {
-			urlParams.searchParams.delete('redirect');
-			window.history.replaceState(null, 'redirect', urlParams.href);
-		} else {
-			const { routerData } = this.props;
-			const authorizedPath = Object.keys(routerData).find(
-				item => check(routerData[item].authority, item) && item !== '/'
-			);
-			return authorizedPath;
-		}
-		return redirect;
-	};
-
 	getRedirect = item => {
 		if (item && item.children) {
 			if (item.children[0] && item.children[0].path) {
@@ -78,7 +62,6 @@ class AuthLayout extends React.PureComponent {
 	};
 
 	handleMenuCollapse = collapsed => {
-		console.log(123);
 		this.props.dispatch({
 			type: 'globalModel/changeLayoutCollapsed',
 			payloadCollapsed: collapsed,
@@ -127,7 +110,7 @@ class AuthLayout extends React.PureComponent {
 		}
 		const { menuData = [], loadingLayoutMenu = true } = userModel;
 		const { isMultiPage = true } = globalModel;
-		const bashRedirect = this.getBashRedirect();
+		const bashRedirect = getBashRedirect();
 		const layout = (
 			<Layout>
 				<Drawer

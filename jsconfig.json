@@ -5,6 +5,7 @@
 		"experimentalDecorators": true,
 		"paths": {
 			"assets/*": ["./src/assets/*"],
+			"globalUI/*": ["src/common/globalUI/*"],
 			"common/*": ["./src/common/*"],
 			"components/*": ["./src/components/*"],
 			"containers/*": ["./src/containers/*"],

@@ -56,11 +56,15 @@ export const getRouterData = app => {
 			component: dynamicWrapper(app, [], () => import('layouts/BlankLayout')),
 		},
 		'/user': {
-			component: dynamicWrapper(app, [], () => import('layouts/UserLayout/index')),
+			component: dynamicWrapper(app, [], () => import('layouts/UserLayout')),
 		},
 
 		'/tourist': {
 			component: dynamicWrapper(app, [], () => import('layouts/TouristLayout')),
+		},
+
+		'/tourist/': {
+			component: dynamicWrapper(app, [], () => import('containers/News/NewsCenter')),
 		},
 
 		'/auth': {
@@ -76,7 +80,7 @@ export const getRouterData = app => {
 			name: 'app'
 		},
 		'/auth/project/task': {
-			component: dynamicWrapper(app, [], () => import('containers/Project/Task.js')),
+			component: dynamicWrapper(app, [], () => import('containers/Project/Task')),
 			name: 'task'
 		},
 

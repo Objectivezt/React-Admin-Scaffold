@@ -16,6 +16,7 @@ const config = {
 		assets: path.resolve(__dirname, 'src/assets/'),
 		common: path.resolve(__dirname, 'src/common/'),
 		components: path.resolve(__dirname, 'src/components/'),
+		globalUI: path.resolve(__dirname, 'src/common/globalUI/'),
 		containers: path.resolve(__dirname, 'src/containers/'),
 		layouts: path.resolve(__dirname, 'src/layouts/'),
 		mock: path.resolve(__dirname, 'mock/'),

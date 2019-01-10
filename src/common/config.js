@@ -1,21 +1,21 @@
 // 默认组件属性
-export { default as globalCardProps } from './props/Card.config';
+export { default as globalCardProps } from './globalUIProps/Card.config';
 
-export { default as globalPaginationProps } from './props/Pagination.config';
+export { default as globalPaginationProps } from './globalUIProps/Pagination.config';
 
-export { default as globalColProps } from './props/Col.config';
+export { default as globalColProps } from './globalUIProps/Col.config';
 
-// export { default as globalRowProps } from './props/Row.config';
+export { default as globalSelectProps } from './globalUIProps/Select.config';
 
-export { default as globalSelectProps } from './props/Select.config';
+export { default as globalTableProps } from './globalUIProps/Table.config';
 
-export { default as globalTableProps } from './props/Table.config';
+export { default as globalInputNumberProps } from './globalUIProps/InputNumber.config';
 
-export { default as globalInputNumberProps } from './props/InputNumber.config';
+export { default as globalModalProps } from './globalUIProps/Modal.config';
 
-export { default as globalModalProps } from './props/Modal.config';
+export { default as globalRangePickerProps } from './globalUIProps/RangePicker.config';
 
-// export { default as globalRangePickerProps } from 'RangePicker.config';
+export { default as globalDividerProps } from './globalUIProps/Divider.config';
 
 export const globalFormItemLayout = {
 	labelCol: { sm: { span: 8 } },

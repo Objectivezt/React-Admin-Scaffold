@@ -177,3 +177,13 @@ export function formatterMenu(data, parentPath = '/') {
 		return result;
 	});
 }
+
+export function getBashRedirect() {
+	const urlParams = new URL(window.location.href);
+	const redirect = urlParams.searchParams.get('redirect');
+	if (redirect) {
+		urlParams.searchParams.delete('redirect');
+		window.history.replaceState(null, 'redirect', urlParams.href);
+	}
+	return redirect;
+};
