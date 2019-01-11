@@ -9,7 +9,6 @@ export default {
 	},
 	reducers: {
 		changeLayoutCollapsed(state, { payloadCollapsed }) {
-			console.log(payloadCollapsed);
 			return {
 				...state,
 				collapsed: payloadCollapsed,

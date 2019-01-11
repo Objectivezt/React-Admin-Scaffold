@@ -16,9 +16,27 @@ export { default as globalModalProps } from './globalUIProps/Modal.config';
 export { default as globalRangePickerProps } from './globalUIProps/RangePicker.config';
 
 export const globalFormItemLayout = {
-	labelCol: { sm: { span: 8 } },
-	wrapperCol: { sm: { span: 16 } },
+	labelCol: {
+		sm: { span: 8 },
+		md: { span: 8 },
+		lg: { span: 10 },
+		xl: { span: 10 },
+		xxl: { span: 10 },
+	},
+	wrapperCol: {
+		sm: { span: 16 },
+		md: { span: 16 },
+		lg: { span: 14 },
+		xl: { span: 14 },
+		xxl: { span: 14 },
+	},
 };
+
+
+export const globalFormItemBox = {
+	style: { width: '85%' },
+	placeholder: '请输入'
+}
 
 export const globalRequire = {
 	colon: true,

@@ -81,10 +81,10 @@ export const getRouterData = app => {
 			name: '系统主页'
 		},
 
-		'/auth/basic/organization': {
-			component: dynamicWrapper(app, [], () => import('containers/Basic/Organization')),
-			name: '组织管理'
-		},
+		// '/auth/basic/organization': {
+		// 	component: dynamicWrapper(app, [], () => import('containers/Basic/Organization')),
+		// 	name: '组织管理'
+		// },
 
 		'/auth/project/task': {
 			component: dynamicWrapper(app, [], () => import('containers/Project/Task/index')),
