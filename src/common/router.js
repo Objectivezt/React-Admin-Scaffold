@@ -55,6 +55,7 @@ export const getRouterData = app => {
 		'/': {
 			component: dynamicWrapper(app, [], () => import('layouts/BlankLayout')),
 		},
+
 		'/user': {
 			component: dynamicWrapper(app, [], () => import('layouts/UserLayout')),
 		},
@@ -77,11 +78,17 @@ export const getRouterData = app => {
 
 		'/auth/app': {
 			component: dynamicWrapper(app, [], () => import('containers/Home')),
-			name: 'app'
+			name: '系统主页'
 		},
+
+		'/auth/basic/organization': {
+			component: dynamicWrapper(app, [], () => import('containers/Basic/Organization')),
+			name: '组织管理'
+		},
+
 		'/auth/project/task': {
-			component: dynamicWrapper(app, [], () => import('containers/Project/Task')),
-			name: 'task'
+			component: dynamicWrapper(app, [], () => import('containers/Project/Task/index')),
+			name: '任务管理'
 		},
 
 		'/exception/403': {

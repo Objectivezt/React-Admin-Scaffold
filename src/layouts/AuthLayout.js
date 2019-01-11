@@ -5,7 +5,6 @@ import {
 	Layout,
 	Spin,
 } from 'antd';
-import Authorized from 'utils/Authorized';
 import DocumentTitle from 'react-document-title';
 import GlobalHeader from 'components/GlobalHeader';
 import NotFound from 'containers/Exception/404';
@@ -15,15 +14,19 @@ import TabLayout from 'layouts/TabLayout';
 import classNames from 'classnames';
 import logo from '../assets/favicon.ico';
 import { ContainerQuery } from 'react-container-query';
-import { Route, Redirect, Switch, routerRedux } from 'dva/router';
+import { Route, Redirect, Switch } from 'dva/router';
 import { connect } from 'dva';
 import { getRoutes, formatterMenu, getBashRedirect } from 'utils/utils';
 import { queryLayout } from 'common/config';
 
-const { Content, Header, Footer } = Layout;
-const { check } = Authorized;
-
+const { Content, Footer } = Layout;
 const redirectData = [];
+
+@connect(({ globalModel, userModel }) => ({
+	globalModel,
+	userModel,
+	collapsed: globalModel.collapsed,
+}))
 class AuthLayout extends React.PureComponent {
 	static childContextTypes = {
 		location: PropTypes.object,
@@ -86,8 +89,8 @@ class AuthLayout extends React.PureComponent {
 	handleMenuClick = ({ key }) => {
 		if (key === 'setting') {
 			this.handleDrawer(true);
-		} else if (key === 'log') {
-
+		} else if (key === 'news') {
+			this.props.history.push({ pathname: '/tourist/' })
 		}
 	}
 
@@ -131,7 +134,7 @@ class AuthLayout extends React.PureComponent {
 				<Layout style={collapsed ? { marginLeft: 80 } : { marginLeft: 256 }}>
 					<GlobalHeader
 						collapsed={collapsed}
-						currentUser={{ name: '111' }}
+						currentUser={{ name: '滔' }}
 						onCollapse={this.handleMenuCollapse}
 						onMenuClick={this.handleMenuClick}
 					/>
@@ -158,12 +161,11 @@ class AuthLayout extends React.PureComponent {
 						}
 					</Content>
 					<Footer />
-					<Button
+					{/* <Button
 						icon="setting"
 						onClick={() => this.handleDrawer(true)}
 						style={{ width: 30, height: 30, position: "absolute", right: 0, top: '70%' }}
-
-					/>
+					/> */}
 				</Layout>
 			</Layout>
 		);
@@ -191,8 +193,4 @@ class AuthLayout extends React.PureComponent {
 	}
 }
 
-export default connect(({ globalModel, userModel }) => ({
-	globalModel,
-	userModel,
-	collapsed: globalModel.collapsed,
-}))(AuthLayout)
+export default AuthLayout;

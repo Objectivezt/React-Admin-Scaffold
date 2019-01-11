@@ -9,12 +9,13 @@ const styles = {
 
 export default class GlobalCard extends Component {
 	render() {
-		const { title, children } = this.props;
+		const { title, children, extra } = this.props;
 		return (
 			<Fragment>
 				<Card
 					{...globalCardProps}
 					title={title}
+					extra={extra}
 					style={styles}
 				>
 					{children}

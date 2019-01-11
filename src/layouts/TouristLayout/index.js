@@ -16,7 +16,7 @@ import {
 import NotFound from 'containers/Exception/404';
 import bgImages from 'assets/background.png';
 import styles from './index.less';
-import { getRoutes, getBashRedirect } from 'utils/utils';
+import { getRoutes } from 'utils/utils';
 
 const { Header, Content } = Layout;
 const { Item: MenuItem, Divider: MenuDivider } = Menu;
@@ -24,9 +24,14 @@ const { Item: MenuItem, Divider: MenuDivider } = Menu;
 export default class TouristLayout extends React.Component {
 	handleMenuClick = ({ key }) => {
 		if (key === '1') {
-			this.props.dispatch(routerRedux.push('/exception/trigger'));
+			routerRedux.push('/exception/trigger')
+		} else if (key === 'auth') {
+			this.props.history.push({
+				pathname: '/auth/app'
+			})
 		}
 	}
+
 	render() {
 		const {
 			currentUser = { name: '滔' },
@@ -34,7 +39,8 @@ export default class TouristLayout extends React.Component {
 			routerData,
 		} = this.props;
 		const menu = (
-			<Menu className={styles.menu} selectedKeys={[]}>
+			<Menu className={styles.menu} selectedKeys={[]} onClick={this.handleMenuClick}>
+				<MenuItem key="auth"> <Icon type="sliders" />管理中心</MenuItem>
 				<MenuItem key="changelog"> <Icon type="file-text" />更新日志</MenuItem>
 				<MenuDivider />
 				<MenuItem key="logout"><Icon type="logout" />退出登录</MenuItem>
@@ -71,7 +77,7 @@ export default class TouristLayout extends React.Component {
 			</Header>
 			<Content>
 				<img src={bgImages} alt="bg" style={{ width: "100%" }} />
-				<div style={{ width: "70%", margin: '0 auto' }}>
+				<div style={{ width: "80%", margin: '0 auto' }}>
 					<Switch>
 						{getRoutes(match.path, routerData).map(item => (
 							<Route

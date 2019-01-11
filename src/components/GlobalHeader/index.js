@@ -24,7 +24,7 @@ export default class GlobalHeader extends PureComponent {
 		} = this.props;
 		const menu = (
 			<Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick}>
-				<MenuItem disabled> <Icon type="user" />个人中心</MenuItem>
+				<MenuItem key="news"> <Icon type="book" />门户首页</MenuItem>
 				<MenuItem key="setting"> <Icon type="setting" />基础设置</MenuItem>
 				<MenuItem key="changelog"> <Icon type="file-text" />更新日志</MenuItem>
 				<MenuDivider />

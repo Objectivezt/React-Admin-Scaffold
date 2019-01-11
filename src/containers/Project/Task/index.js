@@ -10,11 +10,12 @@ const content = () => {
 	)
 }
 
-export default class oInput extends Component {
+export default class Task extends Component {
 	render() {
 		return (
 			<Fragment>
 				<PageHeader breadcrumbList={[{}]} content={content()} />
+
 			</Fragment>
 		);
 	}

@@ -7,7 +7,7 @@ const auth = [
 		children: [],
 	},
 	{
-		path: 'auth/base',
+		path: 'auth/basic',
 		icon: 'setting',
 		name: '基础管理',
 		children: [

@@ -15,8 +15,6 @@ export { default as globalModalProps } from './globalUIProps/Modal.config';
 
 export { default as globalRangePickerProps } from './globalUIProps/RangePicker.config';
 
-export { default as globalDividerProps } from './globalUIProps/Divider.config';
-
 export const globalFormItemLayout = {
 	labelCol: { sm: { span: 8 } },
 	wrapperCol: { sm: { span: 16 } },

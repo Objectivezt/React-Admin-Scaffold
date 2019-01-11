@@ -2,12 +2,19 @@ import React, { Component, Fragment } from 'react';
 import {
 	Carousel,
 	Col,
+	Divider,
 	Row,
 } from 'antd';
-import { GlobalCard, GlobalDivider } from 'globalUI';
+import { GlobalCard } from 'globalUI';
+import { routerRedux } from 'dva/router';
 import styles from './index.less';
 
 class NewsCenter extends Component {
+
+	handleCardMore = () => {
+		this.props.dispatch(routerRedux.push('/tourist/list'));
+	}
+
 	render() {
 		return (
 			<Fragment>
@@ -17,7 +24,7 @@ class NewsCenter extends Component {
 				</div>
 				<div className={styles.content}>
 					<Row gutter={8}>
-						<Col span={12}>
+						<Col span={16}>
 							<Carousel autoplay>
 								<div><h3>1</h3></div>
 								<div><h3>2</h3></div>
@@ -25,23 +32,23 @@ class NewsCenter extends Component {
 								<div><h3>4</h3></div>
 							</Carousel>
 						</Col>
-						<Col span={12}>
+						<Col span={8}>
+							<GlobalCard title="123" extra={<a to="/123">更多</a>}>
+								123
+							</GlobalCard>
+						</Col>
+						<Col span={16}>
 							<GlobalCard title="123">
 								123
 							</GlobalCard>
 						</Col>
-						<Col span={12}>
-							<GlobalCard title="123">
-								123
-							</GlobalCard>
-						</Col>
-						<Col span={12}>
+						<Col span={8}>
 							<GlobalCard title="123">
 								123
 							</GlobalCard>
 						</Col>
 					</Row>
-					<GlobalDivider>123</GlobalDivider>
+					<Divider>{1231223}</Divider>
 				</div>
 
 			</Fragment>

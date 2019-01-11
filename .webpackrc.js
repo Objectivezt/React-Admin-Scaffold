@@ -33,7 +33,6 @@ const config = {
 	disableDynamicImport: false,
 	entry: 'src/index.js',
 	extraBabelPlugins: [
-		'transform-decorators-legacy',
 		[
 			'import',
 			{
