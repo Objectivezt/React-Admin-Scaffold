@@ -1,27 +1,27 @@
-// import { TaskList } from 'services/project/'
-import { message } from 'antd';
+import { queryTaskList } from "services/project/taskServices";
+import { message } from "antd";
 export default {
-	namespace: 'taskModel',
+	namespace: "taskModel",
 	state: {
 		resList: [],
 		resTotal: 0,
-		loading: false,
+		loading: false
 	},
 	effects: {
-		*filter({ payloadMain }, { call, put }) {
-			const res = yield call(queryTaskList, payloadMain)
+		*getTaskList({ payloadMain }, { call, put }) {
+			const res = yield call(queryTaskList, payloadMain);
 			if (res) {
 				const { code, data, msg } = res;
-				if (code === '0000') {
+				if (code === "0000") {
 					yield put({
-						type: 'save',
+						type: "save",
 						payloadMain: {
 							resList: data.list,
-							resTotal: data.total,
+							resTotal: data.total
 						}
-					})
+					});
 				} else {
-					message.error(msg)
+					message.error(msg);
 				}
 			}
 		}
@@ -30,8 +30,8 @@ export default {
 		save(state, { payloadMain }) {
 			return {
 				...state,
-				...payloadMain,
-			}
+				...payloadMain
+			};
 		}
 	}
-}
+};

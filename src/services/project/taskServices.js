@@ -1,5 +1,8 @@
-import request from 'utils/request';
+import request from "utils/request";
 
-export function queryTaskList() {
-	return request('/project/queryTaskList');
+export function queryTaskList(param) {
+	return request("/project/queryTaskList", {
+		method: "POST",
+		param: param
+	});
 }

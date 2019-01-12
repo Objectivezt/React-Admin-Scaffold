@@ -1,29 +1,29 @@
-import React, { Component } from 'react';
-import { Table } from 'antd';
-import { globalPaginationProps, globalTableProps } from 'common/config';
+import React, { Component } from "react";
+import { Table } from "antd";
+import { globalPaginationProps, globalTableProps } from "common/config";
 
 export default class GlobalTable extends Component {
 	constructor(props) {
-		super(props)
+		super(props);
 		this.state = {
 			pageNum: 1,
-			pageSize: 10,
-		}
+			pageSize: 10
+		};
 	}
 
 	changePage = (pageNum, pageSize) => {
 		const { filterObj } = this.props;
 		this.setState({
 			pageNum: pageNum,
-			pageSize: pageSize,
-		})
+			pageSize: pageSize
+		});
 		let tempPayloadMain = {
 			...filterObj,
 			pageNum: pageNum,
-			pageSize: pageSize,
+			pageSize: pageSize
 		};
-		this.props.basePageRequest(tempPayloadMain)
-	}
+		this.props.basePageRequest(tempPayloadMain);
+	};
 
 	render() {
 		const {
@@ -32,7 +32,7 @@ export default class GlobalTable extends Component {
 			resList,
 			resTotal,
 			rowKeys,
-			scrollX,
+			scrollX
 		} = this.props;
 		const { pageNum, pageSize } = this.state;
 		return (
@@ -42,17 +42,19 @@ export default class GlobalTable extends Component {
 				dataSource={resList}
 				loading={loading}
 				rowKey={rowKeys}
-				scroll={{ x: scrollX ? scrollX : '100%' }}
+				scroll={{ x: scrollX ? scrollX : "100%" }}
 				pagination={{
-					...globalPagination,
+					...globalPaginationProps,
 					current: pageNum,
 					total: resTotal,
 					pageSize: pageSize,
-					showTotal: (total) => `总 ${total} 项`,
-					onChange: (pageNum, pageSize) => this.changePage(pageNum, pageSize),
-					onShowSizeChange: (pageNum, pageSize) => this.changePage(pageNum, pageSize)
+					showTotal: total => `总 ${total} 项`,
+					onChange: (pageNum, pageSize) =>
+						this.changePage(pageNum, pageSize),
+					onShowSizeChange: (pageNum, pageSize) =>
+						this.changePage(pageNum, pageSize)
 				}}
 			/>
-		)
+		);
 	}
 }

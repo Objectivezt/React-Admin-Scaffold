@@ -1,27 +1,45 @@
-import { queryMenus } from 'services/user/userServices';
-import { message } from 'antd';
-import { tuple } from 'antd/lib/_util/type';
+import { queryMenus, queryCurrentUser } from "services/user/userServices";
+import { message } from "antd";
 export default {
-	namespace: 'userModel',
+	namespace: "userModel",
 	state: {
 		menuData: [],
 		loadingLayoutMenu: true,
+		username: "",
+		userId: ""
 	},
 	effects: {
 		*getMenuData(_, { call, put }) {
 			const res = yield call(queryMenus);
 			if (res) {
 				const { data, code, msg } = res;
-				if (code === '0000') {
+				if (code === "0000") {
 					yield put({
-						type: 'saveMenuData',
+						type: "saveMenuData",
 						payloadMenuData: {
 							menuData: data ? data : [],
-							loadingLayoutMenu: data ? false : true,
+							loadingLayoutMenu: data ? false : true
 						}
-					})
+					});
 				} else {
-					message.info(msg)
+					message.info(msg);
+				}
+			}
+		},
+		*getCurrentUser(_, { call, put }) {
+			const res = yield call(queryCurrentUser);
+			if (res) {
+				const { data, code, msg } = res;
+				if (code === "0000") {
+					yield put({
+						type: "saveCurrentUser",
+						payloadCurrentUser: {
+							username: data.username,
+							userId: data.userId
+						}
+					});
+				} else {
+					message.info(msg);
 				}
 			}
 		}
@@ -31,8 +49,8 @@ export default {
 			return {
 				...state,
 				menuData: payloadMenuData.menuData,
-				loadingLayoutMenu: payloadMenuData.loadingLayoutMenu,
-			}
+				loadingLayoutMenu: payloadMenuData.loadingLayoutMenu
+			};
 		}
 	}
-}
+};

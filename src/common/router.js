@@ -1,17 +1,16 @@
-import { createElement } from 'react';
-import dynamic from 'dva/dynamic';
-import pathToRegexp from 'path-to-regexp';
+import { createElement } from "react";
+import dynamic from "dva/dynamic";
+import pathToRegexp from "path-to-regexp";
 
 let routerDataCache;
 
-const modelNotExisted = (app, model) => (
-	!app._models.some(({ namespace, }) => {
-		return namespace === model.substring(model.lastIndexOf('/') + 1);
-	})
-);
+const modelNotExisted = (app, model) =>
+	!app._models.some(({ namespace }) => {
+		return namespace === model.substring(model.lastIndexOf("/") + 1);
+	});
 
 const dynamicWrapper = (app, models, component) => {
-	if (component.toString().indexOf('.then(') < 0) {
+	if (component.toString().indexOf(".then(") < 0) {
 		models.forEach(model => {
 			if (modelNotExisted(app, model)) {
 				app.model(require(`../models/${model}`).default);
@@ -23,7 +22,7 @@ const dynamicWrapper = (app, models, component) => {
 			}
 			return createElement(component().default, {
 				...props,
-				routerData: routerDataCache,
+				routerData: routerDataCache
 			});
 		};
 	}
@@ -31,8 +30,9 @@ const dynamicWrapper = (app, models, component) => {
 	return dynamic({
 		app,
 		models: () =>
-			models.filter(model => modelNotExisted(app, model)).map(m =>
-				import(`../models/${m}.js`)),
+			models
+				.filter(model => modelNotExisted(app, model))
+				.map(m => import(`../models/${m}.js`)),
 		component: () => {
 			if (!routerDataCache) {
 				routerDataCache = getRouterData(app);
@@ -42,43 +42,58 @@ const dynamicWrapper = (app, models, component) => {
 				return props =>
 					createElement(Component, {
 						...props,
-						routerData: routerDataCache,
+						routerData: routerDataCache
 					});
 			});
-		},
+		}
 	});
 };
 
-
 export const getRouterData = app => {
 	const routerConfig = {
-		'/': {
-			component: dynamicWrapper(app, [], () => import('layouts/BlankLayout')),
+		"/": {
+			component: dynamicWrapper(app, [], () =>
+				import("layouts/BlankLayout")
+			)
 		},
 
-		'/user': {
-			component: dynamicWrapper(app, [], () => import('layouts/UserLayout')),
+		"/user": {
+			component: dynamicWrapper(app, [], () =>
+				import("layouts/UserLayout")
+			)
 		},
 
-		'/tourist': {
-			component: dynamicWrapper(app, [], () => import('layouts/TouristLayout')),
+		"/tourist": {
+			component: dynamicWrapper(app, [], () =>
+				import("layouts/TouristLayout")
+			)
 		},
 
-		'/tourist/': {
-			component: dynamicWrapper(app, [], () => import('containers/News/NewsCenter')),
+		"/tourist/": {
+			component: dynamicWrapper(app, [], () =>
+				import("containers/News/NewsCenter")
+			)
 		},
 
-		'/auth': {
-			component: dynamicWrapper(app, ['basic/globalModel', 'user/userModel'], () => import('layouts/AuthLayout')),
+		"/auth": {
+			component: dynamicWrapper(
+				app,
+				["basic/globalModel", "user/userModel"],
+				() => import("layouts/AuthLayout")
+			)
 		},
 
-		'/users': {
-			component: dynamicWrapper(app, ['basic/globalModel', 'user/userModel'], () => import('layouts/AuthLayout')),
+		"/users": {
+			component: dynamicWrapper(
+				app,
+				["basic/globalModel", "user/userModel"],
+				() => import("layouts/AuthLayout")
+			)
 		},
 
-		'/auth/app': {
-			component: dynamicWrapper(app, [], () => import('containers/Home')),
-			name: '系统主页'
+		"/auth/app": {
+			component: dynamicWrapper(app, [], () => import("containers/Home")),
+			name: "系统主页"
 		},
 
 		// '/auth/basic/organization': {
@@ -86,59 +101,73 @@ export const getRouterData = app => {
 		// 	name: '组织管理'
 		// },
 
-		'/auth/project/task': {
-			component: dynamicWrapper(app, [], () => import('containers/Project/Task/index')),
-			name: '任务管理'
+		"/auth/project/task": {
+			component: dynamicWrapper(app, ["project/taskModel"], () =>
+				import("containers/Project/Task/index")
+			),
+			name: "任务管理"
 		},
 
-		'/exception/403': {
-			component: dynamicWrapper(app, [], () => import('containers/Exception/403')),
-			name: '403'
+		"/exception/403": {
+			component: dynamicWrapper(app, [], () =>
+				import("containers/Exception/403")
+			),
+			name: "403"
 		},
-		'/exception/404': {
-			component: dynamicWrapper(app, [], () => import('containers/Exception/404')),
-			name: '404'
+		"/exception/404": {
+			component: dynamicWrapper(app, [], () =>
+				import("containers/Exception/404")
+			),
+			name: "404"
 		},
-		'/exception/500': {
-			component: dynamicWrapper(app, [], () => import('containers/Exception/500')),
-			name: '500'
-		},
+		"/exception/500": {
+			component: dynamicWrapper(app, [], () =>
+				import("containers/Exception/500")
+			),
+			name: "500"
+		}
 	};
-	const getFlatMenuData = function (menus) {
+	const getFlatMenuData = function(menus) {
 		let keys = {};
 		menus.forEach(item => {
 			if (item.children) {
 				keys[item.path] = { ...item };
-				keys = { ...keys, ...getFlatMenuData(item.children), };
+				keys = { ...keys, ...getFlatMenuData(item.children) };
 			} else {
 				keys[item.path] = { ...item };
 			}
 		});
 		return keys;
-	}
+	};
 
-	const formatter = (data, parentPath = '/') => data.map((item) => {
-		let { path } = item;
-		if (!isUrl(path)) {
-			path = parentPath + item.path;
-		}
-		const result = {
-			...item,
-			path,
-		};
-		if (item.children) {
-			result.children = this.formatter(item.children, `${parentPath}${item.path}/`);
-		}
-		return result;
-	});
+	const formatter = (data, parentPath = "/") =>
+		data.map(item => {
+			let { path } = item;
+			if (!isUrl(path)) {
+				path = parentPath + item.path;
+			}
+			const result = {
+				...item,
+				path
+			};
+			if (item.children) {
+				result.children = this.formatter(
+					item.children,
+					`${parentPath}${item.path}/`
+				);
+			}
+			return result;
+		});
 
 	const menuDataOldCache = [];
-	const getMenuData = (data) => formatter(data);
+	const getMenuData = data => formatter(data);
 	const menuData = getFlatMenuData(getMenuData(menuDataOldCache));
 	const routerData = {};
 	Object.keys(routerConfig).forEach(path => {
 		const pathRegexp = pathToRegexp(path);
-		const menuKey = Object.keys(menuData).find(key => pathRegexp.test(`${key}`));
+		const menuKey = Object.keys(menuData).find(key =>
+			pathRegexp.test(`${key}`)
+		);
 		let menuItem = {};
 		if (menuKey) {
 			menuItem = menuData[menuKey];
@@ -147,7 +176,8 @@ export const getRouterData = app => {
 		router = {
 			...router,
 			name: router.name || menuItem.name,
-			hideInBreadcrumb: router.hideInBreadcrumb || menuItem.hideInBreadcrumb,
+			hideInBreadcrumb:
+				router.hideInBreadcrumb || menuItem.hideInBreadcrumb
 		};
 		routerData[path] = router;
 	});
