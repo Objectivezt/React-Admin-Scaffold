@@ -1,17 +1,17 @@
-import React from 'react';
-import { Redirect, Switch, Route } from 'dva/router';
-import DocumentTitle from 'react-document-title';
-import styles from './index.less';
-import logo from '../../assets/favicon.ico';
-import { getRoutes } from 'utils/utils';
+import React from "react";
+import { Redirect, Switch, Route } from "dva/router";
+import DocumentTitle from "react-document-title";
+import styles from "./index.less";
+import logo from "../../assets/favicon.ico";
+import { getRoutes } from "utils/utils";
 
 class UserLayout extends React.PureComponent {
 	getPageTitle() {
 		const { routerData, location } = this.props;
 		const { pathname } = location;
-		let title = 'Antd mult Page';
+		let title = "multiPage";
 		if (routerData[pathname] && routerData[pathname].name) {
-			title = `${routerData[pathname].name} - Antd mult Page`;
+			title = `${routerData[pathname].name} - multiPage`;
 		}
 		return title;
 	}
@@ -23,10 +23,14 @@ class UserLayout extends React.PureComponent {
 					<div className={styles.content}>
 						<div className={styles.top}>
 							<div className={styles.header}>
-								<img alt="logo" className={styles.logo} src={logo} />
-								<span className={styles.title}>Antd mult Page</span>
+								<img
+									alt="logo"
+									className={styles.logo}
+									src={logo}
+								/>
+								<span className={styles.title}>multiPage</span>
 							</div>
-							<div className={styles.desc}>Antd mult Page</div>
+							<div className={styles.desc}>multiPage</div>
 						</div>
 						<Switch>
 							{getRoutes(match.path, routerData).map(item => (
@@ -37,7 +41,7 @@ class UserLayout extends React.PureComponent {
 									exact={item.exact}
 								/>
 							))}
-							<Redirect exact from="/user" to="/user/login" />
+							<Redirect exact from="/users" to="/users/login" />
 						</Switch>
 					</div>
 				</div>
