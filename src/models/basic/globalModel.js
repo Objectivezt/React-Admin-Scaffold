@@ -1,24 +1,30 @@
+import { baseRouterUrl } from "common/config";
 export default {
-	namespace: 'globalModel',
+	namespace: "globalModel",
 	state: {
 		collapsed: false,
 		isMultiPage: true,
+		baseRouterUrl: baseRouterUrl
 	},
-	effects: {
-
-	},
+	effects: {},
 	reducers: {
 		changeLayoutCollapsed(state, { payloadCollapsed }) {
 			return {
 				...state,
-				collapsed: payloadCollapsed,
-			}
+				collapsed: payloadCollapsed
+			};
 		},
 		changeMultiPage(state, { payloadMultiPage }) {
 			return {
 				...state,
-				isMultiPage: payloadMultiPage,
-			}
+				isMultiPage: payloadMultiPage
+			};
 		},
+		pushRouterUrl(state, { payloadRouterUrl }) {
+			return {
+				...state,
+				baseRouterUrl: payloadRouterUrl
+			};
+		}
 	}
-}
+};

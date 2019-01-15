@@ -64,6 +64,7 @@ export default class Organization extends Component {
 	componentDidMount() {
 		const self = this;
 		// this.props.dispatch()
+
 		this.basePageRequest();
 	}
 

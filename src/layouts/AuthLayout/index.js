@@ -4,25 +4,28 @@ import DocumentTitle from "react-document-title";
 import GlobalHeader from "components/GlobalHeader";
 import NotFound from "containers/Exception/404";
 import PropTypes from "prop-types";
-import SliderMenu from "../components/SliderMenu";
+import SliderMenu from "components/SliderMenu";
 import TabLayout from "layouts/TabLayout";
 import classNames from "classnames";
-import logo from "../assets/favicon.ico";
+import logo from "assets/favicon.ico";
+import styles from "./index.less";
 import { ContainerQuery } from "react-container-query";
 import { Route, Redirect, Switch } from "dva/router";
 import { connect } from "dva";
 import { getRoutes, formatterMenu, getBashRedirect } from "utils/utils";
 import { queryLayout } from "common/config";
+import { queryCurrentUser } from "services/user/userServices";
+import { showLogoutConfirm, AuthRouterPass } from "utils/utils";
 
 const { Content, Footer } = Layout;
 const redirectData = [];
 
 @connect(({ globalModel, userModel }) => ({
+	collapsed: globalModel.collapsed,
 	globalModel,
-	userModel,
-	collapsed: globalModel.collapsed
+	userModel
 }))
-class AuthLayout extends React.PureComponent {
+export default class AuthLayout extends React.PureComponent {
 	static childContextTypes = {
 		location: PropTypes.object
 	};
@@ -30,14 +33,30 @@ class AuthLayout extends React.PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
-			visibleDrawer: false
+			visibleDrawer: false,
+			firstRender: false
 		};
 	}
 
+	componentWillReceiveProps() {
+		if (this.state.firstRender) {
+			AuthRouterPass(this);
+		}
+	}
+
 	componentDidMount() {
-		this.props.dispatch({
-			type: "userModel/getMenuData"
-		});
+		queryCurrentUser()
+			.then(({ code }) => {
+				if (code === "0000") {
+					this.getUserMenu();
+				} else {
+					showLogoutConfirm();
+				}
+			})
+			.catch(error => {
+				console.warn(error);
+				showLogoutConfirm();
+			});
 	}
 
 	getChildContext() {
@@ -57,6 +76,16 @@ class AuthLayout extends React.PureComponent {
 				});
 			}
 		}
+	};
+
+	getUserMenu = () => {
+		const { dispatch } = this.props;
+		dispatch({ type: "userModel/getMenuData" }).then(() => {
+			dispatch({
+				type: "globalModel/pushRouterUrl",
+				payloadRouterUrl: this.props.userModel.menuData
+			});
+		});
 	};
 
 	handleMenuCollapse = collapsed => {
@@ -109,6 +138,7 @@ class AuthLayout extends React.PureComponent {
 		const { menuData = [], loadingLayoutMenu = true } = userModel;
 		const { isMultiPage = true } = globalModel;
 		const bashRedirect = getBashRedirect();
+		console.log(globalModel);
 		const layout = (
 			<Layout>
 				<Drawer
@@ -134,13 +164,7 @@ class AuthLayout extends React.PureComponent {
 						onCollapse={this.handleMenuCollapse}
 						onMenuClick={this.handleMenuClick}
 					/>
-					<Content
-						style={{
-							margin: "0",
-							height: "100%",
-							borderLeft: "1px solid #e8e8e8"
-						}}
-					>
+					<Content className={styles.context}>
 						{isMultiPage ? (
 							<TabLayout {...tasParams} />
 						) : (
@@ -171,7 +195,7 @@ class AuthLayout extends React.PureComponent {
 					{/* <Button
 						icon="setting"
 						onClick={() => this.handleDrawer(true)}
-						style={{ width: 30, height: 30, position: "absolute", right: 0, top: '70%' }}
+						className={styles.setting}
 					/> */}
 				</Layout>
 			</Layout>
@@ -183,15 +207,7 @@ class AuthLayout extends React.PureComponent {
 					{params => (
 						<div className={classNames(params)}>
 							{loadingLayoutMenu ? (
-								<div
-									style={{
-										width: "100%",
-										height: "100%",
-										margin: "auto",
-										paddingTop: 50,
-										textAlign: "center"
-									}}
-								>
+								<div className={styles.loadingSpin}>
 									<Spin size="large" />
 								</div>
 							) : (
@@ -204,5 +220,3 @@ class AuthLayout extends React.PureComponent {
 		);
 	}
 }
-
-export default AuthLayout;

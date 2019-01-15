@@ -81,7 +81,7 @@ export const getRouterData = app => {
 			component: dynamicWrapper(
 				app,
 				["basic/globalModel", "user/userModel"],
-				() => import("layouts/AuthLayout")
+				() => import("layouts/AuthLayout/index")
 			)
 		},
 
@@ -121,6 +121,7 @@ export const getRouterData = app => {
 			name: "500"
 		}
 	};
+
 	const getFlatMenuData = function(menus) {
 		let keys = {};
 		menus.forEach(item => {

@@ -1,6 +1,8 @@
 import moment from "moment";
 import { stringify } from "qs";
 import { template, get, isArray, pick, isNaN, isFinite, trim } from "lodash";
+import { Modal } from "antd";
+import { baseRouterUrl } from "common/config";
 
 export function getApiMethod(api = "", options = {}) {
 	if (options.method) {
@@ -413,4 +415,20 @@ export function getBashRedirect() {
 		window.history.replaceState(null, "redirect", urlParams.href);
 	}
 	return redirect;
+}
+
+export function showLogoutConfirm() {
+	Modal.info({
+		title: "未能检测到用户登录状态",
+		content: "您可能需要重新登录"
+	});
+}
+
+export function AuthRouterPass(_this, path) {
+	console.log(_this);
+	// const { location, history } = _this.props;
+	let routerArr = [];
+	if (baseRouterUrl) {
+	} else {
+	}
 }
