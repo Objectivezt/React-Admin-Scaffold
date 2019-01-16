@@ -1,14 +1,15 @@
 import React, { Component, Fragment } from "react";
-import { Form, Button, Input, Row, Col } from "antd";
+import { Button, Col, Form, Input, Row } from "antd";
 import { connect } from "dva";
 import PageHeader from "components/PageHeader";
-import { GlobalCard, GlobalTable } from "globalUI/index";
+import { GlobalCard, GlobalTable, GlobalModal } from "globalUI/index";
 import {
 	globalFormItemLayout,
 	globalFormItemBox,
 	globalColProps,
 	globalDefineListSize
 } from "common/config";
+import AddTaskModal from "./AddTaskModal";
 
 const FormItem = Form.Item;
 const ButtonGroup = Button.Group;
@@ -56,9 +57,7 @@ const columns = [
 export default class Organization extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			...filterObj
-		};
+		this.state = { ...filterObj, visibleAddTask: false };
 	}
 
 	componentDidMount() {
@@ -96,7 +95,22 @@ export default class Organization extends Component {
 		});
 	};
 
+	handleAddTask = () => {
+		this.setState({
+			visibleAddTask: true
+		});
+	};
+
+	finishAddTaskModal = () => {
+		console.log(123);
+
+		this.setState({
+			visibleAddTask: true
+		});
+	};
+
 	render() {
+		const { visibleAddTask } = this.state;
 		const content = () => {
 			const { form, taskModel } = this.props;
 			const { getFieldDecorator } = form;
@@ -149,10 +163,16 @@ export default class Organization extends Component {
 							</Row>
 						</Form>
 					</GlobalCard>
-					<GlobalCard title="信息列表">
+					<GlobalCard
+						title="信息列表"
+						extra={
+							<Button onClick={this.handleAddTask}>
+								新增任务
+							</Button>
+						}
+					>
 						<GlobalTable
 							columns={columns}
-							// loading={}
 							resList={resList}
 							resTotal={resTotal}
 							rowKeys="id"
@@ -161,9 +181,21 @@ export default class Organization extends Component {
 				</Fragment>
 			);
 		};
+		console.log(this);
+
 		return (
 			<Fragment>
-				<PageHeader breadcrumbList={[{}]} content={content()} />
+				<PageHeader
+					breadcrumbList={[{ title: "" }]}
+					content={content()}
+				/>
+				<GlobalModal
+					visible={visibleAddTask}
+					title="新增任务"
+					onOk={() => this.finishAddTaskModal}
+				>
+					<AddTaskModal />
+				</GlobalModal>
 			</Fragment>
 		);
 	}

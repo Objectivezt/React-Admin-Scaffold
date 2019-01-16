@@ -1,0 +1,12 @@
+{
+	// "editor.formatOnPaste": true,
+	"editor.formatOnSave": true,
+	"editor.formatOnType": true,
+	"files.encoding": "utf8",
+	"javascript.format.enable": true,
+	"gitlens.advanced.messages": {
+		"suppressShowKeyBindingsNotice": true
+	},
+	"terminal.integrated.rendererType": "dom",
+	"workbench.iconTheme": "vscode-icons"
+}

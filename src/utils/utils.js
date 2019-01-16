@@ -424,11 +424,30 @@ export function showLogoutConfirm() {
 	});
 }
 
+export function isInArray(array, value) {
+	for (let i = 0; i < array.length; i++) {
+		if (value === array[i]) {
+			return true;
+		}
+	}
+	return false;
+}
+
 export function AuthRouterPass(_this, path) {
-	console.log(_this);
-	// const { location, history } = _this.props;
-	let routerArr = [];
-	if (baseRouterUrl) {
+	const { location, history, globalModel = {} } = _this.props;
+	let tempMenuArr = globalModel.baseRouterUrl;
+	if (path) {
+		if (!isInArray(tempMenuArr, path)) {
+			history.push("/exception/403");
+			return;
+		}
 	} else {
+		if (!isInArray(tempMenuArr, location.pathname)) {
+			if (history.location.pathname === "/exception/403") {
+				return;
+			}
+			history.push("/exception/403");
+			return;
+		}
 	}
 }

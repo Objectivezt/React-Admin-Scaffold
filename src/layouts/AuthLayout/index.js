@@ -13,13 +13,18 @@ import { ContainerQuery } from "react-container-query";
 import { Route, Redirect, Switch } from "dva/router";
 import { connect } from "dva";
 import { getRoutes, formatterMenu, getBashRedirect } from "utils/utils";
-import { queryLayout } from "common/config";
+import { queryLayout, baseRouterUrl } from "common/config";
 import { queryCurrentUser } from "services/user/userServices";
-import { showLogoutConfirm, AuthRouterPass } from "utils/utils";
+import {
+	showLogoutConfirm,
+	AuthRouterPass,
+	isInArray,
+	isUrl
+} from "utils/utils";
 
 const { Content, Footer } = Layout;
 const redirectData = [];
-
+const tempMenuArr = baseRouterUrl;
 @connect(({ globalModel, userModel }) => ({
 	collapsed: globalModel.collapsed,
 	globalModel,
@@ -79,14 +84,38 @@ export default class AuthLayout extends React.PureComponent {
 	};
 
 	getUserMenu = () => {
-		const { dispatch } = this.props;
+		const { dispatch, location, history } = this.props;
 		dispatch({ type: "userModel/getMenuData" }).then(() => {
+			const menuData = this.props.userModel.menuData;
+			if (!this.state.firstRender) {
+				this.getRouterWhiteList(menuData);
+			}
 			dispatch({
 				type: "globalModel/pushRouterUrl",
-				payloadRouterUrl: this.props.userModel.menuData
+				payloadRouterUrl: tempMenuArr
 			});
+			if (isInArray(tempMenuArr, location.pathname)) {
+				this.setState({ firstRender: true });
+			} else {
+				history.push("/exception/403");
+			}
 		});
 	};
+
+	getRouterWhiteList = (data, parentPath = "") =>
+		data.map(item => {
+			let { path } = item;
+			if (!isUrl(path)) {
+				path = parentPath + item.path;
+			}
+			if (item.children) {
+				this.getRouterWhiteList(
+					item.children,
+					`${parentPath}${item.path}/`
+				);
+			}
+			tempMenuArr.push("/" + path);
+		});
 
 	handleMenuCollapse = collapsed => {
 		this.props.dispatch({
@@ -138,7 +167,6 @@ export default class AuthLayout extends React.PureComponent {
 		const { menuData = [], loadingLayoutMenu = true } = userModel;
 		const { isMultiPage = true } = globalModel;
 		const bashRedirect = getBashRedirect();
-		console.log(globalModel);
 		const layout = (
 			<Layout>
 				<Drawer

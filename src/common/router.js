@@ -56,7 +56,6 @@ export const getRouterData = app => {
 				import("layouts/BlankLayout")
 			)
 		},
-
 		"/user": {
 			component: dynamicWrapper(
 				app,
@@ -64,44 +63,44 @@ export const getRouterData = app => {
 				() => import("layouts/UserLayout")
 			)
 		},
-
 		"/tourist": {
 			component: dynamicWrapper(app, [], () =>
 				import("layouts/TouristLayout")
 			)
 		},
-
 		"/tourist/": {
 			component: dynamicWrapper(app, [], () =>
 				import("containers/News/NewsCenter")
 			)
 		},
-
 		"/auth": {
 			component: dynamicWrapper(
 				app,
 				["basic/globalModel", "user/userModel"],
 				() => import("layouts/AuthLayout/index")
-			)
+			),
+			name: "管理中心",
+			breadcrumbList: [
+				{ title: "系统主页", href: "#/auth/app" },
+				{ title: "项目管理" },
+				{ title: "任务管理", href: "#/auth/project/task" }
+			]
 		},
-
 		"/auth/app": {
 			component: dynamicWrapper(app, [], () => import("containers/Home")),
 			name: "系统主页"
 		},
-
-		// '/auth/basic/organization': {
-		// 	component: dynamicWrapper(app, [], () => import('containers/Basic/Organization')),
-		// 	name: '组织管理'
-		// },
-
 		"/auth/project/task": {
 			component: dynamicWrapper(app, ["project/taskModel"], () =>
 				import("containers/Project/Task/index")
 			),
-			name: "任务管理"
+			name: "任务管理",
+			breadcrumbList: [
+				{ title: "系统主页", href: "#/auth/app" },
+				{ title: "项目管理" },
+				{ title: "任务管理", href: "#/auth/project/task" }
+			]
 		},
-
 		"/exception/403": {
 			component: dynamicWrapper(app, [], () =>
 				import("containers/Exception/403")
@@ -170,9 +169,7 @@ export const getRouterData = app => {
 		let router = routerConfig[path];
 		router = {
 			...router,
-			name: router.name || menuItem.name,
-			hideInBreadcrumb:
-				router.hideInBreadcrumb || menuItem.hideInBreadcrumb
+			name: router.name || menuItem.name
 		};
 		routerData[path] = router;
 	});
