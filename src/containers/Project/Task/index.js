@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Button, Col, Form, Input, Row } from "antd";
+import { Button, Col, Form, Input, Row, Icon, Tree } from "antd";
 import { connect } from "dva";
 import PageHeader from "components/PageHeader";
 import { GlobalCard, GlobalTable, GlobalModal } from "globalUI/index";
@@ -10,6 +10,7 @@ import {
 	globalDefineListSize
 } from "common/config";
 import AddTaskModal from "./AddTaskModal";
+import UserListSelect from "containers/Common/UserListSelect";
 
 const FormItem = Form.Item;
 const ButtonGroup = Button.Group;
@@ -19,57 +20,29 @@ const filterObj = {
 	taskId: "",
 	taskName: ""
 };
-const columns = [
-	{
-		title: "编号",
-		dataIndex: "id",
-		key: "id"
-	},
-	{
-		title: "状态",
-		dataIndex: "status",
-		key: "status"
-	},
-	{
-		title: "主办人",
-		dataIndex: "mainPerson",
-		key: "mainPerson"
-	},
-	{
-		title: "协办人",
-		dataIndex: "helpPerson",
-		key: "helpPerson"
-	},
-	{
-		title: "协办人",
-		dataIndex: "priority",
-		key: "priority"
-	},
-	{
-		title: "时间",
-		dataIndex: "time",
-		key: "time"
-	}
-];
 
 @Form.create()
-@connect(({ taskModel }) => ({ taskModel }))
+@connect(({ taskModel, loading }) => ({
+	taskModel,
+	mainSearchLoading: loading.effects["taskModel/getTaskList"]
+}))
 export default class Organization extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { ...filterObj, visibleAddTask: false };
+		this.state = {
+			filterObj: { ...filterObj },
+			visibleAddTask: false,
+			isAdvanced: false
+		};
 	}
 
 	componentDidMount() {
-		const self = this;
-		// this.props.dispatch()
-
 		this.basePageRequest();
 	}
 
 	handleReset = () => {
 		this.props.form.resetFields();
-		this.setState({ ...filterObj });
+		this.setState({ filterObj: { ...filterObj } });
 		this.basePageRequest();
 	};
 
@@ -78,9 +51,11 @@ export default class Organization extends Component {
 			type: "taskModel/getTaskList",
 			payloadMain: value ? value : globalDefineListSize
 		});
+
+		this.props.dispatch({ type: "taskModel/getTaskColumns" });
 	};
 
-	handleSubmit = () => {
+	handleSearch = () => {
 		this.props.form.validateFields((err, fields) => {
 			if (err) {
 				return;
@@ -90,35 +65,54 @@ export default class Organization extends Component {
 				taskName: fields.taskName,
 				...globalDefineListSize
 			};
-			this.setState({ ...payloadData });
+			this.setState({ filterObj: { ...payloadData } });
 			this.basePageRequest(payloadData);
 		});
 	};
 
 	handleAddTask = () => {
-		this.setState({
-			visibleAddTask: true
-		});
+		this.setState({ visibleAddTask: true });
 	};
 
 	finishAddTaskModal = () => {
-		console.log(123);
+		this.setState({ visibleAddTask: false });
+	};
 
-		this.setState({
-			visibleAddTask: true
-		});
+	cancelTaskModal = () => {
+		this.setState({ visibleAddTask: false });
+	};
+
+	showMoreFilter = isAdvanced => {
+		this.setState({ isAdvanced: !isAdvanced });
 	};
 
 	render() {
-		const { visibleAddTask } = this.state;
+		const { visibleAddTask, filterObj, isAdvanced } = this.state;
+		const { form, taskModel, mainSearchLoading } = this.props;
+		const { getFieldDecorator } = form;
+		const { resList, resTotal, columns } = taskModel;
 		const content = () => {
-			const { form, taskModel } = this.props;
-			const { getFieldDecorator } = form;
-			const { resList, resTotal } = taskModel;
 			return (
 				<Fragment>
-					<GlobalCard title="信息筛选">
-						<Form layout="horizontal" onSubmit={this.handleSubmit}>
+					<GlobalCard
+						title="信息筛选"
+						extra={
+							<a onClick={() => this.showMoreFilter(isAdvanced)}>
+								{isAdvanced ? (
+									<Fragment>
+										<Icon type="up" />
+										收起高级搜索
+									</Fragment>
+								) : (
+									<Fragment>
+										<Icon type="down" />
+										展开高级搜索
+									</Fragment>
+								)}
+							</a>
+						}
+					>
+						<Form layout="horizontal" onSubmit={this.handleSearch}>
 							<Row>
 								<Col {...globalColProps}>
 									<FormItem
@@ -140,6 +134,52 @@ export default class Organization extends Component {
 										)}
 									</FormItem>
 								</Col>
+								{isAdvanced ? (
+									<Fragment>
+										<Col {...globalColProps}>
+											<FormItem
+												{...globalFormItemLayout}
+												label="主办人"
+											>
+												{getFieldDecorator("taskName")(
+													<UserListSelect />
+												)}
+											</FormItem>
+										</Col>
+										<Col {...globalColProps}>
+											<FormItem
+												{...globalFormItemLayout}
+												label="主办人"
+											>
+												{getFieldDecorator(
+													"mainPerson"
+												)(<UserListSelect />)}
+											</FormItem>
+										</Col>
+										<Col {...globalColProps}>
+											<FormItem
+												{...globalFormItemLayout}
+												label="协办人"
+											>
+												{getFieldDecorator(
+													"helpPerson"
+												)(<UserListSelect />)}
+											</FormItem>
+										</Col>
+										<Col {...globalColProps}>
+											<FormItem
+												{...globalFormItemLayout}
+												label="优先级"
+											>
+												{getFieldDecorator("priority")(
+													<Input
+														{...globalFormItemBox}
+													/>
+												)}
+											</FormItem>
+										</Col>
+									</Fragment>
+								) : null}
 							</Row>
 							<Row>
 								<Col style={{ float: "right" }}>
@@ -147,7 +187,7 @@ export default class Organization extends Component {
 										<Button
 											type="primary"
 											icon="search"
-											onClick={this.handleSubmit}
+											onClick={this.handleSearch}
 										>
 											搜索
 										</Button>
@@ -166,22 +206,29 @@ export default class Organization extends Component {
 					<GlobalCard
 						title="信息列表"
 						extra={
-							<Button onClick={this.handleAddTask}>
-								新增任务
-							</Button>
+							<ButtonGroup>
+								<Button onClick={this.handleAddTask}>
+									新增模版任务
+								</Button>
+								<Button onClick={this.handleAddTask}>
+									新增自定义任务
+								</Button>
+							</ButtonGroup>
 						}
 					>
 						<GlobalTable
+							basePageRequest={this.basePageRequest}
+							filterObj={filterObj}
 							columns={columns}
 							resList={resList}
 							resTotal={resTotal}
 							rowKeys="id"
+							loading={mainSearchLoading}
 						/>
 					</GlobalCard>
 				</Fragment>
 			);
 		};
-		console.log(this);
 
 		return (
 			<Fragment>
@@ -192,7 +239,9 @@ export default class Organization extends Component {
 				<GlobalModal
 					visible={visibleAddTask}
 					title="新增任务"
-					onOk={() => this.finishAddTaskModal}
+					width={600}
+					onCancel={this.finishAddTaskModal}
+					onOk={this.finishAddTaskModal}
 				>
 					<AddTaskModal />
 				</GlobalModal>

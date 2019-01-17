@@ -6,3 +6,7 @@ export function queryTaskList(param) {
 		param: param
 	});
 }
+
+export function queryTaskColumns() {
+	return request("/project/queryTaskColumns");
+}

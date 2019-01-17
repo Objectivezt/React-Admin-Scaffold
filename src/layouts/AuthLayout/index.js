@@ -1,11 +1,12 @@
 import React from "react";
-import { Button, Drawer, Layout, Spin } from "antd";
+import { Button, Icon, Drawer, Layout, Spin } from "antd";
 import DocumentTitle from "react-document-title";
 import GlobalHeader from "components/GlobalHeader";
 import NotFound from "containers/Exception/404";
 import PropTypes from "prop-types";
 import SliderMenu from "components/SliderMenu";
 import TabLayout from "layouts/TabLayout";
+import GlobalFooter from "components/GlobalFooter";
 import classNames from "classnames";
 import logo from "assets/favicon.ico";
 import styles from "./index.less";
@@ -219,7 +220,16 @@ export default class AuthLayout extends React.PureComponent {
 							</Switch>
 						)}
 					</Content>
-					<Footer />
+					<GlobalFooter
+						links={[]}
+						copyright={
+							<div>
+								Copyright&nbsp;
+								<Icon type="copyright" />
+								&nbsp;2019 objectivezt
+							</div>
+						}
+					/>
 					{/* <Button
 						icon="setting"
 						onClick={() => this.handleDrawer(true)}

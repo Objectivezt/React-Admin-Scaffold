@@ -1,29 +1,26 @@
 import React, { Component, Fragment } from "react";
 import { Modal } from "antd";
+import { globalModalProps } from "common/config";
 
 export default class GlobalModal extends Component {
 	render() {
 		const {
 			children,
-			visible,
-			confirmLoading,
-			cancelButtonDisabled,
-			okButtonDisabled,
-			onOK,
+			visible = false,
+			title = "",
+			width = 1024,
 			onCancel,
-			title
+			onOk
 		} = this.props;
 		return (
 			<Fragment>
 				<Modal
+					{...globalModalProps}
+					width={width}
 					title={title}
-					confirmLoading={confirmLoading}
 					visible={visible}
-					okType={"primary"}
-					okButtonDisabled={okButtonDisabled}
-					cancelButtonDisabled={cancelButtonDisabled}
-					onOK={onOK}
 					onCancel={onCancel}
+					onOk={onOk}
 				>
 					{children}
 				</Modal>

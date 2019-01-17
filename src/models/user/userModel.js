@@ -1,4 +1,8 @@
-import { queryMenus, queryCurrentUser } from "services/user/userServices";
+import {
+	queryMenus,
+	queryCurrentUser,
+	queryUserList
+} from "services/user/userServices";
 import { message } from "antd";
 export default {
 	namespace: "userModel",
@@ -6,7 +10,8 @@ export default {
 		menuData: [],
 		loadingLayoutMenu: true,
 		username: "",
-		userId: ""
+		userId: "",
+		userList: []
 	},
 	effects: {
 		*getMenuData(_, { call, put }) {
@@ -26,6 +31,7 @@ export default {
 				}
 			}
 		},
+
 		*getCurrentUser(_, { call, put }) {
 			const res = yield call(queryCurrentUser);
 			if (res) {
@@ -42,6 +48,23 @@ export default {
 					message.info(msg);
 				}
 			}
+		},
+		*getUserList(_, { call, put }) {
+			const res = yield call(queryUserList);
+			if (res) {
+				const { data, code, msg } = res;
+				if (code === "0000") {
+					yield put({
+						type: "saveUserList",
+						payloadUserList: {
+							userList: data.list,
+							userListTotal: data.total
+						}
+					});
+				} else {
+					message.info(msg);
+				}
+			}
 		}
 	},
 	reducers: {
@@ -51,6 +74,16 @@ export default {
 				menuData: payloadMenuData.menuData,
 				loadingLayoutMenu: payloadMenuData.loadingLayoutMenu
 			};
+		},
+		saveCurrentUser(state, { payloadCurrentUser }) {
+			return {
+				...state,
+				username: payloadCurrentUser.username,
+				userId: payloadCurrentUser.userId
+			};
+		},
+		saveUserList(state, { payloadUserList }) {
+			return { ...state, userList: payloadUserList.userList };
 		}
 	}
 };

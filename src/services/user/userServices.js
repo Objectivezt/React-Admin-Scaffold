@@ -7,3 +7,7 @@ export function queryMenus() {
 export function queryCurrentUser() {
 	return request("/user/queryCurrentUser");
 }
+
+export function queryUserList() {
+	return request("/user/queryUserList");
+}
