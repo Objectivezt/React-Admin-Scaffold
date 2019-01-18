@@ -1,12 +1,12 @@
 export default {
-	$desc: "",
+	$desc: '',
 	$param: {},
 	$body: {
 		code: '0000',
 		msg: 'ok',
 		data: {
-			username: 'admin',
-			userId: 'admin123',
+			username: 'objectivezt',
+			userId: '10001'
 		}
 	}
-}
+};

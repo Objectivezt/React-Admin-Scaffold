@@ -1,38 +1,53 @@
 import React, { Component, Fragment } from 'react';
-import { Button, Col, Form, Input, Row, Icon, Tree } from 'antd';
+import { Button, Col, Form, Input, Row, Icon, DatePicker, Popover } from 'antd';
 import { connect } from 'dva';
 import PageHeader from 'components/PageHeader';
 import { GlobalCard, GlobalTable, GlobalModal } from 'globalUI/index';
+import UserListSelect from 'containers/Common/UserListSelect';
+import AddModal from './AddModal';
+import InfoModal from './InfoModal';
 import {
 	globalFormItemLayout,
 	globalFormItemBox,
 	globalColProps,
 	globalDefineListSize
 } from 'common/config';
-import AddTaskModal from './AddTaskModal';
-import UserListSelect from 'containers/Common/UserListSelect';
 
 const FormItem = Form.Item;
 const ButtonGroup = Button.Group;
 const filterObj = {
 	pageNum: 1,
 	pageSize: 10,
-	taskId: '',
-	taskName: ''
+	id: null,
+	name: null,
+	createBy: null,
+	createTime: null,
+	updateBy: null,
+	updateTime: null
 };
-
+/**
+ * @description CURD Demo
+ *
+ * @export
+ * @class Curd
+ * @extends {Component}
+ */
 @Form.create()
-@connect(({ taskModel, loading }) => ({
-	taskModel,
-	mainSearchLoading: loading.effects['taskModel/getTaskList']
+@connect(({ curdModel, loading }) => ({
+	curdModel,
+	mainSearchLoading: loading.effects['curdModel/getMainList']
 }))
-export default class Organization extends Component {
+export default class Curd extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			columns: [],
+			details: {},
 			filterObj: { ...filterObj },
-			visibleAddTask: false,
-			isAdvanced: false
+			isAdvanced: false,
+			visibleAddModal: false,
+			visibleChangeModal: false,
+			visibleInfoModal: false
 		};
 	}
 
@@ -48,11 +63,10 @@ export default class Organization extends Component {
 
 	basePageRequest = value => {
 		this.props.dispatch({
-			type: 'taskModel/getTaskList',
+			type: 'curdModel/getMainList',
 			payloadMain: value ? value : globalDefineListSize
 		});
-
-		this.props.dispatch({ type: 'taskModel/getTaskColumns' });
+		this.props.dispatch({ type: 'curdModel/getMainColumns' });
 	};
 
 	handleSearch = () => {
@@ -61,8 +75,12 @@ export default class Organization extends Component {
 				return;
 			}
 			let payloadData = {
-				taskId: fields.taskId,
-				taskName: fields.taskName,
+				id: fields.id,
+				name: fields.name,
+				createBy: fields.createBy,
+				createTime: fields.createTime,
+				updateBy: fields.updateBy,
+				updateTime: fields.updateTime,
 				...globalDefineListSize
 			};
 			this.setState({ filterObj: { ...payloadData } });
@@ -70,16 +88,27 @@ export default class Organization extends Component {
 		});
 	};
 
-	handleAddTask = () => {
-		this.setState({ visibleAddTask: true });
+	handleOpenModal = () => {
+		this.setState({ visibleAddModal: true });
 	};
 
-	finishAddTaskModal = () => {
-		this.setState({ visibleAddTask: false });
+	submitModal = () => {
+		this.setState({ visibleAddModal: false });
 	};
 
-	cancelTaskModal = () => {
-		this.setState({ visibleAddTask: false });
+	cancelAddModal = () => {
+		this.setState({ visibleAddModal: false });
+	};
+
+	openInfoModal = record => {
+		this.setState({
+			visibleInfoModal: true,
+			details: record
+		});
+	};
+
+	cancelInfoModal = () => {
+		this.setState({ visibleInfoModal: false });
 	};
 
 	showMoreFilter = isAdvanced => {
@@ -87,10 +116,44 @@ export default class Organization extends Component {
 	};
 
 	render() {
-		const { visibleAddTask, filterObj, isAdvanced } = this.state;
-		const { form, taskModel, mainSearchLoading } = this.props;
+		const {
+			visibleAddModal,
+			visibleInfoModal,
+			filterObj,
+			isAdvanced,
+			details
+		} = this.state;
+		const { form, curdModel, mainSearchLoading } = this.props;
 		const { getFieldDecorator } = form;
-		const { resList, resTotal, columns } = taskModel;
+		let { resList = [], resTotal = 0, columns = [] } = curdModel;
+		const optionColumns = [
+			{
+				title: '操作',
+				key: 'action',
+				width: 80,
+				fixed: 'right',
+				align: 'center',
+				render: (_, record) => (
+					<Popover
+						content={
+							<ButtonGroup>
+								<Button type={'primary'}>修改</Button>
+								<Button
+									type={'ghost'}
+									onClick={() => this.openInfoModal(record)}
+								>
+									详情
+								</Button>
+								<Button type={'danger'}>删除</Button>
+							</ButtonGroup>
+						}
+					>
+						<Button>操作</Button>
+					</Popover>
+				)
+			}
+		];
+		columns = [...columns, ...optionColumns];
 		const content = () => {
 			return (
 				<Fragment>
@@ -105,7 +168,7 @@ export default class Organization extends Component {
 									</Fragment>
 								) : (
 									<Fragment>
-										<Icon type={'reload'} />
+										<Icon type={'down'} />
 										{'展开高级搜索'}
 									</Fragment>
 								)}
@@ -120,9 +183,9 @@ export default class Organization extends Component {
 								<Col {...globalColProps}>
 									<FormItem
 										{...globalFormItemLayout}
-										label={'任务编号'}
+										label={'编号'}
 									>
-										{getFieldDecorator('taskId')(
+										{getFieldDecorator('id')(
 											<Input {...globalFormItemBox} />
 										)}
 									</FormItem>
@@ -130,9 +193,9 @@ export default class Organization extends Component {
 								<Col {...globalColProps}>
 									<FormItem
 										{...globalFormItemLayout}
-										label={'任务名称'}
+										label={'名称'}
 									>
-										{getFieldDecorator('taskName')(
+										{getFieldDecorator('name')(
 											<Input {...globalFormItemBox} />
 										)}
 									</FormItem>
@@ -142,9 +205,9 @@ export default class Organization extends Component {
 										<Col {...globalColProps}>
 											<FormItem
 												{...globalFormItemLayout}
-												label={'主办人'}
+												label={'创建人'}
 											>
-												{getFieldDecorator('taskName')(
+												{getFieldDecorator('createBy')(
 													<UserListSelect />
 												)}
 											</FormItem>
@@ -152,30 +215,36 @@ export default class Organization extends Component {
 										<Col {...globalColProps}>
 											<FormItem
 												{...globalFormItemLayout}
-												label={'主办人'}
+												label={'更新人'}
 											>
-												{getFieldDecorator(
-													'mainPerson'
-												)(<UserListSelect />)}
+												{getFieldDecorator('updateBy')(
+													<UserListSelect />
+												)}
 											</FormItem>
 										</Col>
 										<Col {...globalColProps}>
 											<FormItem
 												{...globalFormItemLayout}
-												label={'协办人'}
+												label={'创建时间'}
 											>
 												{getFieldDecorator(
-													'helpPerson'
-												)(<UserListSelect />)}
+													'createTime'
+												)(
+													<DatePicker
+														{...globalFormItemBox}
+													/>
+												)}
 											</FormItem>
 										</Col>
 										<Col {...globalColProps}>
 											<FormItem
 												{...globalFormItemLayout}
-												label={'优先级'}
+												label={'更新时间'}
 											>
-												{getFieldDecorator('priority')(
-													<Input
+												{getFieldDecorator(
+													'updateTime'
+												)(
+													<DatePicker
 														{...globalFormItemBox}
 													/>
 												)}
@@ -188,18 +257,17 @@ export default class Organization extends Component {
 								<Col style={{ float: 'right' }}>
 									<ButtonGroup>
 										<Button
-											type={'primary'}
 											icon={'search'}
 											onClick={this.handleSearch}
 										>
-											搜索
+											{'搜索'}
 										</Button>
 										<Button
 											type={'danger'}
 											icon={'reload'}
 											onClick={this.handleReset}
 										>
-											重置
+											{'重置'}
 										</Button>
 									</ButtonGroup>
 								</Col>
@@ -210,11 +278,11 @@ export default class Organization extends Component {
 						title={'信息列表'}
 						extra={
 							<ButtonGroup>
-								<Button onClick={this.handleAddTask}>
-									新增模版任务
-								</Button>
-								<Button onClick={this.handleAddTask}>
-									新增自定义任务
+								<Button
+									onClick={this.handleOpenModal}
+									type={'primary'}
+								>
+									{'新增'}
 								</Button>
 							</ButtonGroup>
 						}
@@ -225,6 +293,7 @@ export default class Organization extends Component {
 							columns={columns}
 							resList={resList}
 							resTotal={resTotal}
+							scrollX={900}
 							rowKeys={'id'}
 							loading={mainSearchLoading}
 						/>
@@ -236,17 +305,26 @@ export default class Organization extends Component {
 		return (
 			<Fragment>
 				<PageHeader
-					breadcrumbList={[{ title: '' }]}
+					breadcrumbList={[{ title: '123' }]}
 					content={content()}
 				/>
 				<GlobalModal
-					visible={visibleAddTask}
-					title={'新增任务'}
+					visible={visibleAddModal}
+					title={'新增'}
 					width={600}
-					onCancel={this.finishAddTaskModal}
-					onOk={this.finishAddTaskModal}
+					onCancel={this.cancelAddModal}
+					onOk={this.submitModal}
 				>
-					<AddTaskModal />
+					<AddModal />
+				</GlobalModal>
+				<GlobalModal
+					visible={visibleInfoModal}
+					title={'详情'}
+					width={300}
+					onCancel={this.cancelInfoModal}
+					footer={null}
+				>
+					<InfoModal details={details} />
 				</GlobalModal>
 			</Fragment>
 		);

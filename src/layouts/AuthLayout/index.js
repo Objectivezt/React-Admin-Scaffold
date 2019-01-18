@@ -1,29 +1,29 @@
-import React from "react";
-import { Button, Icon, Drawer, Layout, Spin } from "antd";
-import DocumentTitle from "react-document-title";
-import GlobalHeader from "components/GlobalHeader";
-import NotFound from "containers/Exception/404";
-import PropTypes from "prop-types";
-import SliderMenu from "components/SliderMenu";
-import TabLayout from "layouts/TabLayout";
-import GlobalFooter from "components/GlobalFooter";
-import classNames from "classnames";
-import logo from "assets/favicon.ico";
-import styles from "./index.less";
-import { ContainerQuery } from "react-container-query";
-import { Route, Redirect, Switch } from "dva/router";
-import { connect } from "dva";
-import { getRoutes, formatterMenu, getBashRedirect } from "utils/utils";
-import { queryLayout, baseRouterUrl } from "common/config";
-import { queryCurrentUser } from "services/user/userServices";
+import React from 'react';
+import { Button, Icon, Drawer, Layout, Spin } from 'antd';
+import DocumentTitle from 'react-document-title';
+import GlobalHeader from 'components/GlobalHeader';
+import NotFound from 'containers/Exception/404';
+import PropTypes from 'prop-types';
+import SliderMenu from 'components/SliderMenu';
+import TabLayout from 'layouts/TabLayout';
+import GlobalFooter from 'components/GlobalFooter';
+import classNames from 'classnames';
+import logo from 'assets/favicon.ico';
+import styles from './index.less';
+import { ContainerQuery } from 'react-container-query';
+import { Route, Redirect, Switch } from 'dva/router';
+import { connect } from 'dva';
+import { getRoutes, formatterMenu, getBashRedirect } from 'utils/utils';
+import { queryLayout, baseRouterUrl } from 'common/config';
+import { queryCurrentUser } from 'services/user/userServices';
 import {
 	showLogoutConfirm,
 	AuthRouterPass,
 	isInArray,
 	isUrl
-} from "utils/utils";
+} from 'utils/utils';
 
-const { Content, Footer } = Layout;
+const { Content } = Layout;
 const redirectData = [];
 const tempMenuArr = baseRouterUrl;
 @connect(({ globalModel, userModel }) => ({
@@ -53,7 +53,7 @@ export default class AuthLayout extends React.PureComponent {
 	componentDidMount() {
 		queryCurrentUser()
 			.then(({ code }) => {
-				if (code === "0000") {
+				if (code === '0000') {
 					this.getUserMenu();
 				} else {
 					showLogoutConfirm();
@@ -86,24 +86,26 @@ export default class AuthLayout extends React.PureComponent {
 
 	getUserMenu = () => {
 		const { dispatch, location, history } = this.props;
-		dispatch({ type: "userModel/getMenuData" }).then(() => {
+		dispatch({ type: 'userModel/getMenuData' }).then(() => {
 			const menuData = this.props.userModel.menuData;
 			if (!this.state.firstRender) {
 				this.getRouterWhiteList(menuData);
 			}
 			dispatch({
-				type: "globalModel/pushRouterUrl",
+				type: 'globalModel/pushRouterUrl',
 				payloadRouterUrl: tempMenuArr
 			});
+
 			if (isInArray(tempMenuArr, location.pathname)) {
 				this.setState({ firstRender: true });
 			} else {
-				history.push("/exception/403");
+				history.push('/auth/exception/403');
 			}
+			dispatch({ type: 'userModel/getCurrentUser' });
 		});
 	};
 
-	getRouterWhiteList = (data, parentPath = "") =>
+	getRouterWhiteList = (data, parentPath = '') =>
 		data.map(item => {
 			let { path } = item;
 			if (!isUrl(path)) {
@@ -115,19 +117,19 @@ export default class AuthLayout extends React.PureComponent {
 					`${parentPath}${item.path}/`
 				);
 			}
-			tempMenuArr.push("/" + path);
+			tempMenuArr.push('/' + path);
 		});
 
 	handleMenuCollapse = collapsed => {
 		this.props.dispatch({
-			type: "globalModel/changeLayoutCollapsed",
+			type: 'globalModel/changeLayoutCollapsed',
 			payloadCollapsed: collapsed
 		});
 	};
 
 	handleMultiPage = isMultiPage => {
 		this.props.dispatch({
-			type: "globalModel/changeMultiPage",
+			type: 'globalModel/changeMultiPage',
 			payloadMultiPage: isMultiPage
 		});
 	};
@@ -141,10 +143,10 @@ export default class AuthLayout extends React.PureComponent {
 	};
 
 	handleMenuClick = ({ key }) => {
-		if (key === "setting") {
+		if (key === 'setting') {
 			this.handleDrawer(true);
-		} else if (key === "news") {
-			this.props.history.push({ pathname: "/tourist/" });
+		} else if (key === 'news') {
+			this.props.history.push({ pathname: '/tourist/' });
 		}
 	};
 
@@ -189,7 +191,7 @@ export default class AuthLayout extends React.PureComponent {
 				>
 					<GlobalHeader
 						collapsed={collapsed}
-						currentUser={{ name: "滔" }}
+						currentUser={{ name: '滔' }}
 						onCollapse={this.handleMenuCollapse}
 						onMenuClick={this.handleMenuClick}
 					/>
@@ -212,7 +214,7 @@ export default class AuthLayout extends React.PureComponent {
 										path={item.path}
 										component={item.component}
 										exact={item.exact}
-										redirectPath="/exception/403"
+										redirectPath="/auth/exception/403"
 									/>
 								))}
 								<Redirect exact from="/" to={bashRedirect} />
@@ -240,7 +242,7 @@ export default class AuthLayout extends React.PureComponent {
 		);
 
 		return (
-			<DocumentTitle title={"AuthLayout"}>
+			<DocumentTitle title={'AuthLayout'}>
 				<ContainerQuery query={queryLayout}>
 					{params => (
 						<div className={classNames(params)}>

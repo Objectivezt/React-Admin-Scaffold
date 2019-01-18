@@ -1,25 +1,25 @@
 // 默认组件属性
-export { default as globalCardProps } from "./globalUIProps/Card.config";
+export { default as globalCardProps } from './globalUIProps/Card.config';
 
 export {
 	default as globalPaginationProps
-} from "./globalUIProps/Pagination.config";
+} from './globalUIProps/Pagination.config';
 
-export { default as globalColProps } from "./globalUIProps/Col.config";
+export { default as globalColProps } from './globalUIProps/Col.config';
 
-export { default as globalSelectProps } from "./globalUIProps/Select.config";
+export { default as globalSelectProps } from './globalUIProps/Select.config';
 
-export { default as globalTableProps } from "./globalUIProps/Table.config";
+export { default as globalTableProps } from './globalUIProps/Table.config';
 
 export {
 	default as globalInputNumberProps
-} from "./globalUIProps/InputNumber.config";
+} from './globalUIProps/InputNumber.config';
 
-export { default as globalModalProps } from "./globalUIProps/Modal.config";
+export { default as globalModalProps } from './globalUIProps/Modal.config';
 
 export {
 	default as globalRangePickerProps
-} from "./globalUIProps/RangePicker.config";
+} from './globalUIProps/RangePicker.config';
 
 export const globalFormItemLayout = {
 	labelCol: {
@@ -39,8 +39,8 @@ export const globalFormItemLayout = {
 };
 
 export const globalFormItemBox = {
-	style: { width: "85%" },
-	placeholder: "请输入"
+	style: { width: '85%' },
+	placeholder: '请输入'
 };
 
 export const globalRequire = {
@@ -49,9 +49,9 @@ export const globalRequire = {
 };
 
 // 系统配置属性
-export const projectName = "Scaffold";
+export const projectName = 'Scaffold';
 
-export const baseUrl = "/";
+export const baseUrl = '/';
 
 export const globalDefineListSize = {
 	pageNum: 1,
@@ -63,36 +63,36 @@ export const globalBigListSize = {
 	pageSize: 200
 };
 
-export const globalDateFormat = "YYYY-MM-DD";
+export const globalDateFormat = 'YYYY-MM-DD';
 
 export const baseRouterUrl = [
-	"/",
-	"/exception/404",
-	"/exception/500",
-	"/exception/403"
+	'/',
+	'/auth/exception/404',
+	'/auth/exception/500',
+	'/auth/exception/403'
 ];
 
-export const fileType = ""; // 文件处理
+export const fileType = ''; // 文件处理
 
-export const fileMaxSize = "";
+export const fileMaxSize = '';
 
 export const queryLayout = {
-	"screen-xs": {
+	'screen-xs': {
 		maxWidth: 575
 	},
-	"screen-sm": {
+	'screen-sm': {
 		minWidth: 576,
 		maxWidth: 767
 	},
-	"screen-md": {
+	'screen-md': {
 		minWidth: 768,
 		maxWidth: 991
 	},
-	"screen-lg": {
+	'screen-lg': {
 		minWidth: 992,
 		maxWidth: 1199
 	},
-	"screen-xl": {
+	'screen-xl': {
 		minWidth: 1200
 	}
 };

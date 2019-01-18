@@ -1,16 +1,16 @@
-import { createElement } from "react";
-import dynamic from "dva/dynamic";
-import pathToRegexp from "path-to-regexp";
+import { createElement } from 'react';
+import dynamic from 'dva/dynamic';
+import pathToRegexp from 'path-to-regexp';
 
 let routerDataCache;
 
 const modelNotExisted = (app, model) =>
 	!app._models.some(({ namespace }) => {
-		return namespace === model.substring(model.lastIndexOf("/") + 1);
+		return namespace === model.substring(model.lastIndexOf('/') + 1);
 	});
 
 const dynamicWrapper = (app, models, component) => {
-	if (component.toString().indexOf(".then(") < 0) {
+	if (component.toString().indexOf('.then(') < 0) {
 		models.forEach(model => {
 			if (modelNotExisted(app, model)) {
 				app.model(require(`../models/${model}`).default);
@@ -51,73 +51,79 @@ const dynamicWrapper = (app, models, component) => {
 
 export const getRouterData = app => {
 	const routerConfig = {
-		"/": {
+		'/': {
 			component: dynamicWrapper(app, [], () =>
-				import("layouts/BlankLayout")
+				import('layouts/BlankLayout')
 			)
 		},
-		"/user": {
+		'/user': {
 			component: dynamicWrapper(
 				app,
-				["basic/globalModel", "user/userModel"],
-				() => import("layouts/UserLayout")
+				['basic/globalModel', 'user/userModel'],
+				() => import('layouts/UserLayout')
 			)
 		},
-		"/tourist": {
+		'/tourist': {
 			component: dynamicWrapper(app, [], () =>
-				import("layouts/TouristLayout")
+				import('layouts/TouristLayout')
 			)
 		},
-		"/tourist/": {
+		'/tourist/': {
 			component: dynamicWrapper(app, [], () =>
-				import("containers/News/NewsCenter")
+				import('containers/News/NewsCenter')
 			)
 		},
-		"/auth": {
+		'/auth': {
 			component: dynamicWrapper(
 				app,
-				["basic/globalModel", "user/userModel"],
-				() => import("layouts/AuthLayout/index")
+				['basic/globalModel', 'user/userModel'],
+				() => import('layouts/AuthLayout/index')
 			),
-			name: "管理中心",
+			name: '管理中心',
 			breadcrumbList: [
-				{ title: "系统主页", href: "#/auth/app" },
-				{ title: "项目管理" },
-				{ title: "任务管理", href: "#/auth/project/task" }
+				{ title: '系统主页', href: '#/auth/app' },
+				{ title: '项目管理' },
+				{ title: '任务管理', href: '#/auth/project/task' }
 			]
 		},
-		"/auth/app": {
-			component: dynamicWrapper(app, [], () => import("containers/Home")),
-			name: "系统主页"
+		'/auth/app': {
+			component: dynamicWrapper(app, [], () => import('containers/Home')),
+			name: '系统主页'
 		},
-		"/auth/project/task": {
-			component: dynamicWrapper(app, ["project/taskModel"], () =>
-				import("containers/Project/Task/index")
+		'/auth/project/task': {
+			component: dynamicWrapper(app, ['project/taskModel'], () =>
+				import('containers/Project/Task/index')
 			),
-			name: "任务管理",
+			name: '任务管理',
 			breadcrumbList: [
-				{ title: "系统主页", href: "#/auth/app" },
-				{ title: "项目管理" },
-				{ title: "任务管理", href: "#/auth/project/task" }
+				{ title: '系统主页', href: '#/auth/app' },
+				{ title: '项目管理' },
+				{ title: '任务管理', href: '#/auth/project/task' }
 			]
 		},
-		"/exception/403": {
-			component: dynamicWrapper(app, [], () =>
-				import("containers/Exception/403")
+		'/auth/systems/curd': {
+			component: dynamicWrapper(app, ['systems/curdModel'], () =>
+				import('containers/Systems/Curd')
 			),
-			name: "403"
+			name: 'CURD'
 		},
-		"/exception/404": {
+		'/auth/exception/403': {
 			component: dynamicWrapper(app, [], () =>
-				import("containers/Exception/404")
+				import('containers/Exception/403')
 			),
-			name: "404"
+			name: '403'
 		},
-		"/exception/500": {
+		'/auth/exception/404': {
 			component: dynamicWrapper(app, [], () =>
-				import("containers/Exception/500")
+				import('containers/Exception/404')
 			),
-			name: "500"
+			name: '404'
+		},
+		'/auth/exception/500': {
+			component: dynamicWrapper(app, [], () =>
+				import('containers/Exception/500')
+			),
+			name: '500'
 		}
 	};
 
@@ -134,7 +140,7 @@ export const getRouterData = app => {
 		return keys;
 	};
 
-	const formatter = (data, parentPath = "/") =>
+	const formatter = (data, parentPath = '/') =>
 		data.map(item => {
 			let { path } = item;
 			if (!isUrl(path)) {

@@ -1,14 +1,13 @@
-import moment from "moment";
-import { stringify } from "qs";
-import { template, get, isArray, pick, isNaN, isFinite, trim } from "lodash";
-import { Modal } from "antd";
-import { baseRouterUrl } from "common/config";
+import moment from 'moment';
+import { stringify } from 'qs';
+import { template, get, isArray, pick, isNaN, isFinite, trim } from 'lodash';
+import { Modal } from 'antd';
 
-export function getApiMethod(api = "", options = {}) {
+export function getApiMethod(api = '', options = {}) {
 	if (options.method) {
 		return options.method;
 	}
-	return get(trim(api).match(/^.* /), 0) || "GET";
+	return get(trim(api).match(/^.* /), 0) || 'GET';
 }
 
 /**
@@ -19,22 +18,22 @@ export function getApiMethod(api = "", options = {}) {
  */
 export function getUrl(api, params = {}, options = {}) {
 	if (!api) return;
-	const { method = "get", module = "api", json = false } = options;
+	const { method = 'get', module = 'api', json = false } = options;
 
-	let url = "";
+	let url = '';
 
-	if (api.indexOf("http") !== 0) {
-		const host = config.isMock ? "/mock" : config.domain[module];
-		url = `${host}/${api}${json ? ".json" : ""}`;
+	if (api.indexOf('http') !== 0) {
+		const host = config.isMock ? '/mock' : config.domain[module];
+		url = `${host}/${api}${json ? '.json' : ''}`;
 	}
 
-	if (api.indexOf("<%=") > -1) {
+	if (api.indexOf('<%=') > -1) {
 		url = template(api)(params);
 	}
 
 	// console.info('method->', method);
 
-	if (String(method).toUpperCase() === "GET") {
+	if (String(method).toUpperCase() === 'GET') {
 		url += `?${stringify(params)}`;
 	}
 
@@ -42,8 +41,8 @@ export function getUrl(api, params = {}, options = {}) {
 }
 
 export function unqid(len = 6, radix = 60) {
-	const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".split(
-		""
+	const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split(
+		''
 	);
 	const uuid = [];
 	let i;
@@ -55,8 +54,8 @@ export function unqid(len = 6, radix = 60) {
 		}
 	} else {
 		let r;
-		uuid[8] = uuid[13] = uuid[18] = uuid[23] = "-"; // eslint-disable-line
-		uuid[14] = "4";
+		uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-'; // eslint-disable-line
+		uuid[14] = '4';
 		for (i = 0; i < 36; i++) {
 			// eslint-disable-line
 			if (!uuid[i]) {
@@ -66,19 +65,19 @@ export function unqid(len = 6, radix = 60) {
 		}
 	}
 
-	return uuid.join("");
+	return uuid.join('');
 }
 
 export function formatNumDec(number, length = 3, fix = 2) {
 	return formatNum(numFixed(number, fix), length);
 }
 
-export function formatNum(num, length = 3, formater = ",") {
+export function formatNum(num, length = 3, formater = ',') {
 	let number = num;
 	number = String(number || 0);
-	const numArr = number.split(".") || ["", ""];
+	const numArr = number.split('.') || ['', ''];
 
-	const strAry = numArr[0].toString().split("");
+	const strAry = numArr[0].toString().split('');
 
 	for (let i = strAry.length - 1; i >= 0; i -= length) {
 		if (i !== strAry.length - 1 && i >= 0) {
@@ -86,7 +85,7 @@ export function formatNum(num, length = 3, formater = ",") {
 		}
 	}
 
-	return strAry.join("") + (numArr[1] ? `.${numArr[1]}` : "");
+	return strAry.join('') + (numArr[1] ? `.${numArr[1]}` : '');
 }
 
 export function numFixed(number, fix = 2) {
@@ -100,7 +99,7 @@ export function getter(srouce, filed) {
 	let reslut = srouce;
 	if (isArray(filed)) {
 		reslut = pick(srouce, filed);
-	} else if (typeof filed === "string") {
+	} else if (typeof filed === 'string') {
 		reslut = get(srouce, filed);
 	}
 	return reslut;
@@ -108,42 +107,42 @@ export function getter(srouce, filed) {
 
 export function dvideNumber(source) {
 	const result =
-		String(source).indexOf(".") !== -1
+		String(source).indexOf('.') !== -1
 			? source.toLocaleString()
-			: source.toString().replace(/(\d)(?=(?:\d{3})+$)/g, "$1,");
+			: source.toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
 	return result;
 }
 
 export function formatStringByType(type, source, opts = {}) {
 	let result;
 	switch (type) {
-		case "Number.Int":
+		case 'Number.Int':
 			result = parseInt(source, 10);
 			break;
-		case "Number.Float":
+		case 'Number.Float':
 			result = parseFloat(source).toFixed(opts.fixed || 2);
 			break;
-		case "Number.Dvide":
+		case 'Number.Dvide':
 			result = dvideNumber(source);
 			break;
-		case "Number.Percent": // 百分比
-			result = String(source).indexOf("%")
+		case 'Number.Percent': // 百分比
+			result = String(source).indexOf('%')
 				? source
 				: `${parseFloat(source) * 100}%`;
 			break;
-		case "Date": // HH:mm
+		case 'Date': // HH:mm
 			result = moment(source).format(
-				opts.format || "YYYY-MM-DD HH:mm:ss"
+				opts.format || 'YYYY-MM-DD HH:mm:ss'
 			);
 			break;
-		case "Date.Date": // YYYY-MM-DD
-			result = moment(source).format("YYYY-MM-DD");
+		case 'Date.Date': // YYYY-MM-DD
+			result = moment(source).format('YYYY-MM-DD');
 			break;
-		case "Date.Month": // YYYY-MM
-			result = moment(source).format("YYYY-MM");
+		case 'Date.Month': // YYYY-MM
+			result = moment(source).format('YYYY-MM');
 			break;
-		case "Date.Time": // HH:mm
-			result = moment(source).format("HH:mm");
+		case 'Date.Time': // HH:mm
+			result = moment(source).format('HH:mm');
 			break;
 		default:
 			result = source;
@@ -155,7 +154,7 @@ export function formatStringByType(type, source, opts = {}) {
 // 异步加载js,css 文件
 export function loadFile(fileUrl) {
 	let url = fileUrl;
-	if (fileUrl.indexOf("http") === -1) {
+	if (fileUrl.indexOf('http') === -1) {
 		url = `${location.origin}/public/${url}`;
 	}
 
@@ -163,24 +162,24 @@ export function loadFile(fileUrl) {
 		try {
 			let file;
 			let $node;
-			if (url.indexOf(".js") > -1) {
-				file = document.createElement("script");
-				$node = document.getElementsByTagName("script");
-				file.type = "text/javascript";
+			if (url.indexOf('.js') > -1) {
+				file = document.createElement('script');
+				$node = document.getElementsByTagName('script');
+				file.type = 'text/javascript';
 				file.async = true;
 				file.src = url;
-			} else if (url.indexOf(".css") > -1) {
-				file = document.createElement("link");
-				$node = document.getElementsByTagName("link");
-				file.rel = "stylesheet";
-				file.type = "text/css";
+			} else if (url.indexOf('.css') > -1) {
+				file = document.createElement('link');
+				$node = document.getElementsByTagName('link');
+				file.rel = 'stylesheet';
+				file.type = 'text/css';
 				file.href = url;
 			}
 
 			$node = $node[$node.length - 1] || $node[0];
 
 			if (!file || !$node) {
-				reject(new Error("no files"));
+				reject(new Error('no files'));
 				return;
 			}
 
@@ -201,12 +200,12 @@ export function loadFiles(urls) {
 
 // 表格导出csv
 export function export2csv(table) {
-	let data = "\ufeff";
+	let data = '\ufeff';
 	for (let i = 0, row; (row = table.rows[i]); i++) {
 		// eslint-disable-line
 		for (let j = 0, col; (col = row.cells[j]); j++) {
 			// eslint-disable-line
-			data = `data${j ? "," : ""} \t"${col.replace(/"/g, '""')}"`;
+			data = `data${j ? ',' : ''} \t"${col.replace(/"/g, '""')}"`;
 		}
 		data = `${data}\r\n`;
 	}
@@ -221,14 +220,14 @@ export function getTimeDistance(type) {
 	const now = new Date();
 	const oneDay = 1000 * 60 * 60 * 24;
 
-	if (type === "today") {
+	if (type === 'today') {
 		now.setHours(0);
 		now.setMinutes(0);
 		now.setSeconds(0);
 		return [moment(now), moment(now.getTime() + (oneDay - 1000))];
 	}
 
-	if (type === "week") {
+	if (type === 'week') {
 		let day = now.getDay();
 		now.setHours(0);
 		now.setMinutes(0);
@@ -245,10 +244,10 @@ export function getTimeDistance(type) {
 		return [moment(beginTime), moment(beginTime + (7 * oneDay - 1000))];
 	}
 
-	if (type === "month") {
+	if (type === 'month') {
 		const year = now.getFullYear();
 		const month = now.getMonth();
-		const nextDate = moment(now).add(1, "months");
+		const nextDate = moment(now).add(1, 'months');
 		const nextYear = nextDate.year();
 		const nextMonth = nextDate.month();
 
@@ -262,7 +261,7 @@ export function getTimeDistance(type) {
 		];
 	}
 
-	if (type === "year") {
+	if (type === 'year') {
 		const year = now.getFullYear();
 
 		return [
@@ -272,11 +271,11 @@ export function getTimeDistance(type) {
 	}
 }
 
-export function getPlainNode(nodeList, parentPath = "") {
+export function getPlainNode(nodeList, parentPath = '') {
 	const arr = [];
 	nodeList.forEach(node => {
 		const item = node;
-		item.path = `${parentPath}/${item.path || ""}`.replace(/\/+/g, "/");
+		item.path = `${parentPath}/${item.path || ''}`.replace(/\/+/g, '/');
 		item.exact = true;
 		if (item.children && !item.component) {
 			arr.push(...getPlainNode(item.children, item.path));
@@ -291,40 +290,40 @@ export function getPlainNode(nodeList, parentPath = "") {
 }
 
 export function digitUppercase(n) {
-	const fraction = ["角", "分"];
-	const digit = ["零", "壹", "贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖"];
-	const unit = [["元", "万", "亿"], ["", "拾", "佰", "仟"]];
+	const fraction = ['角', '分'];
+	const digit = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'];
+	const unit = [['元', '万', '亿'], ['', '拾', '佰', '仟']];
 	let num = Math.abs(n);
-	let s = "";
+	let s = '';
 	fraction.forEach((item, index) => {
 		s += (digit[Math.floor(num * 10 * 10 ** index) % 10] + item).replace(
 			/零./,
-			""
+			''
 		);
 	});
-	s = s || "整";
+	s = s || '整';
 	num = Math.floor(num);
 	for (let i = 0; i < unit[0].length && num > 0; i += 1) {
-		let p = "";
+		let p = '';
 		for (let j = 0; j < unit[1].length && num > 0; j += 1) {
 			p = digit[num % 10] + unit[1][j] + p;
 			num = Math.floor(num / 10);
 		}
-		s = p.replace(/(零.)*零$/, "").replace(/^$/, "零") + unit[0][i] + s;
+		s = p.replace(/(零.)*零$/, '').replace(/^$/, '零') + unit[0][i] + s;
 	}
 
 	return s
-		.replace(/(零.)*零元/, "元")
-		.replace(/(零.)+/g, "零")
-		.replace(/^整$/, "零元整");
+		.replace(/(零.)*零元/, '元')
+		.replace(/(零.)+/g, '零')
+		.replace(/^整$/, '零元整');
 }
 
 function getRelation(str1, str2) {
 	if (str1 === str2) {
-		console.warn("Two path are equal!"); // eslint-disable-line
+		console.warn('Two path are equal!'); // eslint-disable-line
 	}
-	const arr1 = str1.split("/");
-	const arr2 = str2.split("/");
+	const arr1 = str1.split('/');
+	const arr2 = str2.split('/');
 	if (arr2.every((item, index) => item === arr1[index])) {
 		return 1;
 	} else if (arr1.every((item, index) => item === arr2[index])) {
@@ -362,7 +361,7 @@ export function getRoutes(path, routerData) {
 		routePath => routePath.indexOf(path) === 0 && routePath !== path
 	);
 	// Replace path to '' eg. path='user' /user/name => name
-	routes = routes.map(item => item.replace(path, ""));
+	routes = routes.map(item => item.replace(path, ''));
 	// Get the route to be rendered to remove the deep rendering
 	const renderArr = getRenderArr(routes);
 	// Conversion and stitching parameters
@@ -387,7 +386,7 @@ export function isUrl(path) {
 	return reg.test(path);
 }
 
-export function formatterMenu(data, parentPath = "/") {
+export function formatterMenu(data, parentPath = '/') {
 	return data.map(item => {
 		let { path } = item;
 		if (!isUrl(path)) {
@@ -409,18 +408,18 @@ export function formatterMenu(data, parentPath = "/") {
 
 export function getBashRedirect() {
 	const urlParams = new URL(window.location.href);
-	const redirect = urlParams.searchParams.get("redirect");
+	const redirect = urlParams.searchParams.get('redirect');
 	if (redirect) {
-		urlParams.searchParams.delete("redirect");
-		window.history.replaceState(null, "redirect", urlParams.href);
+		urlParams.searchParams.delete('redirect');
+		window.history.replaceState(null, 'redirect', urlParams.href);
 	}
 	return redirect;
 }
 
 export function showLogoutConfirm() {
 	Modal.info({
-		title: "未能检测到用户登录状态",
-		content: "您可能需要重新登录"
+		title: '未能检测到用户登录状态',
+		content: '您可能需要重新登录'
 	});
 }
 
@@ -438,15 +437,15 @@ export function AuthRouterPass(_this, path) {
 	let tempMenuArr = globalModel.baseRouterUrl;
 	if (path) {
 		if (!isInArray(tempMenuArr, path)) {
-			history.push("/exception/403");
+			history.push('/auth/exception/403');
 			return;
 		}
 	} else {
 		if (!isInArray(tempMenuArr, location.pathname)) {
-			if (history.location.pathname === "/exception/403") {
+			if (history.location.pathname === '/auth/exception/403') {
 				return;
 			}
-			history.push("/exception/403");
+			history.push('/auth/exception/403');
 			return;
 		}
 	}

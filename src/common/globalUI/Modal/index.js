@@ -1,16 +1,17 @@
-import React, { Component, Fragment } from "react";
-import { Modal } from "antd";
-import { globalModalProps } from "common/config";
+import React, { Component, Fragment } from 'react';
+import { Modal } from 'antd';
+import { globalModalProps } from 'common/config';
 
 export default class GlobalModal extends Component {
 	render() {
 		const {
 			children,
 			visible = false,
-			title = "",
+			title = '',
 			width = 1024,
 			onCancel,
-			onOk
+			onOk,
+			footer
 		} = this.props;
 		return (
 			<Fragment>
@@ -21,6 +22,7 @@ export default class GlobalModal extends Component {
 					visible={visible}
 					onCancel={onCancel}
 					onOk={onOk}
+					footer={footer}
 				>
 					{children}
 				</Modal>
