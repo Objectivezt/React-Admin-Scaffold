@@ -1,5 +1,4 @@
 import { delay } from 'roadhog-api-doc';
-import { queryTaskColumns, queryTaskList } from './mock/project';
 import { queryCurdColumns, queryCurdList } from './mock/systems';
 import {
 	queryCurrentMenus,
@@ -18,10 +17,6 @@ const proxy = {
 	'GET /user/queryUserList': queryUserList,
 
 	'POST /user/login': login,
-
-	'POST /project/queryTaskList': queryTaskList,
-
-	'GET /project/queryTaskColumns': queryTaskColumns,
 
 	'POST /systems/queryCurdList': queryCurdList,
 

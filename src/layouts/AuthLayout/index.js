@@ -242,7 +242,7 @@ export default class AuthLayout extends React.PureComponent {
 		);
 
 		return (
-			<DocumentTitle title={'AuthLayout'}>
+			<DocumentTitle title={'Scoffed'}>
 				<ContainerQuery query={queryLayout}>
 					{params => (
 						<div className={classNames(params)}>

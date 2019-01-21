@@ -79,27 +79,11 @@ export const getRouterData = app => {
 				['basic/globalModel', 'user/userModel'],
 				() => import('layouts/AuthLayout/index')
 			),
-			name: '管理中心',
-			breadcrumbList: [
-				{ title: '系统主页', href: '#/auth/app' },
-				{ title: '项目管理' },
-				{ title: '任务管理', href: '#/auth/project/task' }
-			]
+			name: '管理中心'
 		},
 		'/auth/app': {
 			component: dynamicWrapper(app, [], () => import('containers/Home')),
 			name: '系统主页'
-		},
-		'/auth/project/task': {
-			component: dynamicWrapper(app, ['project/taskModel'], () =>
-				import('containers/Project/Task/index')
-			),
-			name: '任务管理',
-			breadcrumbList: [
-				{ title: '系统主页', href: '#/auth/app' },
-				{ title: '项目管理' },
-				{ title: '任务管理', href: '#/auth/project/task' }
-			]
 		},
 		'/auth/systems/curd': {
 			component: dynamicWrapper(app, ['systems/curdModel'], () =>
