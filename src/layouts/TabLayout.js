@@ -8,7 +8,7 @@ export default class TabLayout extends React.Component {
 		super(props);
 		this.state = {
 			activeKey: null,
-			panes: [],
+			panes: []
 		};
 	}
 
@@ -41,7 +41,7 @@ export default class TabLayout extends React.Component {
 		if (isExist) {
 			//如果已经存在
 			this.setState({
-				activeKey,
+				activeKey
 			});
 		} else {
 			panes.push({ name, key: activeKey, component });
@@ -49,18 +49,19 @@ export default class TabLayout extends React.Component {
 		}
 	}
 
-	onChange = (activeKey) => {
-		// this.setState({ activeKey });
-		this.props.dispatch(routerRedux.push({
-			pathname: activeKey,
-		}))
-	}
+	onChange = activeKey => {
+		this.props.dispatch(
+			routerRedux.push({
+				pathname: activeKey
+			})
+		);
+	};
 
 	onEdit = (targetKey, action) => {
 		this[action](targetKey);
-	}
+	};
 
-	remove = (targetKey) => {
+	remove = targetKey => {
 		if (this.state.panes.length === 1) {
 			message.warning('窗口不能全部关闭');
 			return;
@@ -77,7 +78,7 @@ export default class TabLayout extends React.Component {
 			activeKey = panes[lastIndex].key;
 		}
 		this.setState({ panes, activeKey });
-	}
+	};
 
 	render() {
 		const { location, match } = this.props;
@@ -91,11 +92,12 @@ export default class TabLayout extends React.Component {
 					onEdit={this.onEdit}
 				>
 					{this.state.panes.map(pane => (
-						<TabPane tab={pane.name} key={pane.key} >
+						<TabPane tab={pane.name} key={pane.key}>
 							<pane.component location={location} match={match} />
-						</TabPane>))}
+						</TabPane>
+					))}
 				</Tabs>
 			</div>
-		)
+		);
 	}
 }

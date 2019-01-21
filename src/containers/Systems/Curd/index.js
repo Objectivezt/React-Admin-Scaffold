@@ -5,6 +5,7 @@ import PageHeader from 'components/PageHeader';
 import { GlobalCard, GlobalTable, GlobalModal } from 'globalUI/index';
 import UserListSelect from 'containers/Common/UserListSelect';
 import AddModal from './AddModal';
+import UpdateModal from './UpdateModel';
 import InfoModal from './InfoModal';
 import {
 	globalFormItemLayout,
@@ -46,7 +47,7 @@ export default class Curd extends Component {
 			filterObj: { ...filterObj },
 			isAdvanced: false,
 			visibleAddModal: false,
-			visibleChangeModal: false,
+			visibleUpdateModal: false,
 			visibleInfoModal: false
 		};
 	}
@@ -54,12 +55,6 @@ export default class Curd extends Component {
 	componentDidMount() {
 		this.basePageRequest();
 	}
-
-	handleReset = () => {
-		this.props.form.resetFields();
-		this.setState({ filterObj: { ...filterObj } });
-		this.basePageRequest();
-	};
 
 	basePageRequest = value => {
 		this.props.dispatch({
@@ -88,30 +83,51 @@ export default class Curd extends Component {
 		});
 	};
 
-	handleOpenModal = () => {
+	handleReset = () => {
+		this.props.form.resetFields();
+		this.setState({ filterObj: { ...filterObj } });
+		this.basePageRequest();
+	};
+
+	handleOpenAddModal = () => {
 		this.setState({ visibleAddModal: true });
 	};
 
-	submitModal = () => {
+	handleSubmitModal = () => {
 		this.setState({ visibleAddModal: false });
 	};
 
-	cancelAddModal = () => {
+	handleCancelAddModal = () => {
 		this.setState({ visibleAddModal: false });
 	};
 
-	openInfoModal = record => {
+	handleOpenInfoModal = record => {
 		this.setState({
 			visibleInfoModal: true,
 			details: record
 		});
 	};
 
-	cancelInfoModal = () => {
+	handleCancelInfoModal = () => {
 		this.setState({ visibleInfoModal: false });
 	};
 
-	showMoreFilter = isAdvanced => {
+	handleOpenUpdateModal = record => {
+		this.setState({
+			visibleUpdateModal: true,
+			details: record
+		});
+	};
+
+	handleCancelUpdateModal = () => {
+		this.setState({ visibleUpdateModal: false });
+	};
+
+	handleUpdateModal = () => {
+		this.setState({ visibleUpdateModal: false });
+	};
+
+	handleShowMoreFilter = isAdvanced => {
 		this.setState({ isAdvanced: !isAdvanced });
 	};
 
@@ -119,6 +135,7 @@ export default class Curd extends Component {
 		const {
 			visibleAddModal,
 			visibleInfoModal,
+			visibleUpdateModal,
 			filterObj,
 			isAdvanced,
 			details
@@ -137,10 +154,19 @@ export default class Curd extends Component {
 					<Popover
 						content={
 							<ButtonGroup>
-								<Button type={'primary'}>修改</Button>
+								<Button
+									type={'primary'}
+									onClick={() => {
+										this.handleOpenUpdateModal(record);
+									}}
+								>
+									修改
+								</Button>
 								<Button
 									type={'ghost'}
-									onClick={() => this.openInfoModal(record)}
+									onClick={() =>
+										this.handleOpenInfoModal(record)
+									}
 								>
 									详情
 								</Button>
@@ -160,7 +186,11 @@ export default class Curd extends Component {
 					<GlobalCard
 						title={'信息筛选'}
 						extra={
-							<a onClick={() => this.showMoreFilter(isAdvanced)}>
+							<a
+								onClick={() =>
+									this.handleShowMoreFilter(isAdvanced)
+								}
+							>
 								{isAdvanced ? (
 									<Fragment>
 										<Icon type={'up'} />
@@ -279,7 +309,8 @@ export default class Curd extends Component {
 						extra={
 							<ButtonGroup>
 								<Button
-									onClick={this.handleOpenModal}
+									icon={'plus'}
+									onClick={this.handleOpenAddModal}
 									type={'primary'}
 								>
 									{'新增'}
@@ -305,24 +336,33 @@ export default class Curd extends Component {
 		return (
 			<Fragment>
 				<PageHeader
-					breadcrumbList={[{ title: '123' }]}
+					breadcrumbList={[{ title: '' }]}
 					content={content()}
 				/>
 				<GlobalModal
-					visible={visibleAddModal}
+					onCancel={this.handleCancelAddModal}
+					onOk={this.handleSubmitModal}
 					title={'新增'}
+					visible={visibleAddModal}
 					width={600}
-					onCancel={this.cancelAddModal}
-					onOk={this.submitModal}
 				>
 					<AddModal />
 				</GlobalModal>
 				<GlobalModal
-					visible={visibleInfoModal}
-					title={'详情'}
-					width={300}
-					onCancel={this.cancelInfoModal}
+					onCancel={this.handleCancelUpdateModal}
+					onOk={this.handleUpdateModal}
+					title={'修改'}
+					visible={visibleUpdateModal}
+					width={600}
+				>
+					<UpdateModal details={details} />
+				</GlobalModal>
+				<GlobalModal
 					footer={null}
+					onCancel={this.handleCancelInfoModal}
+					title={'详情'}
+					visible={visibleInfoModal}
+					width={300}
 				>
 					<InfoModal details={details} />
 				</GlobalModal>
