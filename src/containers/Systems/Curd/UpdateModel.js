@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Form, Col, Row, Input, DatePicker } from 'antd';
 import { connect } from 'dva';
+import moment from 'moment';
 import { globalFormItemLayout, globalFormItemBox } from 'common/config';
 
 const FormItem = Form.Item;
@@ -11,7 +12,14 @@ const FormItem = Form.Item;
 }))
 export default class AddModal extends Component {
 	render() {
-		console.log(this.props.userModel);
+		const {
+			id,
+			createBy,
+			updateBy,
+			name,
+			createTime,
+			updateTime
+		} = this.props.details;
 		const { form } = this.props;
 		const { getFieldDecorator } = form;
 		return (
@@ -24,6 +32,7 @@ export default class AddModal extends Component {
 								label={'创建人'}
 							>
 								{getFieldDecorator('createBy', {
+									initialValue: createBy,
 									rules: [
 										{
 											required: true,
@@ -39,6 +48,7 @@ export default class AddModal extends Component {
 								label={'更新人'}
 							>
 								{getFieldDecorator('updateBy', {
+									initialValue: updateBy,
 									rules: [
 										{
 											required: true,
@@ -51,6 +61,7 @@ export default class AddModal extends Component {
 						<Col>
 							<FormItem {...globalFormItemLayout} label={'名称'}>
 								{getFieldDecorator('name', {
+									initialValue: name,
 									rules: [
 										{
 											required: true,
@@ -66,6 +77,9 @@ export default class AddModal extends Component {
 								label={'创建时间'}
 							>
 								{getFieldDecorator('createTime', {
+									initialValue: createTime
+										? moment(createTime, 'YYYY-MM-DD')
+										: null,
 									rules: [
 										{
 											required: true,
@@ -81,6 +95,9 @@ export default class AddModal extends Component {
 								label={'更新时间'}
 							>
 								{getFieldDecorator('updateTime', {
+									initialValue: updateTime
+										? moment(createTime, 'YYYY-MM-DD')
+										: null,
 									rules: [
 										{
 											required: true,
