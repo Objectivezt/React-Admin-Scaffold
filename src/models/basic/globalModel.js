@@ -1,10 +1,12 @@
-import { baseRouterUrl } from "common/config";
+import { baseRouterUrl } from 'common/config';
+import { globalModalProps } from 'common/config';
 export default {
-	namespace: "globalModel",
+	namespace: 'globalModel',
 	state: {
 		collapsed: false,
 		isMultiPage: true,
-		baseRouterUrl: baseRouterUrl
+		baseRouterUrl: baseRouterUrl,
+		globalModalProps: globalModalProps//全局组件属性配置
 	},
 	effects: {},
 	reducers: {
