@@ -37,11 +37,33 @@ const arr = [
 	}
 ];
 
+const defaultSelectColumns = [
+	{
+		title: '名称',
+		dataIndex: 'name',
+		key: 'name',
+		align: 'center'
+	},
+	{
+		title: '创建人',
+		dataIndex: 'createBy',
+		key: 'createBy',
+		align: 'center'
+	},
+	{
+		title: '创建时间',
+		dataIndex: 'createTime',
+		key: 'createTime',
+		align: 'center'
+	}
+];
+
 export default {
 	code: '0000',
 	msg: 'ok',
 	data: {
-		list: arr,
+		allColumns: arr,
+		defaultColumns: defaultSelectColumns,
 		total: arr.length
 	}
 };

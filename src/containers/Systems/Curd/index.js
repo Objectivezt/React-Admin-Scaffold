@@ -1,5 +1,15 @@
 import React, { Component, Fragment } from 'react';
-import { Button, Col, Form, Input, Row, Icon, DatePicker, Popover } from 'antd';
+import {
+	Button,
+	Checkbox,
+	Col,
+	DatePicker,
+	Form,
+	Icon,
+	Input,
+	Popover,
+	Row
+} from 'antd';
 import { connect } from 'dva';
 import PageHeader from 'components/PageHeader';
 import { GlobalCard, GlobalTable, GlobalModal } from 'globalUI/index';
@@ -14,6 +24,7 @@ import {
 	globalDefineListSize
 } from 'common/config';
 
+const CheckboxGroup = Checkbox.Group;
 const FormItem = Form.Item;
 const ButtonGroup = Button.Group;
 const filterObj = {
@@ -26,6 +37,10 @@ const filterObj = {
 	updateBy: null,
 	updateTime: null
 };
+
+// const plainOptions = ['Apple', 'Pear', 'Orange'];
+const defaultCheckedList = ['Apple', 'Orange'];
+
 /**
  * @description CURD Demo
  *
@@ -48,7 +63,11 @@ export default class Curd extends Component {
 			isAdvanced: false,
 			visibleAddModal: false,
 			visibleUpdateModal: false,
-			visibleInfoModal: false
+			visibleInfoModal: false,
+			checkedList: [],
+			indeterminate: true,
+			checkAll: false,
+			renderColumns: []
 		};
 	}
 
@@ -57,11 +76,14 @@ export default class Curd extends Component {
 	}
 
 	basePageRequest = value => {
-		this.props.dispatch({
+		const { dispatch } = this.props;
+		dispatch({
 			type: 'curdModel/getMainList',
 			payloadMain: value ? value : globalDefineListSize
 		});
-		this.props.dispatch({ type: 'curdModel/getMainColumns' });
+		dispatch({ type: 'curdModel/getMainColumns' }).then(() => {
+			this.renderColumns();
+		});
 	};
 
 	handleSearch = () => {
@@ -131,6 +153,24 @@ export default class Curd extends Component {
 		this.setState({ isAdvanced: !isAdvanced });
 	};
 
+	onChangeColumns = checkedList => {
+		console.log(checkedList);
+		this.setState({
+			checkedList
+		});
+	};
+
+	onCheckAllChange = e => {};
+
+	renderColumns = () => {
+		const { columns } = this.props.curdModel;
+		let tempColumnsKey = [];
+		columns.forEach(item => {
+			tempColumnsKey.push(item.title);
+		});
+		this.setState({ plainOptions: tempColumnsKey });
+	};
+
 	render() {
 		const {
 			visibleAddModal,
@@ -138,7 +178,11 @@ export default class Curd extends Component {
 			visibleUpdateModal,
 			filterObj,
 			isAdvanced,
-			details
+			details,
+			indeterminate,
+			checkAll,
+			checkedList,
+			plainOptions
 		} = this.state;
 		const { form, curdModel, mainSearchLoading } = this.props;
 		const { getFieldDecorator } = form;
@@ -308,6 +352,38 @@ export default class Curd extends Component {
 						title={'信息列表'}
 						extra={
 							<ButtonGroup>
+								<Popover
+									placement={'right'}
+									content={
+										<Fragment>
+											<div
+												style={{
+													borderBottom:
+														'1px solid #E9E9E9'
+												}}
+											>
+												<Checkbox
+													indeterminate={
+														indeterminate
+													}
+													onChange={
+														this.onCheckAllChange
+													}
+													checked={checkAll}
+												>
+													{'全选'}
+												</Checkbox>
+											</div>
+											<CheckboxGroup
+												options={plainOptions}
+												value={checkedList}
+												onChange={this.onChangeColumns}
+											/>
+										</Fragment>
+									}
+								>
+									<Button icon={'ordered-list'} />
+								</Popover>
 								<Button
 									icon={'plus'}
 									onClick={this.handleOpenAddModal}

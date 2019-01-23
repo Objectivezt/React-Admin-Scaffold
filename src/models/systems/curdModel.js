@@ -33,7 +33,7 @@ export default {
 					yield put({
 						type: 'save',
 						payloadColumns: {
-							columns: data.list
+							columns: data.allColumns
 						}
 					});
 				} else {
