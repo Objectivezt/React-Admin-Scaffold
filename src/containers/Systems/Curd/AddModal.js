@@ -11,7 +11,6 @@ const FormItem = Form.Item;
 }))
 export default class AddModal extends Component {
 	render() {
-		console.log(this.props.userModel);
 		const { form } = this.props;
 		const { getFieldDecorator } = form;
 		return (

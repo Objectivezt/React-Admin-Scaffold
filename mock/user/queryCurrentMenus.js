@@ -8,7 +8,7 @@ const auth = [
 	{
 		path: 'auth/systems',
 		icon: 'sliders',
-		name: '使用指南',
+		name: '增删查改',
 		children: [
 			{
 				path: 'curd',
