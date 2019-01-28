@@ -105,7 +105,7 @@ export default class Organization extends Component {
 									</Fragment>
 								) : (
 									<Fragment>
-										<Icon type={'reload'} />
+										<Icon type={'down'} />
 										{'展开高级搜索'}
 									</Fragment>
 								)}
@@ -139,16 +139,6 @@ export default class Organization extends Component {
 								</Col>
 								{isAdvanced ? (
 									<Fragment>
-										<Col {...globalColProps}>
-											<FormItem
-												{...globalFormItemLayout}
-												label={'主办人'}
-											>
-												{getFieldDecorator('taskName')(
-													<UserListSelect />
-												)}
-											</FormItem>
-										</Col>
 										<Col {...globalColProps}>
 											<FormItem
 												{...globalFormItemLayout}

@@ -15,6 +15,12 @@ const auth = [
 				icon: 'sliders',
 				name: 'CURD',
 				children: []
+			},
+			{
+				path: 'spreadJS',
+				icon: 'setting',
+				name: 'spreadJS',
+				children: []
 			}
 		]
 	},

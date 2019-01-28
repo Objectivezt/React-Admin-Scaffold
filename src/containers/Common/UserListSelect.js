@@ -1,10 +1,16 @@
-import React, { Component } from "react";
-import { Select } from "antd";
-import { connect } from "dva";
-import { globalSelectProps } from "common/config";
+import React, { Component } from 'react';
+import { Select } from 'antd';
+import { connect } from 'dva';
+import { globalSelectProps } from 'common/config';
 
 const { Option } = Select;
 
+/**
+ * @description 全局用户列表
+ *
+ * @class UserListSelect
+ * @extends {Component}
+ */
 @connect(({ userModel }) => ({
 	userModel
 }))
@@ -26,7 +32,7 @@ export default class UserListSelect extends Component {
 
 	componentDidMount() {
 		this.props.dispatch({
-			type: "userModel/getUserList"
+			type: 'userModel/getUserList'
 		});
 	}
 

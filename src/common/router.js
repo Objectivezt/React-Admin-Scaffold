@@ -107,6 +107,12 @@ export const getRouterData = app => {
 			),
 			name: 'CURD'
 		},
+		'/auth/systems/spreadJS': {
+			component: dynamicWrapper(app, [], () =>
+				import('containers/Systems/SpreadJS')
+			),
+			name: 'spreadJS'
+		},
 		'/auth/exception/403': {
 			component: dynamicWrapper(app, [], () =>
 				import('containers/Exception/403')
