@@ -1,6 +1,5 @@
 import moment from 'moment';
-import { stringify } from 'qs';
-import { template, get, isArray, pick, isNaN, isFinite, trim } from 'lodash';
+import { get, isArray, pick, isNaN, isFinite, trim } from 'lodash';
 import { Modal } from 'antd';
 
 export function getApiMethod(api = '', options = {}) {
@@ -8,36 +7,6 @@ export function getApiMethod(api = '', options = {}) {
 		return options.method;
 	}
 	return get(trim(api).match(/^.* /), 0) || 'GET';
-}
-
-/**
- * 根据数据，参数获取正确的请求地址url
- * @param {String} api API地址
- * @param {Object} params 数据
- * @param {Object} options 各种参数
- */
-export function getUrl(api, params = {}, options = {}) {
-	if (!api) return;
-	const { method = 'get', module = 'api', json = false } = options;
-
-	let url = '';
-
-	if (api.indexOf('http') !== 0) {
-		const host = config.isMock ? '/mock' : config.domain[module];
-		url = `${host}/${api}${json ? '.json' : ''}`;
-	}
-
-	if (api.indexOf('<%=') > -1) {
-		url = template(api)(params);
-	}
-
-	// console.info('method->', method);
-
-	if (String(method).toUpperCase() === 'GET') {
-		url += `?${stringify(params)}`;
-	}
-
-	return url;
 }
 
 export function unqid(len = 6, radix = 60) {
@@ -155,7 +124,7 @@ export function formatStringByType(type, source, opts = {}) {
 export function loadFile(fileUrl) {
 	let url = fileUrl;
 	if (fileUrl.indexOf('http') === -1) {
-		url = `${location.origin}/public/${url}`;
+		url = `${window.location.origin}/public/${url}`;
 	}
 
 	return new Promise((resolve, reject) => {
@@ -438,7 +407,7 @@ export function AuthRouterPass(_this, path) {
 	if (path) {
 		if (!isInArray(tempMenuArr, path)) {
 			history.push('/auth/exception/403');
-			return;
+			return false;
 		}
 	} else {
 		if (!isInArray(tempMenuArr, location.pathname)) {
@@ -446,7 +415,7 @@ export function AuthRouterPass(_this, path) {
 				return;
 			}
 			history.push('/auth/exception/403');
-			return;
+			return false;
 		}
 	}
 }

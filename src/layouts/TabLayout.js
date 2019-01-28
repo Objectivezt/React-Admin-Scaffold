@@ -2,7 +2,7 @@ import React from 'react';
 import { Tabs, message } from 'antd';
 import { routerRedux } from 'dva/router';
 
-const TabPane = Tabs.TabPane;
+const TabPane = Tabs.TabPane; //eslint-disable-line
 export default class TabLayout extends React.Component {
 	constructor(props) {
 		super(props);
@@ -39,7 +39,6 @@ export default class TabLayout extends React.Component {
 		}
 
 		if (isExist) {
-			//如果已经存在
 			this.setState({
 				activeKey
 			});

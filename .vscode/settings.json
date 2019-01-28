@@ -15,4 +15,13 @@
 	"terminal.integrated.rendererType": "dom",
 	"workbench.iconTheme": "vscode-icons",
 	"eslint.packageManager": "npm",
+	"eslint.validate": [
+		"javascript",
+		"javascriptreact",
+		{
+			"language": "js",
+			"autoFix": true
+		},
+	],
+
 }

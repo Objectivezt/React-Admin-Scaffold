@@ -1,11 +1,18 @@
-import { createElement } from 'react';
+import {
+	createElement
+} from 'react';
 import dynamic from 'dva/dynamic';
 import pathToRegexp from 'path-to-regexp';
+import {
+	isUrl
+} from 'utils/utils';
 
 let routerDataCache;
 
 const modelNotExisted = (app, model) =>
-	!app._models.some(({ namespace }) => {
+	!app._models.some(({
+		namespace
+	}) => {
 		return namespace === model.substring(model.lastIndexOf('/') + 1);
 	});
 
@@ -31,8 +38,8 @@ const dynamicWrapper = (app, models, component) => {
 		app,
 		models: () =>
 			models
-				.filter(model => modelNotExisted(app, model))
-				.map(m => import(`../models/${m}.js`)),
+			.filter(model => modelNotExisted(app, model))
+			.map(m => import(`../models/${m}.js`)),
 		component: () => {
 			if (!routerDataCache) {
 				routerDataCache = getRouterData(app);
@@ -111,14 +118,18 @@ export const getRouterData = app => {
 		}
 	};
 
-	const getFlatMenuData = function(menus) {
+	const getFlatMenuData = function (menus) {
 		let keys = {};
 		menus.forEach(item => {
 			if (item.children) {
-				keys[item.path] = { ...item };
-				keys = { ...keys, ...getFlatMenuData(item.children) };
+				keys[item.path] = { ...item
+				};
+				keys = { ...keys,
+					...getFlatMenuData(item.children)
+				};
 			} else {
-				keys[item.path] = { ...item };
+				keys[item.path] = { ...item
+				};
 			}
 		});
 		return keys;
@@ -126,7 +137,9 @@ export const getRouterData = app => {
 
 	const formatter = (data, parentPath = '/') =>
 		data.map(item => {
-			let { path } = item;
+			let {
+				path
+			} = item;
 			if (!isUrl(path)) {
 				path = parentPath + item.path;
 			}

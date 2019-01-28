@@ -1,0 +1,23 @@
+{
+	"extends": [
+		"eslint-config-standard"
+	],
+	"parserOptions": {
+		"ecmaVersion": 6,
+		"sourceType": "module"
+	},
+	"rules": {
+		"semi": "off",
+		"no-mixed-spaces-and-tabs": "error",
+		"comma-dangle": "off",
+		"no-tabs": "off",
+		"indent": ["off", "tab"],
+		"space-before-function-paren": "off",
+		"operator-linebreak": "off",
+		"react/jsx-uses-react": "warn",
+		"no-unused-vars": "off"
+	},
+	"plugins": ["react", "node", "promise", "standard", "import"],
+	"parser": "babel-eslint"
+
+}
