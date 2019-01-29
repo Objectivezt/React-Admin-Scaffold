@@ -1,5 +1,4 @@
 export default {
 	showTime: true,
-	allowClear: true,
-
-}
+	allowClear: true
+};

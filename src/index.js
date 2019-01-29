@@ -7,7 +7,7 @@ import 'moment/locale/zh-cn';
 import './styles/index.css';
 const models = require('./models/basic/globalModel').default;
 const layout = require('./layout').default;
-let app; //redbox-react
+let app; // redbox-react
 app = dva({
 	history: createHistory()
 });

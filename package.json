@@ -5,7 +5,7 @@
 	"scripts": {
 		"start": "cross-env  ESLINT=none PORT=8888 roadhog dev",
 		"build": "roadhog build",
-		"lint": "./node_modules/.bin/eslint ./src/**/*.js"
+		"lint": "./node_modules/.bin/eslint ./src/"
 	},
 	"dependencies": {
 		"@antv/data-set": "^0.8.6",

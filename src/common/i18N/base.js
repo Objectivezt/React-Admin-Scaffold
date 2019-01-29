@@ -1,11 +1,7 @@
 const ZH_CH_PROPS = {
-    LAYOUTS: {
-
-    },
-    BUSSINESS: {
-
-    },
-}
+	LAYOUTS: {},
+	BUSSINESS: {}
+};
 
 let i18N = ZH_CH_PROPS;
 

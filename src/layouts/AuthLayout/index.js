@@ -13,14 +13,16 @@ import styles from './index.less';
 import { ContainerQuery } from 'react-container-query';
 import { Route, Redirect, Switch } from 'dva/router';
 import { connect } from 'dva';
-import { getRoutes, formatterMenu, getBashRedirect } from 'utils/utils';
 import { queryLayout, baseRouterUrl } from 'common/config';
 import { queryCurrentUser } from 'services/user/userServices';
 import {
-	showLogoutConfirm,
 	AuthRouterPass,
+	formatterMenu,
+	getBashRedirect,
+	getRoutes,
 	isInArray,
-	isUrl
+	isUrl,
+	showLogoutConfirm
 } from 'utils/utils';
 
 const { Content } = Layout;
@@ -78,7 +80,7 @@ export default class AuthLayout extends React.PureComponent {
 					to: `${item.children[0].path}`
 				});
 				item.children.forEach(children => {
-					getRedirect(children);
+					this.getRedirect(children);
 				});
 			}
 		}

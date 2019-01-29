@@ -121,7 +121,7 @@ class TagCloud extends Component {
     };
 
     if (!this.imageMask) {
-      this.imageMask = new Image();
+      this.imageMask = new Image();// eslint-disable-line
       this.imageMask.crossOrigin = '';
       this.imageMask.src = imgUrl;
 

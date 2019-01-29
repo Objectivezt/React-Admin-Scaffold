@@ -1,15 +1,15 @@
-import React from "react";
-import { Redirect, Switch, Route } from "dva/router";
-import DocumentTitle from "react-document-title";
-import styles from "./index.less";
-import logo from "../../assets/favicon.ico";
-import { getRoutes } from "utils/utils";
+import React from 'react';
+import { Redirect, Switch, Route } from 'dva/router';
+import DocumentTitle from 'react-document-title';
+import styles from './index.less';
+import logo from '../../assets/favicon.ico';
+import { getRoutes } from 'utils/utils';
 
 class UserLayout extends React.PureComponent {
 	getPageTitle() {
 		const { routerData, location } = this.props;
 		const { pathname } = location;
-		let title = "multiPage";
+		let title = 'multiPage';
 		if (routerData[pathname] && routerData[pathname].name) {
 			title = `${routerData[pathname].name} - multiPage`;
 		}

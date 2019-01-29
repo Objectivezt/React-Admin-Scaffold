@@ -1,5 +1,5 @@
 export default {
-    bordered: true,
-    size: 'small',
-    showHeader: true,
-}
+	bordered: true,
+	size: 'small',
+	showHeader: true
+};

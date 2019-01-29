@@ -4,7 +4,10 @@
 	],
 	"parserOptions": {
 		"ecmaVersion": 6,
-		"sourceType": "module"
+		"sourceType": "module",
+		"ecmaFeatures": {
+			"legacyDecorators": true
+		}
 	},
 	"rules": {
 		"semi": "off",
@@ -15,7 +18,11 @@
 		"space-before-function-paren": "off",
 		"operator-linebreak": "off",
 		"react/jsx-uses-react": "warn",
-		"no-unused-vars": "off"
+		"no-unused-vars": "off",
+		"generator-star-spacing": ["error", {
+			"before": true,
+			"after": false
+		}]
 	},
 	"plugins": ["react", "node", "promise", "standard", "import"],
 	"parser": "babel-eslint"

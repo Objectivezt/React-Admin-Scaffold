@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { Table } from "antd";
-import { globalPaginationProps, globalTableProps } from "common/config";
+import React, { Component } from 'react';
+import { Table } from 'antd';
+import { globalPaginationProps, globalTableProps } from 'common/config';
 
 export default class GlobalTable extends Component {
 	constructor(props) {
@@ -42,7 +42,7 @@ export default class GlobalTable extends Component {
 				dataSource={resList}
 				loading={loading}
 				rowKey={rowKeys}
-				scroll={{ x: scrollX ? scrollX : "100%" }}
+				scroll={{ x: scrollX || '100%' }}
 				pagination={{
 					...globalPaginationProps,
 					current: pageNum,

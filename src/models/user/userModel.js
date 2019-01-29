@@ -2,15 +2,15 @@ import {
 	queryMenus,
 	queryCurrentUser,
 	queryUserList
-} from "services/user/userServices";
-import { message } from "antd";
+} from 'services/user/userServices';
+import { message } from 'antd';
 export default {
-	namespace: "userModel",
+	namespace: 'userModel',
 	state: {
 		menuData: [],
 		loadingLayoutMenu: true,
-		username: "",
-		userId: "",
+		username: '',
+		userId: '',
 		userList: []
 	},
 	effects: {
@@ -18,12 +18,16 @@ export default {
 			const res = yield call(queryMenus);
 			if (res) {
 				const { data, code, msg } = res;
-				if (code === "0000") {
+				let tempLoadingLayoutMenu = true;
+				if (data) {
+					tempLoadingLayoutMenu = false;
+				}
+				if (code === '0000') {
 					yield put({
-						type: "saveMenuData",
+						type: 'saveMenuData',
 						payloadMenuData: {
-							menuData: data ? data : [],
-							loadingLayoutMenu: data ? false : true
+							menuData: data || [],
+							loadingLayoutMenu: tempLoadingLayoutMenu
 						}
 					});
 				} else {
@@ -36,9 +40,9 @@ export default {
 			const res = yield call(queryCurrentUser);
 			if (res) {
 				const { data, code, msg } = res;
-				if (code === "0000") {
+				if (code === '0000') {
 					yield put({
-						type: "saveCurrentUser",
+						type: 'saveCurrentUser',
 						payloadCurrentUser: {
 							username: data.username,
 							userId: data.userId
@@ -53,9 +57,9 @@ export default {
 			const res = yield call(queryUserList);
 			if (res) {
 				const { data, code, msg } = res;
-				if (code === "0000") {
+				if (code === '0000') {
 					yield put({
-						type: "saveUserList",
+						type: 'saveUserList',
 						payloadUserList: {
 							userList: data.list,
 							userListTotal: data.total

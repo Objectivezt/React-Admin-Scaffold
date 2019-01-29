@@ -79,7 +79,7 @@ export default class Curd extends Component {
 		const { dispatch } = this.props;
 		dispatch({
 			type: 'curdModel/getMainList',
-			payloadMain: value ? value : globalDefineListSize
+			payloadMain: value || globalDefineListSize
 		});
 		dispatch({ type: 'curdModel/getMainColumns' }).then(() => {
 			this.renderColumns();
