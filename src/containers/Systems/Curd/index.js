@@ -13,7 +13,7 @@ import {
 import { connect } from 'dva';
 import PageHeader from '@components/PageHeader';
 import { GlobalCard, GlobalTable, GlobalModal } from 'globalUI/index';
-import UserListSelect from '@containers/Common/UserListSelect';
+import UserListSelect from '@containers/General/UserListSelect';
 import AddModal from './AddModal';
 import UpdateModal from './UpdateModel';
 import InfoModal from './InfoModal';
@@ -38,7 +38,6 @@ const filterObj = {
 	updateTime: null
 };
 
-// const plainOptions = ['Apple', 'Pear', 'Orange'];
 const defaultCheckedList = ['Apple', 'Orange'];
 
 /**

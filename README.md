@@ -4,7 +4,54 @@
 > version: 1.0.0
 > description: 基于 React 和 Ant Design 的单页应用多页签脚手架
 
-## 工作区设置
+## 开发环境 要求
+
+**安装 Nodejs**
+
+node > 8
+npm > 5
+
+## 开发工具 要求
+
+> 方便项目组前端代码标准化，新系统或系统重构使用统一 IDE - vscode
+
+VSCode-win32-x64-1.30.2.zip
+
+### 开发工具 插件要求
+
+-   插件
+
+*   Ant Design Snippets
+*   Auto Import
+*   Auto Rename Tag
+*   Beautify
+*   Bracket Pair Colorizer
+*   Code Spell Checker
+*   CSS Peek
+*   css-auto-prefix
+*   Debugger for Chrome
+*   Documnet This
+*   EditerConfig for VS Code
+*   ESLint
+*   GitLens
+*   JS JSX Snippets
+*   Markdown All in One
+*   markdownlint
+*   npm
+*   npm Intellisense
+*   open in browser
+*   Path Autocomplete
+*   Path Intellisense
+*   Prettier - Code formatter
+*   React Component
+*   React/Redux/react-router Snippets
+*   Sort lines
+*   vscode-fileheader
+*   vscode-icons
+
+### 工作区设置 配置
+
+#### git 版本
 
 ```json
 
@@ -16,7 +63,7 @@
 "files.encoding": "utf8",
 "javascript.format.enable": true,
 "gitlens.advanced.messages": {
-"suppressShowKeyBindingsNotice": true
+	"suppressShowKeyBindingsNotice": true
 },
 "git.autofetch": true,
 "git.ignoreMissingGitWarning": true,
@@ -26,7 +73,3 @@
 "eslint.packageManager": "npm",
 
 ```
-
-## IDEA 推荐
-
-VSCode-win32-x64-1.30.2.zip
