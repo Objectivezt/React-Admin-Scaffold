@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { Avatar } from 'antd';
-import PageHeader from 'components/PageHeader';
+import PageHeader from '@components/PageHeader';
 import styles from './index.less';
-import logo from 'assets/favicon.ico';
+import logo from '@assets/favicon.ico';
 
 const content = () => {
 	return (

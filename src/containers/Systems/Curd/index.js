@@ -11,9 +11,9 @@ import {
 	Row
 } from 'antd';
 import { connect } from 'dva';
-import PageHeader from 'components/PageHeader';
+import PageHeader from '@components/PageHeader';
 import { GlobalCard, GlobalTable, GlobalModal } from 'globalUI/index';
-import UserListSelect from 'containers/Common/UserListSelect';
+import UserListSelect from '@containers/Common/UserListSelect';
 import AddModal from './AddModal';
 import UpdateModal from './UpdateModel';
 import InfoModal from './InfoModal';
@@ -22,7 +22,7 @@ import {
 	globalFormItemBox,
 	globalColProps,
 	globalDefineListSize
-} from 'common/config';
+} from '@common/config';
 
 const CheckboxGroup = Checkbox.Group;
 const FormItem = Form.Item;

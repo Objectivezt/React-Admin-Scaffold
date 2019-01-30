@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from 'react';
-import { globalCardProps } from 'common/config';
+import { globalCardProps } from '@common/config';
 import { Card } from 'antd';
 
 const styles = {
 	marginBottom: '20px',
 	minHeight: '200px'
-}
+};
 
 export default class GlobalCard extends Component {
 	render() {
@@ -21,6 +21,6 @@ export default class GlobalCard extends Component {
 					{children}
 				</Card>
 			</Fragment>
-		)
+		);
 	}
 }

@@ -1,4 +1,4 @@
-import { queryCurdList, queryCurdColumns } from 'services/systems/curdService';
+import { queryCurdList, queryCurdColumns } from '@services/systems/curdService';
 import { message } from 'antd';
 export default {
 	namespace: 'curdModel',

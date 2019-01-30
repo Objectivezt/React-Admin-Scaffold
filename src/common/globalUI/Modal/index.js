@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Modal } from 'antd';
-import { globalModalProps } from 'common/config';
+import { globalModalProps } from '@common/config';
 
 export default class GlobalModal extends Component {
 	render() {

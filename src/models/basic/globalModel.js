@@ -1,4 +1,4 @@
-import { baseRouterUrl, globalModalProps } from 'common/config';
+import { baseRouterUrl, globalModalProps } from '@common/config';
 export default {
 	namespace: 'globalModel',
 	state: {

@@ -1,20 +1,20 @@
 import React from 'react';
 import { Button, Icon, Drawer, Layout, Spin } from 'antd';
 import DocumentTitle from 'react-document-title';
-import GlobalHeader from 'components/GlobalHeader';
-import NotFound from 'containers/Exception/404';
+import GlobalHeader from '@components/GlobalHeader';
+import NotFound from '@containers/Exception/404';
 import PropTypes from 'prop-types';
-import SliderMenu from 'components/SliderMenu';
-import TabLayout from 'layouts/TabLayout';
-import GlobalFooter from 'components/GlobalFooter';
+import SliderMenu from '@components/SliderMenu';
+import TabLayout from '@layouts/TabLayout';
+import GlobalFooter from '@components/GlobalFooter';
 import classNames from 'classnames';
-import logo from 'assets/favicon.ico';
+import logo from '@assets/favicon.ico';
 import styles from './index.less';
 import { ContainerQuery } from 'react-container-query';
 import { Route, Redirect, Switch } from 'dva/router';
 import { connect } from 'dva';
-import { queryLayout, baseRouterUrl } from 'common/config';
-import { queryCurrentUser } from 'services/user/userServices';
+import { queryLayout, baseRouterUrl } from '@common/config';
+import { queryCurrentUser } from '@services/user/userServices';
 import {
 	AuthRouterPass,
 	formatterMenu,
@@ -23,7 +23,7 @@ import {
 	isInArray,
 	isUrl,
 	showLogoutConfirm
-} from 'utils/utils';
+} from '@utils/utils';
 
 const { Content } = Layout;
 const redirectData = [];

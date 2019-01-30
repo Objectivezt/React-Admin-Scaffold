@@ -3,9 +3,9 @@ import dynamic from 'dva/dynamic';
 import styles from './styles/index.less';
 import zhCN from 'antd/lib/locale-provider/zh_CN';
 import { LocaleProvider, Spin } from 'antd';
-import { getRouterData } from './common/router';
+import { getRouterData } from '@common/router';
 import { routerRedux, Route, Switch } from 'dva/router';
-import NoFound from './containers/Exception/404';
+import NoFound from '@containers/Exception/404';
 
 const { ConnectedRouter } = routerRedux;
 

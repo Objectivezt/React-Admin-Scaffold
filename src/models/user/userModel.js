@@ -2,7 +2,7 @@ import {
 	queryMenus,
 	queryCurrentUser,
 	queryUserList
-} from 'services/user/userServices';
+} from '@services/user/userServices';
 import { message } from 'antd';
 export default {
 	namespace: 'userModel',

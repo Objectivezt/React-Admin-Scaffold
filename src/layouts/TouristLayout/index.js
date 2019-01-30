@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
 import { Avatar, Dropdown, Icon, Layout, Menu, Spin, Tooltip } from 'antd';
 import { Route, Switch, routerRedux } from 'dva/router';
-import NotFound from 'containers/Exception/404';
-import bgImages from 'assets/background.png';
+import NotFound from '@containers/Exception/404';
+import bgImages from '@assets/background.png';
 import styles from './index.less';
-import { getRoutes } from 'utils/utils';
+import { getRoutes } from '@utils/utils';
 
 const { Header, Content } = Layout;
 const { Item: MenuItem, Divider: MenuDivider } = Menu;

@@ -4,17 +4,18 @@
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 		"paths": {
-			"assets/*": ["./src/assets/*"],
 			"globalUI/*": ["src/common/globalUI/*"],
-			"common/*": ["./src/common/*"],
-			"components/*": ["./src/components/*"],
-			"containers/*": ["./src/containers/*"],
-			"layouts/*": ["./src/layouts/*"],
 			"mock/*": ["./mock/*"],
-			"models/*": ["./src/models/*"],
-			"services/*": ["./src/services/*"],
-			"styles/*": ["./src/styles/*"],
-			"utils/*": ["./src/utils/*"],
+			"@": ["./src/*"], // alias  '@/xxx'
+			"@assets/*": ["./src/assets/*"], // alias  '@xxxx'
+			"@common/*": ["./src/common/*"],
+			"@components/*": ["./src/components/*"],
+			"@containers/*": ["./src/containers/*"],
+			"@layouts/*": ["./src/layouts/*"],
+			"@models/*": ["./src/models/*"],
+			"@services/*": ["./src/services/*"],
+			"@styles/*": ["./src/styles/*"],
+			"@utils/*": ["./src/utils/*"],
 		}
 	}
 }

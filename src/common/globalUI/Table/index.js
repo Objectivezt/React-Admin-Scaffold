@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Table } from 'antd';
-import { globalPaginationProps, globalTableProps } from 'common/config';
+import { globalPaginationProps, globalTableProps } from '@common/config';
 
 export default class GlobalTable extends Component {
 	constructor(props) {

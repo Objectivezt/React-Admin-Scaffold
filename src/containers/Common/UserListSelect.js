@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Select } from 'antd';
 import { connect } from 'dva';
-import { globalSelectProps } from 'common/config';
+import { globalSelectProps } from '@common/config';
 
 const { Option } = Select;
 

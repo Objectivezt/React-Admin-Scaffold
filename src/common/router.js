@@ -1,18 +1,12 @@
-import {
-	createElement
-} from 'react';
+import { createElement } from 'react';
 import dynamic from 'dva/dynamic';
 import pathToRegexp from 'path-to-regexp';
-import {
-	isUrl
-} from 'utils/utils';
+import { isUrl } from '@utils/utils';
 
 let routerDataCache;
 
 const modelNotExisted = (app, model) =>
-	!app._models.some(({
-		namespace
-	}) => {
+	!app._models.some(({ namespace }) => {
 		return namespace === model.substring(model.lastIndexOf('/') + 1);
 	});
 
@@ -38,8 +32,8 @@ const dynamicWrapper = (app, models, component) => {
 		app,
 		models: () =>
 			models
-			.filter(model => modelNotExisted(app, model))
-			.map(m => import(`../models/${m}.js`)),
+				.filter(model => modelNotExisted(app, model))
+				.map(m => import(`../models/${m}.js`)),
 		component: () => {
 			if (!routerDataCache) {
 				routerDataCache = getRouterData(app);
@@ -60,76 +54,74 @@ export const getRouterData = app => {
 	const routerConfig = {
 		'/': {
 			component: dynamicWrapper(app, [], () =>
-				import('layouts/BlankLayout')
+				import('@layouts/BlankLayout')
 			)
 		},
 		'/user': {
 			component: dynamicWrapper(
 				app,
 				['basic/globalModel', 'user/userModel'],
-				() => import('layouts/UserLayout')
+				() => import('@layouts/UserLayout')
 			)
 		},
 		'/tourist': {
 			component: dynamicWrapper(app, [], () =>
-				import('layouts/TouristLayout')
+				import('@layouts/TouristLayout')
 			)
 		},
 		'/tourist/': {
 			component: dynamicWrapper(app, [], () =>
-				import('containers/News/NewsCenter')
+				import('@containers/News/NewsCenter')
 			)
 		},
 		'/auth': {
 			component: dynamicWrapper(
 				app,
 				['basic/globalModel', 'user/userModel'],
-				() => import('layouts/AuthLayout/index')
+				() => import('@layouts/AuthLayout/index')
 			),
 			name: '管理中心'
 		},
 		'/auth/app': {
-			component: dynamicWrapper(app, [], () => import('containers/Home')),
+			component: dynamicWrapper(app, [], () =>
+				import('@containers/Home')
+			),
 			name: '系统主页'
 		},
 		'/auth/systems/curd': {
 			component: dynamicWrapper(app, ['systems/curdModel'], () =>
-				import('containers/Systems/Curd')
+				import('@containers/Systems/Curd')
 			),
 			name: 'CURD'
 		},
 		'/auth/exception/403': {
 			component: dynamicWrapper(app, [], () =>
-				import('containers/Exception/403')
+				import('@containers/Exception/403')
 			),
 			name: '403'
 		},
 		'/auth/exception/404': {
 			component: dynamicWrapper(app, [], () =>
-				import('containers/Exception/404')
+				import('@containers/Exception/404')
 			),
 			name: '404'
 		},
 		'/auth/exception/500': {
 			component: dynamicWrapper(app, [], () =>
-				import('containers/Exception/500')
+				import('@containers/Exception/500')
 			),
 			name: '500'
 		}
 	};
 
-	const getFlatMenuData = function (menus) {
+	const getFlatMenuData = function(menus) {
 		let keys = {};
 		menus.forEach(item => {
 			if (item.children) {
-				keys[item.path] = { ...item
-				};
-				keys = { ...keys,
-					...getFlatMenuData(item.children)
-				};
+				keys[item.path] = { ...item };
+				keys = { ...keys, ...getFlatMenuData(item.children) };
 			} else {
-				keys[item.path] = { ...item
-				};
+				keys[item.path] = { ...item };
 			}
 		});
 		return keys;
@@ -137,9 +129,7 @@ export const getRouterData = app => {
 
 	const formatter = (data, parentPath = '/') =>
 		data.map(item => {
-			let {
-				path
-			} = item;
+			let { path } = item;
 			if (!isUrl(path)) {
 				path = parentPath + item.path;
 			}

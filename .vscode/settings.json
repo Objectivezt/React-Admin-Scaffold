@@ -23,5 +23,8 @@
 			"autoFix": true
 		},
 	],
+	"files.associations": {
+		"*.js": "javascriptreact"
+	},
 
 }

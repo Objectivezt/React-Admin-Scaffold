@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Form, Col, Row } from 'antd';
 import { connect } from 'dva';
-import { globalFormItemLayout } from 'common/config';
+import { globalFormItemLayout } from '@common/config';
 
 const FormItem = Form.Item;
 
