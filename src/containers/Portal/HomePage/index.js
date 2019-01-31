@@ -4,7 +4,7 @@ import { GlobalCard } from 'globalUI';
 import { routerRedux } from 'dva/router';
 import styles from './index.less';
 
-class NewsCenter extends Component {
+class HomePage extends Component {
 	handleCardMore = () => {
 		this.props.dispatch(routerRedux.push('/tourist/list'));
 	};
@@ -58,4 +58,4 @@ class NewsCenter extends Component {
 	}
 }
 
-export default NewsCenter;
+export default HomePage;

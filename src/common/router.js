@@ -71,7 +71,7 @@ export const getRouterData = app => {
 		},
 		'/tourist/': {
 			component: dynamicWrapper(app, [], () =>
-				import('@containers/News/NewsCenter')
+				import('@containers/Portal/HomePage')
 			)
 		},
 		'/auth': {
@@ -84,7 +84,7 @@ export const getRouterData = app => {
 		},
 		'/auth/app': {
 			component: dynamicWrapper(app, [], () =>
-				import('@containers/Home')
+				import('@containers/Dashboard')
 			),
 			name: '系统主页'
 		},

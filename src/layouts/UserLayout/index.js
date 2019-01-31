@@ -4,14 +4,15 @@ import DocumentTitle from 'react-document-title';
 import styles from './index.less';
 import logo from '@assets/favicon.ico';
 import { getRoutes } from '@utils/utils';
+import { projectName } from '@common/config';
 
 class UserLayout extends React.PureComponent {
 	getPageTitle() {
 		const { routerData, location } = this.props;
 		const { pathname } = location;
-		let title = 'multiPage';
+		let title = projectName;
 		if (routerData[pathname] && routerData[pathname].name) {
-			title = `${routerData[pathname].name} - multiPage`;
+			title = `${routerData[pathname].name} - ${projectName}`;
 		}
 		return title;
 	}
@@ -28,9 +29,11 @@ class UserLayout extends React.PureComponent {
 									className={styles.logo}
 									src={logo}
 								/>
-								<span className={styles.title}>multiPage</span>
+								<span className={styles.title}>
+									{projectName}
+								</span>
 							</div>
-							<div className={styles.desc}>multiPage</div>
+							<div className={styles.desc}>{projectName}</div>
 						</div>
 						<Switch>
 							{getRoutes(match.path, routerData).map(item => (

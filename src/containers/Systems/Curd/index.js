@@ -15,7 +15,7 @@ import PageHeader from '@components/PageHeader';
 import { GlobalCard, GlobalTable, GlobalModal } from 'globalUI/index';
 import UserListSelect from '@containers/General/UserListSelect';
 import AddModal from './AddModal';
-import UpdateModal from './UpdateModel';
+import UpdateModal from './UpdateModal';
 import InfoModal from './InfoModal';
 import {
 	globalFormItemLayout,

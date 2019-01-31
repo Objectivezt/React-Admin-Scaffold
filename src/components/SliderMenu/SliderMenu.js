@@ -3,6 +3,7 @@ import { Icon, Layout, Menu } from 'antd';
 import pathToRegexp from 'path-to-regexp';
 import { Link } from 'dva/router';
 import styles from './index.less';
+import { projectName } from '@common/config';
 
 const { Sider } = Layout;
 const { SubMenu } = Menu;
@@ -19,7 +20,13 @@ export function urlToList(url) {
 //   icon: <Icon type="setting" />,
 const getIcon = icon => {
 	if (typeof icon === 'string' && icon.indexOf('http') === 0) {
-		return <img src={icon} alt="icon" className={`${styles.icon} sider-menu-item-img`} />;
+		return (
+			<img
+				src={icon}
+				alt="icon"
+				className={`${styles.icon} sider-menu-item-img`}
+			/>
+		);
 	}
 	if (typeof icon === 'string') {
 		return <Icon type={icon} />;
@@ -39,13 +46,13 @@ export default class SliderMenu extends PureComponent {
 		this.menus = props.menuData;
 		this.flatMenuKeys = this.getFlatMenuKeys(props.menuData);
 		this.state = {
-			openKeys: this.getDefaultCollapsedSubMenus(props),
+			openKeys: this.getDefaultCollapsedSubMenus(props)
 		};
 	}
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.location.pathname !== this.props.location.pathname) {
 			this.setState({
-				openKeys: this.getDefaultCollapsedSubMenus(nextProps),
+				openKeys: this.getDefaultCollapsedSubMenus(nextProps)
 			});
 		}
 	}
@@ -55,7 +62,9 @@ export default class SliderMenu extends PureComponent {
 	 * @param  props
 	 */
 	getDefaultCollapsedSubMenus(props) {
-		const { location: { pathname } } = props || this.props;
+		const {
+			location: { pathname }
+		} = props || this.props;
 		return urlToList(pathname)
 			.map(item => {
 				return getMeunMatchKeys(this.flatMenuKeys, item)[0];
@@ -103,8 +112,8 @@ export default class SliderMenu extends PureComponent {
 				onClick={
 					this.props.isMobile
 						? () => {
-							this.props.onCollapse(true);
-						}
+								this.props.onCollapse(true);
+						  }
 						: undefined
 				}
 			>
@@ -130,8 +139,8 @@ export default class SliderMenu extends PureComponent {
 									<span>{item.name}</span>
 								</span>
 							) : (
-									item.name
-								)
+								item.name
+							)
 						}
 						key={item.path}
 					>
@@ -141,7 +150,11 @@ export default class SliderMenu extends PureComponent {
 			}
 			return null;
 		} else {
-			return <Menu.Item key={item.path}>{this.getMenuItemPath(item)}</Menu.Item>;
+			return (
+				<Menu.Item key={item.path}>
+					{this.getMenuItemPath(item)}
+				</Menu.Item>
+			);
 		}
 	};
 	/**
@@ -163,8 +176,12 @@ export default class SliderMenu extends PureComponent {
 	};
 	// Get the currently selected menu
 	getSelectedMenuKeys = () => {
-		const { location: { pathname } } = this.props;
-		return urlToList(pathname).map(itemPath => getMeunMatchKeys(this.flatMenuKeys, itemPath).pop());
+		const {
+			location: { pathname }
+		} = this.props;
+		return urlToList(pathname).map(itemPath =>
+			getMeunMatchKeys(this.flatMenuKeys, itemPath).pop()
+		);
 	};
 	// conversion Path
 	// 转化路径
@@ -184,22 +201,23 @@ export default class SliderMenu extends PureComponent {
 		return ItemDom;
 	};
 	isMainMenu = key => {
-		return this.menus.some(item => key && (item.key === key || item.path === key));
+		return this.menus.some(
+			item => key && (item.key === key || item.path === key)
+		);
 	};
 	handleOpenChange = openKeys => {
 		const lastOpenKey = openKeys[openKeys.length - 1];
-		const moreThanOne = openKeys.filter(openKey => this.isMainMenu(openKey)).length > 1;
+		const moreThanOne =
+			openKeys.filter(openKey => this.isMainMenu(openKey)).length > 1;
 		this.setState({
-			openKeys: moreThanOne ? [lastOpenKey] : [...openKeys],
+			openKeys: moreThanOne ? [lastOpenKey] : [...openKeys]
 		});
 	};
 	render() {
 		const { logo, collapsed, onCollapse } = this.props;
 		const { openKeys } = this.state;
 		// Don't show popup menu when it is been collapsed
-		const menuProps = collapsed
-			? {}
-			: { openKeys };
+		const menuProps = collapsed ? {} : { openKeys };
 		// if pathname can't match, use the nearest parent's key
 		let selectedKeys = this.getSelectedMenuKeys();
 		if (!selectedKeys.length) {
@@ -214,14 +232,22 @@ export default class SliderMenu extends PureComponent {
 				onCollapse={onCollapse}
 				width={'256'}
 				className={styles.sider}
-				style={{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0, background: '#fff' }}
+				style={{
+					overflow: 'auto',
+					height: '100vh',
+					position: 'fixed',
+					left: 0,
+					background: '#fff'
+				}}
 			>
-				<div className={styles.logo} key="logo" style={{ background: '#fff' }}>
+				<div
+					className={styles.logo}
+					key="logo"
+					style={{ background: '#fff' }}
+				>
 					<Link to="/">
 						<img src={logo} alt="logo" />
-						<h1 style={{ color: '#000' }}>
-							multiPage
-						</h1>
+						<h1 style={{ color: '#000' }}>{projectName}</h1>
 					</Link>
 				</div>
 				<Menu
@@ -230,7 +256,11 @@ export default class SliderMenu extends PureComponent {
 					{...menuProps}
 					onOpenChange={this.handleOpenChange}
 					selectedKeys={selectedKeys}
-					style={{ padding: '16px 0', width: '100%', backgroundColor: '#fff' }}
+					style={{
+						padding: '16px 0',
+						width: '100%',
+						backgroundColor: '#fff'
+					}}
 				>
 					{this.getNavMenuItems(this.menus)}
 				</Menu>
