@@ -38,8 +38,6 @@ const filterObj = {
 	updateTime: null
 };
 
-const defaultCheckedList = ['Apple', 'Orange'];
-
 /**
  * @description CURD Demo
  *
@@ -66,7 +64,9 @@ export default class Curd extends Component {
 			checkedList: [],
 			indeterminate: true,
 			checkAll: false,
-			renderColumns: []
+			renderColumns: [],
+			selectedRowKeys: [],
+			selectedRows: []
 		};
 	}
 
@@ -153,10 +153,7 @@ export default class Curd extends Component {
 	};
 
 	onChangeColumns = checkedList => {
-		console.log(checkedList);
-		this.setState({
-			checkedList
-		});
+		this.setState({ checkedList });
 	};
 
 	onCheckAllChange = e => {};
@@ -181,7 +178,8 @@ export default class Curd extends Component {
 			indeterminate,
 			checkAll,
 			checkedList,
-			plainOptions
+			plainOptions,
+			selectedRowKeys
 		} = this.state;
 		const { form, curdModel, mainSearchLoading } = this.props;
 		const { getFieldDecorator } = form;
@@ -394,6 +392,7 @@ export default class Curd extends Component {
 						}
 					>
 						<GlobalTable
+							that={this}
 							basePageRequest={this.basePageRequest}
 							filterObj={filterObj}
 							columns={columns}
@@ -402,6 +401,8 @@ export default class Curd extends Component {
 							scrollX={900}
 							rowKeys={'id'}
 							loading={mainSearchLoading}
+							rowSelection="checkbox"
+							selectKeys={selectedRowKeys}
 						/>
 					</GlobalCard>
 				</Fragment>
