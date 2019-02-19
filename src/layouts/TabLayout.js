@@ -80,7 +80,7 @@ export default class TabLayout extends React.Component {
 	};
 
 	render() {
-		const { location, match } = this.props;
+		const { location, match, history } = this.props;
 		return (
 			<div>
 				<Tabs
@@ -92,7 +92,11 @@ export default class TabLayout extends React.Component {
 				>
 					{this.state.panes.map(pane => (
 						<TabPane tab={pane.name} key={pane.key}>
-							<pane.component location={location} match={match} />
+							<pane.component
+								history={history}
+								location={location}
+								match={match}
+							/>
 						</TabPane>
 					))}
 				</Tabs>

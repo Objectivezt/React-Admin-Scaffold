@@ -13,7 +13,7 @@ import styles from './index.less';
 import { ContainerQuery } from 'react-container-query';
 import { Route, Redirect, Switch } from 'dva/router';
 import { connect } from 'dva';
-import { queryLayout, baseRouterUrl } from '@common/config';
+import { queryLayout, baseRouterUrl, projectName } from '@common/config';
 import { queryCurrentUser } from '@services/user/userServices';
 import {
 	AuthRouterPass,
@@ -244,7 +244,7 @@ export default class AuthLayout extends React.PureComponent {
 		);
 
 		return (
-			<DocumentTitle title={'Scoffed'}>
+			<DocumentTitle title={projectName}>
 				<ContainerQuery query={queryLayout}>
 					{params => (
 						<div className={classNames(params)}>
