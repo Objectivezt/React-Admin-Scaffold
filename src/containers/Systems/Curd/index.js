@@ -1,17 +1,6 @@
 import React, { Component, Fragment } from 'react';
-import {
-	Button,
-	Checkbox,
-	Col,
-	DatePicker,
-	Form,
-	Icon,
-	Input,
-	Popover,
-	Row
-} from 'antd';
+import { Button, Col, DatePicker, Form, Icon, Input, Popover, Row } from 'antd';
 import { connect } from 'dva';
-import PageHeader from '@components/PageHeader';
 import { GlobalCard, GlobalTable, GlobalModal } from 'globalUI/index';
 import UserListSelect from '@containers/General/UserListSelect';
 import AddModal from './AddModal';
@@ -24,7 +13,6 @@ import {
 	globalDefineListSize
 } from '@common/config';
 
-const CheckboxGroup = Checkbox.Group;
 const FormItem = Form.Item;
 const ButtonGroup = Button.Group;
 const filterObj = {
@@ -61,12 +49,8 @@ export default class Curd extends Component {
 			visibleAddModal: false,
 			visibleUpdateModal: false,
 			visibleInfoModal: false,
-			checkedList: [],
-			indeterminate: true,
-			checkAll: false,
 			renderColumns: [],
-			selectedRowKeys: [],
-			selectedRows: []
+			selectedRowKeys: []
 		};
 	}
 
@@ -85,6 +69,7 @@ export default class Curd extends Component {
 		});
 	};
 
+	// 搜索
 	handleSearch = () => {
 		this.props.form.validateFields((err, fields) => {
 			if (err) {
@@ -104,24 +89,30 @@ export default class Curd extends Component {
 		});
 	};
 
+	// 重置
 	handleReset = () => {
 		this.props.form.resetFields();
 		this.setState({ filterObj: { ...filterObj } });
 		this.basePageRequest();
 	};
 
+	// 开启新增模态窗口
 	handleOpenAddModal = () => {
 		this.setState({ visibleAddModal: true });
 	};
 
+	// 提交模态窗口
 	handleSubmitModal = () => {
+		// TODO submit
 		this.setState({ visibleAddModal: false });
 	};
 
+	// 关闭模态窗口
 	handleCancelAddModal = () => {
 		this.setState({ visibleAddModal: false });
 	};
 
+	// 查看详情
 	handleOpenInfoModal = record => {
 		this.setState({
 			visibleInfoModal: true,
@@ -129,10 +120,12 @@ export default class Curd extends Component {
 		});
 	};
 
+	// 关闭详情
 	handleCancelInfoModal = () => {
 		this.setState({ visibleInfoModal: false });
 	};
 
+	// 修改详情
 	handleOpenUpdateModal = record => {
 		this.setState({
 			visibleUpdateModal: true,
@@ -140,24 +133,22 @@ export default class Curd extends Component {
 		});
 	};
 
+	// 关闭修改窗口
 	handleCancelUpdateModal = () => {
 		this.setState({ visibleUpdateModal: false });
 	};
 
+	// 提交更新模态窗口
 	handleUpdateModal = () => {
 		this.setState({ visibleUpdateModal: false });
 	};
 
+	// 高级搜索展开
 	handleShowMoreFilter = isAdvanced => {
 		this.setState({ isAdvanced: !isAdvanced });
 	};
 
-	onChangeColumns = checkedList => {
-		this.setState({ checkedList });
-	};
-
-	onCheckAllChange = e => {};
-
+	// 渲染行
 	renderColumns = () => {
 		const { columns } = this.props.curdModel;
 		let tempColumnsKey = [];
@@ -175,10 +166,6 @@ export default class Curd extends Component {
 			filterObj,
 			isAdvanced,
 			details,
-			indeterminate,
-			checkAll,
-			checkedList,
-			plainOptions,
 			selectedRowKeys
 		} = this.state;
 		const { form, curdModel, mainSearchLoading } = this.props;
@@ -221,8 +208,8 @@ export default class Curd extends Component {
 			}
 		];
 		columns = [...columns, ...optionColumns];
-		const content = () => {
-			return (
+		return (
+			<Fragment>
 				<Fragment>
 					<GlobalCard
 						title={'信息筛选'}
@@ -349,38 +336,6 @@ export default class Curd extends Component {
 						title={'信息列表'}
 						extra={
 							<ButtonGroup>
-								<Popover
-									placement={'right'}
-									content={
-										<Fragment>
-											<div
-												style={{
-													borderBottom:
-														'1px solid #E9E9E9'
-												}}
-											>
-												<Checkbox
-													indeterminate={
-														indeterminate
-													}
-													onChange={
-														this.onCheckAllChange
-													}
-													checked={checkAll}
-												>
-													{'全选'}
-												</Checkbox>
-											</div>
-											<CheckboxGroup
-												options={plainOptions}
-												value={checkedList}
-												onChange={this.onChangeColumns}
-											/>
-										</Fragment>
-									}
-								>
-									<Button icon={'ordered-list'} />
-								</Popover>
 								<Button
 									icon={'plus'}
 									onClick={this.handleOpenAddModal}
@@ -406,15 +361,6 @@ export default class Curd extends Component {
 						/>
 					</GlobalCard>
 				</Fragment>
-			);
-		};
-
-		return (
-			<Fragment>
-				<PageHeader
-					breadcrumbList={[{ title: '' }]}
-					content={content()}
-				/>
 				<GlobalModal
 					onCancel={this.handleCancelAddModal}
 					onOk={this.handleSubmitModal}

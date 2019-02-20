@@ -1,6 +1,7 @@
 import React from 'react';
 import { Tabs, message } from 'antd';
 import { routerRedux } from 'dva/router';
+import { isInArray } from '@utils/utils';
 
 const TabPane = Tabs.TabPane; //eslint-disable-line
 export default class TabLayout extends React.Component {
@@ -24,7 +25,23 @@ export default class TabLayout extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		const { name, keys, component } = nextProps;
+		const {
+			location,
+			whiteRouter,
+			noPermission,
+			name,
+			keys,
+			component
+		} = nextProps;
+		if (!isInArray(whiteRouter, location.pathname)) {
+			const { keys = '/auth/exception/403', component } = noPermission;
+			const panes = this.state.panes;
+			panes[panes.length - 1].component = component;
+			panes[panes.length - 1].name = name;
+			panes[panes.length - 1].key = keys;
+			this.setState({ panes, activeKey: keys });
+			return;
+		}
 		if (keys === '/' || !name) {
 			return;
 		}

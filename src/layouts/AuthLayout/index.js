@@ -101,7 +101,7 @@ export default class AuthLayout extends React.PureComponent {
 			if (isInArray(tempMenuArr, location.pathname)) {
 				this.setState({ firstRender: true });
 			} else {
-				history.push('/auth/exception/403');
+				// history.push('/auth/exception/403');
 			}
 			dispatch({ type: 'userModel/getCurrentUser' });
 		});
@@ -160,14 +160,18 @@ export default class AuthLayout extends React.PureComponent {
 			location,
 			match,
 			routerData,
-			userModel
+			userModel,
+			history
 		} = this.props;
 		const tasParams = {
 			...routerData[location.pathname],
 			keys: location.pathname,
 			location,
 			dispatch: dispatch,
-			match
+			match,
+			history,
+			noPermission: routerData['/auth/exception/403'],
+			whiteRouter: tempMenuArr
 		};
 		const { menuData = [], loadingLayoutMenu = true } = userModel;
 		const { isMultiPage = true } = globalModel;
