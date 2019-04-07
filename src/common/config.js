@@ -51,7 +51,7 @@ export const globalRequire = {
 // 系统配置属性
 export const projectName = 'Scaffold';
 
-export const baseUrl = '/';
+export const baseUrl = '/api/';
 
 export const globalDefineListSize = {
 	pageNum: 1,

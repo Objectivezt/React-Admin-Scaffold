@@ -23,18 +23,23 @@ function RouterConfig({ history, app }) {
 		<LocaleProvider locale={zhCN}>
 			<ConnectedRouter history={history}>
 				<Switch>
+					{/* 默认跳转 */}
 					<Route component={BlankLayout} path="/" exact />
+					{/* 游客模版 */}
 					<Route component={TouristLayout} path="/tourist" strict />
+					{/* 登录注册模版 */}
 					<Route
 						path="/user"
 						render={props => <UsersLayout {...props} />}
 						strict
 					/>
+					{/* 管理中心模版 */}
 					<Route
 						path="/auth"
 						render={props => <AuthLayout {...props} />}
 						strict
 					/>
+					{/* 404模版 */}
 					<Route render={() => <NoFound />} />
 				</Switch>
 			</ConnectedRouter>

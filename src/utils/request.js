@@ -1,6 +1,7 @@
 import fetch from 'dva/fetch';
 import { notification } from 'antd';
 import { routerRedux } from 'dva/router';
+import { baseUrl } from '@common/config';
 import store from '../index';
 
 const codeMessage = {
@@ -24,12 +25,12 @@ function checkStatus(response) {
 	if (response.status >= 200 && response.status < 300) {
 		return response;
 	}
-	const errortext = codeMessage[response.status] || response.statusText;
+	const errorText = codeMessage[response.status] || response.statusText;
 	notification.error({
 		message: `请求错误 ${response.status}: ${response.url}`,
-		description: errortext
+		description: errorText
 	});
-	const error = new Error(errortext);
+	const error = new Error(errorText);
 	error.name = response.status;
 	error.response = response;
 	throw error;
@@ -48,7 +49,8 @@ export default function request(url, options) {
 	};
 	const newOptions = { ...defaultOptions, ...options };
 	if (newOptions.method === 'POST' || newOptions.method === 'PUT') {
-		if (!(newOptions.body instanceof FormData)) {//eslint-disable-line
+		// eslint-disable-next-line no-undef
+		if (!(newOptions.body instanceof FormData)) {
 			newOptions.headers = {
 				Accept: 'application/json',
 				'Content-Type': 'application/json; charset=utf-8',
@@ -64,7 +66,7 @@ export default function request(url, options) {
 		}
 	}
 
-	return fetch(url, newOptions)
+	return fetch(baseUrl + url, newOptions)
 		.then(checkStatus)
 		.then(response => {
 			if (newOptions.method === 'DELETE' || response.status === 204) {

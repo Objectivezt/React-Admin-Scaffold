@@ -1,16 +1,16 @@
 import request from '@utils/request';
 
 export function login(params) {
-	return request('/login/gologin', {
+	return request('login/gologin', {
 		method: 'POST',
-		param: params
+		body: params
 	});
 }
 
 export function queryPublicKey() {
-	return request('/login/getPublicKey');
+	return request('login/getPublicKey');
 }
 
 export function queryCaptchaImage() {
-	return request('/login/changeImage');
+	return request('login/changeImage');
 }

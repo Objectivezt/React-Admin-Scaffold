@@ -10,17 +10,17 @@ import {
 const noProxy = process.env.NO_PROXY === 'true';
 
 const proxy = {
-	'GET /user/queryCurrentMenus': queryCurrentMenus,
+	'GET /api/user/queryCurrentMenus': queryCurrentMenus,
 
-	'GET /user/queryCurrentUser': queryCurrentUser,
+	'GET /api/user/queryCurrentUser': queryCurrentUser,
 
-	'GET /user/queryUserList': queryUserList,
+	'GET /api/user/queryUserList': queryUserList,
 
-	'POST /user/login': login,
+	'POST /api/user/login': login,
 
-	'POST /systems/queryCurdList': queryCurdList,
+	'POST /api/systems/queryCurdList': queryCurdList,
 
-	'GET /systems/queryCurdColumns': queryCurdColumns
+	'GET /api/systems/queryCurdColumns': queryCurdColumns
 };
 
 export default (noProxy ? {} : delay(proxy, 1000));
