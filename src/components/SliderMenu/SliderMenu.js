@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import React, { PureComponent } from 'react';
 import { Icon, Layout, Menu } from 'antd';
 import pathToRegexp from 'path-to-regexp';
@@ -43,9 +44,9 @@ export const getMeunMatchKeys = (flatMenuKeys, path) => {
 export default class SliderMenu extends PureComponent {
 	constructor(props) {
 		super(props);
-		this.menus = props.menuData;
 		this.flatMenuKeys = this.getFlatMenuKeys(props.menuData);
 		this.state = {
+			menus: props.menuData,
 			openKeys: this.getDefaultCollapsedSubMenus(props)
 		};
 	}
@@ -201,7 +202,7 @@ export default class SliderMenu extends PureComponent {
 		return ItemDom;
 	};
 	isMainMenu = key => {
-		return this.menus.some(
+		return this.state.menus.some(
 			item => key && (item.key === key || item.path === key)
 		);
 	};
@@ -262,7 +263,7 @@ export default class SliderMenu extends PureComponent {
 						backgroundColor: '#fff'
 					}}
 				>
-					{this.getNavMenuItems(this.menus)}
+					{this.getNavMenuItems(this.state.menus)}
 				</Menu>
 			</Sider>
 		);

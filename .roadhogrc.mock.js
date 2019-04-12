@@ -21,6 +21,9 @@ const proxy = {
 	'POST /api/systems/queryCurdList': queryCurdList,
 
 	'GET /api/systems/queryCurdColumns': queryCurdColumns
+
+	// mock 的接口不能赋值 undefined,否则会请求接口会 304
+	// 'GET /api/do/not/undefined': undefined
 };
 
 export default (noProxy ? {} : delay(proxy, 1000));

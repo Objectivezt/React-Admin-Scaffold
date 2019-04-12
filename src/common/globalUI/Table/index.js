@@ -28,7 +28,7 @@ export default class GlobalTable extends Component {
 	onRowClick(item, index) {
 		const { selectKeys, that, rowSelection } = this.props;
 		let selectedRowKeys = selectKeys;
-		let selectedRows = that.state.selectedRows;
+		let selectedRows = that.state.selectedRowKeys;
 		if (rowSelection === 'checkbox') {
 			if (selectKeys.indexOf(index + 1) === -1) {
 				selectedRowKeys.push(index + 1);

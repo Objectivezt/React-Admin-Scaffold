@@ -1,3 +1,5 @@
+const isLocalMenu = process.env.NODE_ENV === 'development';
+
 // 默认组件属性
 export { default as globalCardProps } from './globalUIProps/Card.config';
 
@@ -50,6 +52,10 @@ export const globalRequire = {
 
 // 系统配置属性
 export const projectName = 'Scaffold';
+
+export const localMenuData = isLocalMenu;
+
+export { default as localMenuDataArr } from './localMenu';
 
 export const baseUrl = '/api/';
 

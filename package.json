@@ -3,8 +3,9 @@
 	"version": "1.0.0",
 	"description": "",
 	"scripts": {
-		"start": "cross-env  ESLINT=none PORT=8888 roadhog dev",
-		"build": "roadhog build",
+		"start": "cross-env env.NODE_ENV=development ESLINT=none PORT=8888 roadhog dev",
+		"build": "cross-env env.NODE_ENV=production ESLINT=none roadhog build",
+		"build:no-uglify": "cross-env env.NODE_ENV=development ESLINT=none roadhog build",
 		"lint": "./node_modules/.bin/eslint ./src/",
 		"test": "mocha"
 	},

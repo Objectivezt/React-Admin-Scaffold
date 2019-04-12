@@ -3,6 +3,7 @@ import {
 	queryCurrentUser,
 	queryUserList
 } from '@services/user/userServices';
+import { localMenuData, localMenuDataArr } from '@common/config';
 import { message } from 'antd';
 export default {
 	namespace: 'userModel',
@@ -15,23 +16,33 @@ export default {
 	},
 	effects: {
 		*getMenuData(_, { call, put }) {
-			const res = yield call(queryMenus);
-			if (res) {
-				const { data, code, msg } = res;
-				let tempLoadingLayoutMenu = true;
-				if (data) {
-					tempLoadingLayoutMenu = false;
-				}
-				if (code === '0000') {
-					yield put({
-						type: 'saveMenuData',
-						payloadMenuData: {
-							menuData: data || [],
-							loadingLayoutMenu: tempLoadingLayoutMenu
-						}
-					});
-				} else {
-					message.info(msg);
+			if (localMenuData) {
+				yield put({
+					type: 'saveMenuData',
+					payloadMenuData: {
+						menuData: localMenuDataArr,
+						loadingLayoutMenu: false
+					}
+				});
+			} else {
+				const res = yield call(queryMenus);
+				if (res) {
+					const { data, code, msg } = res;
+					let tempLoadingLayoutMenu = true;
+					if (data) {
+						tempLoadingLayoutMenu = false;
+					}
+					if (code === '0000') {
+						yield put({
+							type: 'saveMenuData',
+							payloadMenuData: {
+								menuData: data || [],
+								loadingLayoutMenu: tempLoadingLayoutMenu
+							}
+						});
+					} else {
+						message.info(msg);
+					}
 				}
 			}
 		},

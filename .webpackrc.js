@@ -1,4 +1,5 @@
 const path = require('path');
+const ENV_PATH = process.env.NODE_ENV === 'production' ? '/api/' : '/';
 const proxyObj = {
 	proxyName: {
 		target: 'http://objectivezt',
@@ -53,7 +54,7 @@ const config = {
 	},
 	ignoreMomentLocale: true,
 	outputPath: './dist',
-	publicPath: '/',
+	publicPath: ENV_PATH,
 	theme: './src/common/theme.js',
 	proxy: {
 		'/usrApi': proxyUrl

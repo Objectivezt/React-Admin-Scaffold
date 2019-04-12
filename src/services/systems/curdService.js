@@ -7,6 +7,6 @@ export function queryCurdList(params) {
 	});
 }
 
-export function queryCurdColumns() {
-	return request('systems/queryCurdColumns');
+export function queryCurdColumns(params) {
+	return request('systems/queryCurdColumns' + params.add);
 }
