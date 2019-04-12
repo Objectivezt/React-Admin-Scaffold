@@ -51,7 +51,7 @@
 			"reducers: {}",
 			"};",
 		],
-		"description": "导入src/model 目录下model的通用模版"
+		"description": "导入src/model 数据模型 目录下model的通用模版"
 	},
 	"scaffold model effects fn(param)": {
 		"scope": "javascriptreact",
@@ -75,7 +75,7 @@
 			"}",
 			"},"
 		],
-		"description": "react antd curd"
+		"description": "导入src/model 数据模型下的函数"
 	},
 	"scaffold model effects fn()": {
 		"scope": "javascriptreact",
