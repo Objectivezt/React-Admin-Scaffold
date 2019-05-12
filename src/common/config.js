@@ -57,6 +57,8 @@ export const localMenuData = isLocalMenu;
 
 export { default as localMenuDataArr } from './localMenu';
 
+export { default as localButtonArr } from './localButton';
+
 export const baseUrl = '/api/';
 
 export const globalDefineListSize = {
@@ -71,12 +73,7 @@ export const globalBigListSize = {
 
 export const globalDateFormat = 'YYYY-MM-DD';
 
-export const baseRouterUrl = [
-	'/',
-	'/auth/exception/404',
-	'/auth/exception/500',
-	'/auth/exception/403'
-];
+export { default as localButtonArr } from './whiteRouterUrl'
 
 export const fileType = ''; // 文件处理
 
