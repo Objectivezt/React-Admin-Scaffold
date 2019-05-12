@@ -3,7 +3,7 @@ import { Tabs, message } from 'antd';
 import { routerRedux } from 'dva/router';
 import { isInArray } from '@utils/utils';
 
-const TabPane = Tabs.TabPane; //eslint-disable-line
+const TabPane = Tabs.TabPane;
 export default class TabLayout extends React.Component {
 	constructor(props) {
 		super(props);
@@ -113,6 +113,9 @@ export default class TabLayout extends React.Component {
 								history={history}
 								location={location}
 								match={match}
+								onCloseCurrentTab={(pathname, action) =>
+									this.onEdit(pathname, action)
+								}
 							/>
 						</TabPane>
 					))}
