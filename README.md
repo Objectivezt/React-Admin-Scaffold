@@ -11,13 +11,11 @@
 node > 8
 npm > 5
 
-## 开发工具 要求
+## 开发工具 建议
 
-> 方便项目组前端代码标准化，新系统或系统重构使用统一 IDE - vscode
+> 推荐 IDE - vscode
 
-VSCode-win32-x64-1.30.2.zip
-
-### 开发工具 插件要求
+### VSCode 插件建立
 
 -   插件
 
@@ -49,7 +47,7 @@ VSCode-win32-x64-1.30.2.zip
 *   vscode-fileheader
 *   vscode-icons
 
-### 工作区设置 配置
+### VSCode 工作区设置 配置
 
 #### git 版本
 

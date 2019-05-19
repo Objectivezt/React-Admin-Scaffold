@@ -26,6 +26,37 @@ const content = () => {
 };
 
 export default class oInput extends Component {
+	renderGuide = () => {
+		const guideList = [
+			{
+				flowName: '步骤XX',
+				item: ['XXX', 'XXXXX', 'XXXXXX']
+			},
+			{
+				flowName: '步骤XXX',
+				item: ['XXX', 'XXXXX', 'XXXXXX', 'XXXXXX']
+			},
+			{
+				flowName: '步骤XXXXX',
+				item: ['XXX', 'XXXXX', 'XXXXXX', 'XXXXXX', 'XXXXXX']
+			}
+		];
+		return (
+			<Fragment>
+				{guideList.map((item, index) => {
+					return (
+						<Fragment>
+							{
+								<div>
+									<span>{index + 1}</span>123
+								</div>
+							}
+						</Fragment>
+					);
+				})}
+			</Fragment>
+		);
+	};
 	render() {
 		return (
 			<Fragment>

@@ -12,9 +12,18 @@ export default [
 		children: [
 			{
 				path: 'curd',
-				icon: 'sliders',
 				name: 'CURD',
 				children: []
+			}
+		]
+	},
+	{
+		path: 'auth/dataInput',
+		name: '数据录入',
+		children: [
+			{
+				path: 'transfer',
+				name: '穿梭框'
 			}
 		]
 	}

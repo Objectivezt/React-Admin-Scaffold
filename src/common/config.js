@@ -73,7 +73,7 @@ export const globalBigListSize = {
 
 export const globalDateFormat = 'YYYY-MM-DD';
 
-export { default as localButtonArr } from './whiteRouterUrl'
+export { default as baseRouterUrl } from './baseRouterUrl';
 
 export const fileType = ''; // 文件处理
 

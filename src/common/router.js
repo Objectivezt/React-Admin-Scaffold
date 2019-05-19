@@ -99,6 +99,12 @@ export const getRouterData = app => {
 			),
 			name: 'CURD'
 		},
+		'/auth/dataInput/transfer': {
+			component: dynamicWrapper(app, [], () =>
+				import('@containers/UI/Transfer')
+			),
+			name: '穿梭框'
+		},
 		'/auth/exception/403': {
 			component: dynamicWrapper(app, [], () =>
 				import('@containers/Exception/403')
