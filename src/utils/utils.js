@@ -385,13 +385,12 @@ export function getBashRedirect() {
 	return redirect;
 }
 
-export function showLogoutConfirm() {
-	Modal.info({
-		title: '未能检测到用户登录状态',
-		content: '您可能需要重新登录'
-	});
-}
-
+/**
+ * @description 判断是否存在数组
+ * @param {Array} array
+ * @param {String} value
+ * @returns {Boolean} 不存在返回false 存在返回true
+ */
 export function isInArray(array, value) {
 	for (let i = 0; i < array.length; i++) {
 		if (value === array[i]) {
@@ -401,6 +400,11 @@ export function isInArray(array, value) {
 	return false;
 }
 
+/**
+ * @description 白名单屏蔽方法
+ * @param {Object} _this 当前页面对象
+ * @param {String} path 当前URL
+ */
 export function AuthRouterPass(_this, path) {
 	const { location, history, globalModel = {} } = _this.props;
 	let tempMenuArr = globalModel.baseRouterUrl;
@@ -418,4 +422,59 @@ export function AuthRouterPass(_this, path) {
 			return false;
 		}
 	}
+}
+
+/**
+ * @description 千分位
+ * @param {String} value
+ */
+export const thousandsFormatter = value => {
+	return `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};
+
+/**
+ * @description 清除逗号
+ * @param {String} value
+ */
+export const parserSemicolon = value => {
+	return `${value}`.replace(/(,*)/g, '');
+};
+
+/**
+ * @description 计算包含汉字到字符长度
+ * @param {String} value
+ * @returns {String} length 长度
+ */
+export function calcLength(value) {
+	let length = value.length;
+	let chinese = '[\u4e00-\u9fa5]';
+	for (let i = 0; i < length; i++) {
+		let temp = value.substring(i, i + 1);
+		if (temp.match(chinese)) {
+			length += 2;
+		}
+	}
+	return length;
+}
+
+/**
+ * @description 判断特殊字符是否存在
+ * @param {String} value
+ * @returns {String} length 长度
+ */
+export function patternSpString(value) {
+	let pattern = new RegExp('[\'":%]');
+	return pattern.test(value);
+}
+
+/**
+ * @description
+ * @param {*} e
+ * @param {*} _this
+ */
+export function routerGoBack(e, _this) {
+	if (e) {
+		e.preventDefault();
+	}
+	_this.props.history.goBack();
 }

@@ -21,9 +21,9 @@ import {
 	getBashRedirect,
 	getRoutes,
 	isInArray,
-	isUrl,
-	showLogoutConfirm
+	isUrl
 } from '@utils/utils';
+import { staticModal } from '@';
 
 const { Content } = Layout;
 const redirectData = [];
@@ -58,12 +58,12 @@ export default class AuthLayout extends React.PureComponent {
 				if (code === '0000') {
 					this.getUserMenu();
 				} else {
-					showLogoutConfirm();
+					staticModal('未能检测到用户登录状态', '您可能需要重新登录');
 				}
 			})
 			.catch(error => {
 				console.warn(error);
-				showLogoutConfirm();
+				staticModal('未能检测到用户登录状态', '您可能需要重新登录');
 			});
 	}
 
