@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Transfer, Switch, Button } from 'antd';
+import { Transfer, Button } from 'antd';
 
 const mockData = [];
 for (let i = 0; i < 20; i++) {

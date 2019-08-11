@@ -1,6 +1,5 @@
 import moment from 'moment';
 import { get, isArray, pick, isNaN, isFinite, trim } from 'lodash';
-import { Modal } from 'antd';
 
 export function getApiMethod(api = '', options = {}) {
 	if (options.method) {

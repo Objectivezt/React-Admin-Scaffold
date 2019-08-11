@@ -5,8 +5,8 @@ import Login from '@components/Login';
 import styles from './index.less';
 import { JSEncrypt } from 'jsencrypt';
 
-const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
-
+const { Tab, UserName, Password, Submit } = Login;
+const CaptchaCode = UserName;
 const publicKeyHead = '-----BEGIN PUBLIC KEY-----';
 const publicKeyFooter = '-----END PUBLIC KEY-----';
 
