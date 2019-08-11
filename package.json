@@ -3,8 +3,11 @@
 	"version": "1.0.0",
 	"description": "",
 	"scripts": {
-		"start": "cross-env env.NODE_ENV=development ESLINT=none PORT=8888 roadhog dev",
-		"build": "cross-env env.NODE_ENV=production ESLINT=none roadhog build",
+		"start": "npm run dev",
+		"dev": "cross-env env.NODE_ENV=development ESLINT=none PORT=8888 roadhog dev",
+		"build:prd": "cross-env env.NODE_ENV=production env.ENV_API_CONTEXT=api env.ENV_PUBLIC_PATH=prd ESLINT=none roadhog build",
+		"build:stg": "cross-env env.NODE_ENV=production env.ENV_API_CONTEXT=api env.ENV_PUBLIC_PATH=stg ESLINT=none roadhog build",
+		"build:stg2": "cross-env env.NODE_ENV=production env.ENV_API_CONTEXT=api2 env.ENV_PUBLIC_PATH=stg2 ESLINT=none roadhog build",
 		"build:no-uglify": "cross-env env.NODE_ENV=development ESLINT=none roadhog build",
 		"lint": "./node_modules/.bin/eslint ./src/",
 		"test": "mocha"

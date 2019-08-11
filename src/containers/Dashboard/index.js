@@ -25,7 +25,7 @@ const content = () => {
 	);
 };
 
-export default class oInput extends Component {
+export default class DashBoard extends Component {
 	renderGuide = () => {
 		const guideList = [
 			{
@@ -48,7 +48,8 @@ export default class oInput extends Component {
 						<Fragment>
 							{
 								<div>
-									<span>{index + 1}</span>123
+									<span>{index + 1}</span>
+									{item.flowName}
 								</div>
 							}
 						</Fragment>

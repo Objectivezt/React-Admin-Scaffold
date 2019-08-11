@@ -1,5 +1,7 @@
 const isLocalMenu = process.env.NODE_ENV === 'development';
 
+const ENV_API_CONTEXT = process.env.ENV_API_CONTEXT;
+
 // 默认组件属性
 export { default as globalCardProps } from './globalUIProps/Card.config';
 
@@ -59,7 +61,7 @@ export { default as localMenuDataArr } from './localMenu';
 
 export { default as localButtonArr } from './localButton';
 
-export const baseUrl = '/api/';
+export const baseUrl = ENV_API_CONTEXT;
 
 export const globalDefineListSize = {
 	pageNum: 1,
