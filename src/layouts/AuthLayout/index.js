@@ -23,7 +23,7 @@ import {
 	isInArray,
 	isUrl
 } from '@utils/utils';
-import { staticModal } from '@';
+import { staticModal } from '@utils/utils.stateless';
 
 const { Content } = Layout;
 const redirectData = [];

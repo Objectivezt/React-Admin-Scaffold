@@ -1,14 +1,6 @@
 import { Fragment } from 'react';
-import {
-	Tooltip,
-	Modal,
-	message,
-	Select,
-	Divider,
-	Col,
-	Form,
-	Ellipsis
-} from 'antd';
+import { Tooltip, Modal, message, Select, Divider, Col, Form } from 'antd';
+import Ellipsis from '@components/Ellipsis';
 import { globalColProps, globalFormItemLayout } from '@common/config';
 
 const { Option } = Select;
