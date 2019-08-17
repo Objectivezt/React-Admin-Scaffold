@@ -48,6 +48,11 @@ const config = {
 			extraBabelPlugins: ['dva-hmr']
 		}
 	},
+	define: {
+		'process.env.NODE_ENV': process.env.NODE_ENV,
+		'process.env.ENV_API_CONTEXT': process.env.ENV_API_CONTEXT,
+		'process.env.ENV_PUBLIC_PATH': process.env.ENV_PUBLIC_PATH
+	},
 	hash: true,
 	html: {
 		template: './src/index.ejs'
