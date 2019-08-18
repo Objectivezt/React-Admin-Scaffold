@@ -62,7 +62,7 @@ export default class DashBoard extends Component {
 		return (
 			<Fragment>
 				<PageHeader
-					breadcrumbList={[{ key: '1' }]}
+					breadcrumbList={{ key: '1' }}
 					content={content()}
 					className={styles.pageHeader}
 				/>
