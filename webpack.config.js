@@ -8,5 +8,6 @@ module.exports = webpackConfig => {
 	} else {
 		webpackConfig.plugins[3].options.compress.drop_console = true;
 	}
+	webpackConfig.plugins[3].options.title = 'loading...';
 	return webpackConfig;
 };
