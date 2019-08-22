@@ -8,7 +8,7 @@ export function getApiMethod(api = '', options = {}) {
 	return get(trim(api).match(/^.* /), 0) || 'GET';
 }
 
-export function unqid(len = 6, radix = 60) {
+export function uniqId(len = 6, radix = 60) {
 	const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split(
 		''
 	);
@@ -40,7 +40,7 @@ export function formatNumDec(number, length = 3, fix = 2) {
 	return formatNum(numFixed(number, fix), length);
 }
 
-export function formatNum(num, length = 3, formater = ',') {
+export function formatNum(num, length = 3, formatter = ',') {
 	let number = num;
 	number = String(number || 0);
 	const numArr = number.split('.') || ['', ''];
@@ -49,7 +49,7 @@ export function formatNum(num, length = 3, formater = ',') {
 
 	for (let i = strAry.length - 1; i >= 0; i -= length) {
 		if (i !== strAry.length - 1 && i >= 0) {
-			strAry.splice(i + 1, 0, formater);
+			strAry.splice(i + 1, 0, formatter);
 		}
 	}
 
@@ -63,17 +63,17 @@ export function numFixed(number, fix = 2) {
 	return Number(number).toFixed(fix);
 }
 
-export function getter(srouce, filed) {
-	let reslut = srouce;
+export function getter(source, filed) {
+	let result = source;
 	if (isArray(filed)) {
-		reslut = pick(srouce, filed);
+		result = pick(source, filed);
 	} else if (typeof filed === 'string') {
-		reslut = get(srouce, filed);
+		result = get(source, filed);
 	}
-	return reslut;
+	return result;
 }
 
-export function dvideNumber(source) {
+export function divideNumber(source) {
 	const result =
 		String(source).indexOf('.') !== -1
 			? source.toLocaleString()
@@ -90,8 +90,8 @@ export function formatStringByType(type, source, opts = {}) {
 		case 'Number.Float':
 			result = parseFloat(source).toFixed(opts.fixed || 2);
 			break;
-		case 'Number.Dvide':
-			result = dvideNumber(source);
+		case 'Number.Divide':
+			result = divideNumber(source);
 			break;
 		case 'Number.Percent': // 百分比
 			result = String(source).indexOf('%')

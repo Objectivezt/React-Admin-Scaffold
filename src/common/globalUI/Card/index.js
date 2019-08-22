@@ -4,7 +4,7 @@ import { Card } from 'antd';
 
 export default class GlobalCard extends Component {
 	render() {
-		const { title, children, extra, height } = this.props;
+		const { title, children, extra, height, loading = false } = this.props;
 		let styles = {
 			marginBottom: '20px',
 			minHeight: '200px'
@@ -19,6 +19,7 @@ export default class GlobalCard extends Component {
 					title={title}
 					extra={extra}
 					style={styles}
+					loading={loading}
 				>
 					{children}
 				</Card>
