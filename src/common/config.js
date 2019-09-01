@@ -29,7 +29,7 @@ export { default as localMenuDataArr } from './localMenu';
 
 export { default as localButtonArr } from './localButton';
 
-export const baseUrl = ENV_API_CONTEXT ? '/' + ENV_API_CONTEXT : '/api/';
+export const baseUrl = ENV_API_CONTEXT ? '/' + ENV_API_CONTEXT : '/';
 
 export { default as baseRouterUrl } from './baseRouterUrl';
 

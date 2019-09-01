@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Carousel, Col, Divider, Row } from 'antd';
+import Hi from './Hi';
 import { GlobalCard } from 'globalUI';
 import { routerRedux } from 'dva/router';
 import styles from './index.less';
@@ -14,7 +15,9 @@ class HomePage extends Component {
 			<Fragment>
 				<div className={styles.HeadlineBox}>
 					<h2 className={styles.Headline}>————头条信息————</h2>
-					<span className={styles.HeadlineDesc}>null</span>
+					<span className={styles.HeadlineDesc}>
+						<Hi />
+					</span>
 				</div>
 				<div className={styles.content}>
 					<Row gutter={8}>
