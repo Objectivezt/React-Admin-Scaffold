@@ -30,7 +30,7 @@ const config = {
 	// 	to: './',
 	// }],
 	entry: 'src/index.js',
-	// extraBabelPresets: ['@babel/typescript'],
+	// extraBabelPresets: [['@babel/preset-typescript']],
 	extraBabelPlugins: [
 		[
 			'import',
@@ -40,7 +40,9 @@ const config = {
 				style: true
 			}
 		],
-		'@babel/plugin-transform-typescript'
+		'@babel/plugin-transform-typescript',
+		'@babel/proposal-class-properties',
+		'@babel/proposal-object-rest-spread'
 	],
 	env: {
 		development: {
