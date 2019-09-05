@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from 'antd'
+import { Button } from 'antd';
 
 interface Props {
 	name: string;
@@ -21,7 +21,7 @@ export default class Hi extends Component<Props, State> {
 	render() {
 		return (
 			<>
-				<p>你点击了 {this.state.count} 次</p>
+				<p>你点击了 {this.state.count} 1111次</p>
 				<Button onClick={() => { this.setState({ count: this.state.count + 1 }) }}>
 					Hi {this.props.name}
 				</Button>

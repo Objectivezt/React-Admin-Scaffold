@@ -16,7 +16,7 @@ class HomePage extends Component {
 				<div className={styles.HeadlineBox}>
 					<h2 className={styles.Headline}>————头条信息————</h2>
 					<span className={styles.HeadlineDesc}>
-						<Hi />
+						<Hi name="scaffold" />
 					</span>
 				</div>
 				<div className={styles.content}>
@@ -38,10 +38,7 @@ class HomePage extends Component {
 							</Carousel>
 						</Col>
 						<Col span={8}>
-							<GlobalCard
-								title="123"
-								extra={<a to="/123">更多</a>}
-							>
+							<GlobalCard title="123" extra={'更多'}>
 								123
 							</GlobalCard>
 						</Col>

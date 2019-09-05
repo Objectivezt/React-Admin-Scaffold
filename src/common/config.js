@@ -2,7 +2,7 @@ const isLocalMenu = process.env.NODE_ENV === 'development';
 
 const ENV_API_CONTEXT = process.env.ENV_API_CONTEXT;
 
-// 默认组件属性
+// // 默认组件属性
 export {
 	globalDateFormat,
 	globalRequire,
