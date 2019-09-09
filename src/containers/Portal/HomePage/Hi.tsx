@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Button } from 'antd';
 
 interface Props {
@@ -20,12 +20,12 @@ export default class Hi extends Component<Props, State> {
 	}
 	render() {
 		return (
-			<>
+			<Fragment>
 				<p>你点击了 {this.state.count} 1111次</p>
 				<Button onClick={() => { this.setState({ count: this.state.count + 1 }) }}>
 					Hi {this.props.name}
 				</Button>
-			</>
+			</Fragment>
 		)
 	}
 }

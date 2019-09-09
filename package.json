@@ -5,7 +5,7 @@
 	"private": true,
 	"scripts": {
 		"start": "npm run dev",
-		"dev": "cross-env env.NODE_ENV=development ESLINT=none PORT=8888 roadhog dev",
+		"dev": "cross-env env.NODE_ENV=development ESLINT=true PORT=8888 roadhog dev",
 		"build:dev": "cross-env env.NODE_ENV=production ESLINT=none roadhog build",
 		"build:prd": "cross-env env.NODE_ENV=production env.ENV_API_CONTEXT=api env.ENV_PUBLIC_PATH=prd ESLINT=none roadhog build",
 		"build:stg": "cross-env env.NODE_ENV=production env.ENV_API_CONTEXT=api env.ENV_PUBLIC_PATH=stg ESLINT=none roadhog build",

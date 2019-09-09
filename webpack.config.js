@@ -11,7 +11,6 @@ module.exports = webpackConfig => {
 			'./build/scaffold.dev.config.json',
 			JSON.stringify(webpackConfig)
 		);
-		// webpackConfig.plugins[3].options.title = 'loading...';
 	} else {
 		webpackConfig.plugins[3].options.compress.drop_console = true;
 		fs.writeFile(
