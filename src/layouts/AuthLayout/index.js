@@ -35,7 +35,8 @@ const tempMenuArr = baseRouterUrl;
 }))
 export default class AuthLayout extends React.PureComponent {
 	static childContextTypes = {
-		location: PropTypes.object
+		location: PropTypes.object,
+		storeSubscription: PropTypes.object
 	};
 
 	constructor(props) {
@@ -65,11 +66,6 @@ export default class AuthLayout extends React.PureComponent {
 				console.warn(error);
 				staticModal('未能检测到用户登录状态', '您可能需要重新登录');
 			});
-	}
-
-	getChildContext() {
-		const { location } = this.props;
-		return { location };
 	}
 
 	getRedirect = item => {

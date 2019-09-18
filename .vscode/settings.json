@@ -55,5 +55,5 @@
 		"typescriptreact",
 		"yml"
 	],
-
+	"javascript.implicitProjectConfig.experimentalDecorators": true
 }
