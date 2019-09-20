@@ -1,2 +1,11 @@
 /src/assets/
+
 /.vscode/**
+
+**/*.css
+
+**/*.svg
+
+**/*.test.js
+
+webpack.config.js

@@ -1,5 +1,14 @@
-import { Fragment } from 'react';
-import { Tooltip, Modal, message, Select, Divider, Col, Form } from 'antd';
+import React, { Fragment } from 'react';
+import {
+  Col,
+  Divider,
+  Form,
+  Icon,
+  Modal,
+  Select,
+  Tooltip,
+  message
+} from 'antd';
 import Ellipsis from '@components/Ellipsis';
 import { globalColProps, globalFormItemLayout } from '@common/config';
 
@@ -11,14 +20,14 @@ const FormItem = Form.Item;
  * @param {String} text
  */
 export function questionTooltip(text) {
-	return (
-		<Fragment>
-			&nbsp; &nbsp;
-			<Tooltip placement="right" title={text}>
-				<Icon type="question-circle-o" style={{ color: 'red' }} />
-			</Tooltip>
-		</Fragment>
-	);
+  return (
+    <Fragment>
+      &nbsp; &nbsp;
+      <Tooltip placement="right" title={text}>
+        <Icon type="question-circle-o" style={{ color: 'red' }} />
+      </Tooltip>
+    </Fragment>
+  );
 }
 
 /**
@@ -27,10 +36,10 @@ export function questionTooltip(text) {
  * @param {String} text
  */
 export function staticModal(title, text) {
-	Modal.info({
-		title: title,
-		content: text
-	});
+  Modal.info({
+    title,
+    content: text
+  });
 }
 
 /**
@@ -38,7 +47,7 @@ export function staticModal(title, text) {
  * @param {String} msg
  */
 export function staticMessage(msg) {
-	message.info(msg, 5000);
+  message.info(msg, 5000);
 }
 
 /**
@@ -47,11 +56,11 @@ export function staticMessage(msg) {
  * @param {String} name
  */
 export function CreateOption(value, name) {
-	return (
-		<Option value={value} title={name} key={value}>
-			{name}
-		</Option>
-	);
+  return (
+    <Option value={value} title={name} key={value}>
+      {name}
+    </Option>
+  );
 }
 
 /**
@@ -59,18 +68,18 @@ export function CreateOption(value, name) {
  * @param {String} text
  */
 export function CreateDivider(text) {
-	return (
-		<Divider
-			orientation={'left'}
-			style={{
-				fontSize: '16px',
-				fontWeight: 700,
-				marginBottom: '40px'
-			}}
-		>
-			{text}
-		</Divider>
-	);
+  return (
+    <Divider
+      orientation="left"
+      style={{
+        fontSize: '16px',
+        fontWeight: 700,
+        marginBottom: '40px'
+      }}
+    >
+      {text}
+    </Divider>
+  );
 }
 
 /**
@@ -79,13 +88,13 @@ export function CreateDivider(text) {
  * @param {String} name
  */
 export function CreateFormItem(value, name) {
-	return (
-		<Col {...globalColProps} key={value}>
-			<FormItem label={value} {...globalFormItemLayout}>
-				{name}
-			</FormItem>
-		</Col>
-	);
+  return (
+    <Col {...globalColProps} key={value}>
+      <FormItem label={value} {...globalFormItemLayout}>
+        {name}
+      </FormItem>
+    </Col>
+  );
 }
 
 /**
@@ -94,26 +103,25 @@ export function CreateFormItem(value, name) {
  * @param {String} name
  */
 export function CreateDynamicFormItem(value, name) {
-	return (
-		<Col {...globalColProps} key={value}>
-			<FormItem
-				label={
-					<div
-						style={{
-							height: '0px',
-							position: 'absolute',
-							right: '15px'
-						}}
-					>
-						<Ellipsis tooltip length={8}>
-							{name}
-						</Ellipsis>
-					</div>
-				}
-				{...globalFormItemLayout}
-			>
-				{name}
-			</FormItem>
-		</Col>
-	);
+  const style = {
+    height: '0px',
+    position: 'absolute',
+    right: '15px'
+  };
+
+  const item = () => (
+    <div style={style}>
+      <Ellipsis tooltip length={8}>
+        {name}
+      </Ellipsis>
+    </div>
+  );
+
+  return (
+    <Col {...globalColProps} key={value}>
+      <FormItem label={item} {...globalFormItemLayout}>
+        {name}
+      </FormItem>
+    </Col>
+  );
 }
