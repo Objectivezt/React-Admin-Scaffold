@@ -8,4 +8,8 @@
 
 **/*.test.js
 
+**/*.min.js
+
 webpack.config.js
+
+**/d3.js

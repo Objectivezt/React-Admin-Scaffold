@@ -5,6 +5,8 @@ import { routerRedux } from 'dva/router';
 import Hi from './Hi';
 import styles from './index.less';
 
+const path = require('path');
+
 class HomePage extends Component {
   handleCardMore = () => {
     this.props.dispatch(routerRedux.push('/tourist/list'));
@@ -13,6 +15,8 @@ class HomePage extends Component {
   render() {
     return (
       <Fragment>
+        {/* eslint-disable-next-line */}
+        <iframe src={path.resolve(__dirname, '/iframe/index.html')}></iframe>
         <div className={styles.HeadlineBox}>
           <h2 className={styles.Headline}>————头条信息————</h2>
           <span className={styles.HeadlineDesc}>

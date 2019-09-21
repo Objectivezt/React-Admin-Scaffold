@@ -3,7 +3,7 @@ export default [
     path: 'auth/app',
     icon: 'home',
     name: '系统主页',
-    children: [],
+    children: []
   },
   {
     path: 'auth/systems',
@@ -13,18 +13,23 @@ export default [
       {
         path: 'curd',
         name: 'CURD',
-        children: [],
-      },
-    ],
+        children: []
+      }
+    ]
   },
   {
     path: 'auth/dataInput',
     name: '数据录入',
+    icon: 'sliders',
     children: [
       {
         path: 'transfer',
-        name: '穿梭框',
+        name: '穿梭框'
       },
-    ],
-  },
+      {
+        path: 'd3',
+        name: 'd3'
+      }
+    ]
+  }
 ];

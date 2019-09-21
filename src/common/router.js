@@ -1,55 +1,56 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable import/no-dynamic-require */
-import { createElement } from 'react'
-import dynamic from 'dva/dynamic'
-import pathToRegexp from 'path-to-regexp'
-import { isUrl } from '@utils/utils'
+import { createElement } from 'react';
+import dynamic from 'dva/dynamic';
+import pathToRegexp from 'path-to-regexp';
+import { isUrl } from '@utils/utils';
 
-let routerDataCache
+let routerDataCache;
 
 const modelNotExisted = (app, model) =>
   // eslint-disable-next-line no-underscore-dangle
-  !app._models.some(({ namespace }) => namespace === model.substring(model.lastIndexOf('/') + 1))
+  !app._models.some(({ namespace }) => namespace === model.substring(model.lastIndexOf('/') + 1));
 
 const dynamicWrapper = (app, models, component) => {
   if (component.toString().indexOf('.then(') < 0) {
     models.forEach(model => {
       if (modelNotExisted(app, model)) {
         // eslint-disable-next-line global-require
-        app.model(require(`../models/${model}`).default)
+        app.model(require(`../models/${model}`).default);
       }
-    })
+    });
     return props => {
       if (!routerDataCache) {
         // eslint-disable-next-line no-use-before-define
-        routerDataCache = getRouterData(app)
+        routerDataCache = getRouterData(app);
       }
       return createElement(component().default, {
         ...props,
         routerData: routerDataCache
-      })
-    }
+      });
+    };
   }
 
   return dynamic({
     app,
-    models: () => models.filter(model => modelNotExisted(app, model)).map(m => import(`../models/${m}.js`)),
+    models: () =>
+      models.filter(model => modelNotExisted(app, model)).map(m => import(`../models/${m}.js`)),
     component: () => {
       if (!routerDataCache) {
         // eslint-disable-next-line no-use-before-define
-        routerDataCache = getRouterData(app)
+        routerDataCache = getRouterData(app);
       }
       return component().then(raw => {
-        const Component = raw.default || raw
+        const Component = raw.default || raw;
         return props =>
           createElement(Component, {
             ...props,
             routerData: routerDataCache
-          })
-      })
+          });
+      });
     }
-  })
-}
+  });
+};
 
 export const getRouterData = app => {
   const routerConfig = {
@@ -57,10 +58,14 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, [], () => import('@layouts/BlankLayout'))
     },
     '/user': {
-      component: dynamicWrapper(app, ['basic/globalModel', 'user/userModel'], () => import('@layouts/UserLayout/index'))
+      component: dynamicWrapper(app, ['basic/globalModel', 'user/userModel'], () =>
+        import('@layouts/UserLayout/index')
+      )
     },
     '/user/login': {
-      component: dynamicWrapper(app, ['systems/loginModel'], () => import('@containers/Systems/Login/index'))
+      component: dynamicWrapper(app, ['systems/loginModel'], () =>
+        import('@containers/Systems/Login/index')
+      )
     },
     '/tourist': {
       component: dynamicWrapper(app, [], () => import('@layouts/TouristLayout'))
@@ -79,11 +84,17 @@ export const getRouterData = app => {
       name: '系统主页'
     },
     '/auth/systems/curd': {
-      component: dynamicWrapper(app, ['systems/curdModel'], () => import('@containers/Systems/Curd')),
+      component: dynamicWrapper(app, ['systems/curdModel'], () =>
+        import('@containers/Systems/Curd')
+      ),
       name: 'CURD'
     },
     '/auth/dataInput/transfer': {
       component: dynamicWrapper(app, [], () => import('@containers/UI/Transfer')),
+      name: '穿梭框'
+    },
+    '/auth/dataInput/d3': {
+      component: dynamicWrapper(app, [], () => import('@containers/UI/d3')),
       name: '穿梭框'
     },
     '/auth/exception/403': {
@@ -98,54 +109,54 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, [], () => import('@containers/Exception/500')),
       name: '500'
     }
-  }
+  };
 
   const getFlatMenuData = menus => {
-    let keys = {}
+    let keys = {};
     menus.forEach(item => {
       if (item.children) {
-        keys[item.path] = { ...item }
-        keys = { ...keys, ...getFlatMenuData(item.children) }
+        keys[item.path] = { ...item };
+        keys = { ...keys, ...getFlatMenuData(item.children) };
       } else {
-        keys[item.path] = { ...item }
+        keys[item.path] = { ...item };
       }
-    })
-    return keys
-  }
+    });
+    return keys;
+  };
 
   const formatter = (data, parentPath = '/') =>
     data.map(item => {
-      let { path } = item
+      let { path } = item;
       if (!isUrl(path)) {
-        path = parentPath + item.path
+        path = parentPath + item.path;
       }
       const result = {
         ...item,
         path
-      }
+      };
       if (item.children) {
-        result.children = this.formatter(item.children, `${parentPath}${item.path}/`)
+        result.children = this.formatter(item.children, `${parentPath}${item.path}/`);
       }
-      return result
-    })
+      return result;
+    });
 
-  const menuDataOldCache = []
-  const getMenuData = data => formatter(data)
-  const menuData = getFlatMenuData(getMenuData(menuDataOldCache))
-  const routerData = {}
+  const menuDataOldCache = [];
+  const getMenuData = data => formatter(data);
+  const menuData = getFlatMenuData(getMenuData(menuDataOldCache));
+  const routerData = {};
   Object.keys(routerConfig).forEach(path => {
-    const pathRegexp = pathToRegexp(path)
-    const menuKey = Object.keys(menuData).find(key => pathRegexp.test(`${key}`))
-    let menuItem = {}
+    const pathRegexp = pathToRegexp(path);
+    const menuKey = Object.keys(menuData).find(key => pathRegexp.test(`${key}`));
+    let menuItem = {};
     if (menuKey) {
-      menuItem = menuData[menuKey]
+      menuItem = menuData[menuKey];
     }
-    let router = routerConfig[path]
+    let router = routerConfig[path];
     router = {
       ...router,
       name: router.name || menuItem.name
-    }
-    routerData[path] = router
-  })
-  return routerData
-}
+    };
+    routerData[path] = router;
+  });
+  return routerData;
+};
