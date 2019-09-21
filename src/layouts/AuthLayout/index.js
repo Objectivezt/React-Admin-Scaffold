@@ -1,19 +1,19 @@
 import React from 'react';
-import { Icon, Drawer, Layout, Spin } from 'antd';
 import DocumentTitle from 'react-document-title';
+import GlobalFooter from '@components/GlobalFooter';
 import GlobalHeader from '@components/GlobalHeader';
 import NotFound from '@containers/Exception/404';
 import PropTypes from 'prop-types';
 import SliderMenu from '@components/SliderMenu';
 import TabLayout from '@layouts/TabLayout';
-import GlobalFooter from '@components/GlobalFooter';
 import classNames from 'classnames';
 import logo from '@assets/favicon.ico';
 import { ContainerQuery } from 'react-container-query';
+import { Icon, Drawer, Layout, Spin } from 'antd';
 import { Route, Redirect, Switch } from 'dva/router';
 import { connect } from 'dva';
-import { queryLayout, baseRouterUrl, projectName } from '@common/config';
 import { queryCurrentUser } from '@services/user/userServices';
+import { queryLayout, baseRouterUrl, projectName } from '@common/config';
 import {
   AuthRouterPass,
   formatterMenu,
@@ -112,7 +112,7 @@ export default class AuthLayout extends React.PureComponent {
       if (item.children) {
         this.getRouterWhiteList(item.children, `${parentPath}${item.path}/`);
       }
-      tempMenuArr.push('/' + path);
+      tempMenuArr.push(`/${path}`);
     });
 
   handleMenuCollapse = collapsed => {
@@ -160,7 +160,7 @@ export default class AuthLayout extends React.PureComponent {
       ...routerData[location.pathname],
       keys: location.pathname,
       location,
-      dispatch: dispatch,
+      dispatch,
       match,
       history,
       noPermission: routerData['/auth/exception/403'],
@@ -169,6 +169,13 @@ export default class AuthLayout extends React.PureComponent {
     const { menuData = [], loadingLayoutMenu = true } = userModel;
     const { isMultiPage = true } = globalModel;
     const bashRedirect = getBashRedirect();
+    const Copyright = (
+      <div>
+        Copyright&nbsp;
+        <Icon type="copyright" />
+        &nbsp;2019 objectivezt
+      </div>
+    );
     const layout = (
       <Layout>
         <Drawer
@@ -198,12 +205,7 @@ export default class AuthLayout extends React.PureComponent {
             ) : (
               <Switch>
                 {redirectData.map(item => (
-                  <Redirect
-                    key={item.from}
-                    exact
-                    from={item.from}
-                    to={item.to}
-                  />
+                  <Redirect key={item.from} exact from={item.from} to={item.to} />
                 ))}
                 {getRoutes(match.path, routerData).map(item => (
                   <Route
@@ -219,16 +221,7 @@ export default class AuthLayout extends React.PureComponent {
               </Switch>
             )}
           </Content>
-          <GlobalFooter
-            links={[]}
-            copyright={
-              <div>
-                Copyright&nbsp;
-                <Icon type="copyright" />
-                &nbsp;2019 objectivezt
-              </div>
-            }
-          />
+          <GlobalFooter links={[]} copyright={Copyright} />
           {/* <Button
 						icon="setting"
 						onClick={() => this.handleDrawer(true)}

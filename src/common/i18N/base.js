@@ -1,8 +1,8 @@
 const ZH_CH_PROPS = {
-	LAYOUTS: {},
-	BUSINESS: {}
+  LAYOUTS: {},
+  BUSINESS: {}
 };
 
-let i18N = ZH_CH_PROPS;
+const i18N = ZH_CH_PROPS;
 
 export default i18N;

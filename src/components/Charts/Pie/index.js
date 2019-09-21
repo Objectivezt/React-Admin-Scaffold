@@ -15,7 +15,7 @@ import styles from './index.less';
 export default class Pie extends Component {
   state = {
     legendData: [],
-    legendBlock: false,
+    legendBlock: false
   };
 
   componentDidMount() {
@@ -25,12 +25,13 @@ export default class Pie extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    const { legendData } = this.state;
     if (this.props.data !== nextProps.data) {
       // because of charts data create when rendered
       // so there is a trick for get rendered time
       this.setState(
         {
-          legendData: [...this.state.legendData],
+          legendData: [...legendData]
         },
         () => {
           this.getLegendData();
@@ -63,7 +64,7 @@ export default class Pie extends Component {
     });
 
     this.setState({
-      legendData,
+      legendData
     });
   };
 
@@ -79,12 +80,12 @@ export default class Pie extends Component {
     if (this.root.parentNode.clientWidth <= 380) {
       if (!this.state.legendBlock) {
         this.setState({
-          legendBlock: true,
+          legendBlock: true
         });
       }
     } else if (this.state.legendBlock) {
       this.setState({
-        legendBlock: false,
+        legendBlock: false
       });
     }
   }
@@ -107,7 +108,7 @@ export default class Pie extends Component {
     }
 
     this.setState({
-      legendData,
+      legendData
     });
   };
 
@@ -126,13 +127,13 @@ export default class Pie extends Component {
       inner = 0.75,
       animate = true,
       colors,
-      lineWidth = 1,
+      lineWidth = 1
     } = this.props;
 
     const { legendData, legendBlock } = this.state;
     const pieClassName = classNames(styles.pie, className, {
       [styles.hasLegend]: !!hasLegend,
-      [styles.legendBlock]: legendBlock,
+      [styles.legendBlock]: legendBlock
     });
 
     const defaultColors = colors;
@@ -144,11 +145,11 @@ export default class Pie extends Component {
     const scale = {
       x: {
         type: 'cat',
-        range: [0, 1],
+        range: [0, 1]
       },
       y: {
-        min: 0,
-      },
+        min: 0
+      }
     };
 
     if (percent) {
@@ -157,20 +158,19 @@ export default class Pie extends Component {
       formatColor = value => {
         if (value === '占比') {
           return color || 'rgba(24, 144, 255, 0.85)';
-        } else {
-          return '#F0F2F5';
         }
+        return '#F0F2F5';
       };
 
       data = [
         {
           x: '占比',
-          y: parseFloat(percent),
+          y: parseFloat(percent)
         },
         {
           x: '反比',
-          y: 100 - parseFloat(percent),
-        },
+          y: 100 - parseFloat(percent)
+        }
       ];
     }
 
@@ -178,8 +178,8 @@ export default class Pie extends Component {
       'x*percent',
       (x, p) => ({
         name: x,
-        value: `${(p * 100).toFixed(2)}%`,
-      }),
+        value: `${(p * 100).toFixed(2)}%`
+      })
     ];
 
     const padding = [12, 0, 12, 0];
@@ -189,7 +189,7 @@ export default class Pie extends Component {
       type: 'percent',
       field: 'y',
       dimension: 'x',
-      as: 'percent',
+      as: 'percent'
     });
 
     return (
@@ -236,12 +236,13 @@ export default class Pie extends Component {
                 <span
                   className={styles.dot}
                   style={{
-                    backgroundColor: !item.checked ? '#aaa' : item.color,
+                    backgroundColor: !item.checked ? '#aaa' : item.color
                   }}
                 />
                 <span className={styles.legendTitle}>{item.x}</span>
                 <Divider type="vertical" />
                 <span className={styles.percent}>
+                  {/* eslint-disable-next-line no-restricted-globals */}
                   {`${(isNaN(item.percent) ? 0 : item.percent * 100).toFixed(2)}%`}
                 </span>
                 <span className={styles.value}>{valueFormat ? valueFormat(item.y) : item.y}</span>

@@ -2,64 +2,61 @@
 import React from 'react';
 
 function computeHeight(node) {
-	const totalHeight = parseInt(getComputedStyle(node).height, 10); // eslint-disable-line
-	const padding =
-		parseInt(getComputedStyle(node).paddingTop, 10) + // eslint-disable-line
-		parseInt(getComputedStyle(node).paddingBottom, 10); // eslint-disable-line
-	return totalHeight - padding;
+  const totalHeight = parseInt(getComputedStyle(node).height, 10); // eslint-disable-line
+  const padding =
+    parseInt(getComputedStyle(node).paddingTop, 10) + // eslint-disable-line
+    parseInt(getComputedStyle(node).paddingBottom, 10); // eslint-disable-line
+  return totalHeight - padding;
 }
 
 function getAutoHeight(n) {
-	if (!n) {
-		return 0;
-	}
+  if (!n) {
+    return 0;
+  }
 
-	let node = n;
+  let node = n;
 
-	let height = computeHeight(node);
+  let height = computeHeight(node);
 
-	while (!height) {
-		node = node.parentNode;
-		if (node) {
-			height = computeHeight(node);
-		} else {
-			break;
-		}
-	}
+  while (!height) {
+    node = node.parentNode;
+    if (node) {
+      height = computeHeight(node);
+    } else {
+      break;
+    }
+  }
 
-	return height;
+  return height;
 }
 
-const autoHeight = () => WrappedComponent => {
-	return class extends React.Component {
-		state = {
-			computedHeight: 0
-		};
+const autoHeight = () => WrappedComponent =>
+  class extends React.Component {
+    state = {
+      computedHeight: 0
+    };
 
-		componentDidMount() {
-			const { height } = this.props;
-			if (!height) {
-				const h = getAutoHeight(this.root);
-				// eslint-disable-next-line
-				this.setState({ computedHeight: h });
-			}
-		}
+    componentDidMount() {
+      const { height } = this.props;
+      if (!height) {
+        const h = getAutoHeight(this.root);
+        // eslint-disable-next-line
+        this.setState({ computedHeight: h });
+      }
+    }
 
-		handleRoot = node => {
-			this.root = node;
-		};
+    handleRoot = node => {
+      this.root = node;
+    };
 
-		render() {
-			const { height } = this.props;
-			const { computedHeight } = this.state;
-			const h = height || computedHeight;
-			return (
-				<div ref={this.handleRoot}>
-					{h > 0 && <WrappedComponent {...this.props} height={h} />}
-				</div>
-			);
-		}
-	};
-};
+    render() {
+      const { height } = this.props;
+      const { computedHeight } = this.state;
+      const h = height || computedHeight;
+      return (
+        <div ref={this.handleRoot}>{h > 0 && <WrappedComponent {...this.props} height={h} />}</div>
+      );
+    }
+  };
 
 export default autoHeight;

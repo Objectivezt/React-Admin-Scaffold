@@ -6,57 +6,53 @@ import { globalSelectProps } from '@common/config';
 const { Option } = Select;
 
 @connect(({ userModel }) => ({
-	userModel
+  userModel
 }))
 export default class UserListSelect extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			value: undefined
-		};
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: undefined
+    };
+  }
 
-	componentWillReceiveProps(nextProps) {
-		if (!nextProps.value) {
-			this.setState({ value: undefined });
-		} else {
-			this.setState({ value: nextProps.value });
-		}
-	}
+  componentDidMount() {
+    this.props.dispatch({
+      type: 'userModel/getUserList'
+    });
+  }
 
-	componentDidMount() {
-		this.props.dispatch({
-			type: 'userModel/getUserList'
-		});
-	}
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.value) {
+      this.setState({ value: undefined });
+    } else {
+      this.setState({ value: nextProps.value });
+    }
+  }
 
-	onChange = value => {
-		this.triggerChange(value);
-		this.setState({ value: value });
-	};
+  onChange = value => {
+    this.triggerChange(value);
+    this.setState({ value });
+  };
 
-	triggerChange = changeValue => {
-		const onChange = this.props.onChange;
-		if (onChange) {
-			onChange(changeValue);
-		}
-	};
+  triggerChange = changeValue => {
+    const onChange = this.props.onChange;
+    if (onChange) {
+      onChange(changeValue);
+    }
+  };
 
-	render() {
-		const { userList = [] } = this.props.userModel;
-		const { value } = this.state;
-		return (
-			<Select
-				{...globalSelectProps}
-				onChange={this.onChange}
-				value={value}
-			>
-				{userList.map(({ userName, userId }) => (
-					<Option key={userId} title={userName} value={userId}>
-						{userName + `-<${userId}>`}
-					</Option>
-				))}
-			</Select>
-		);
-	}
+  render() {
+    const { userList = [] } = this.props.userModel;
+    const { value } = this.state;
+    return (
+      <Select {...globalSelectProps} onChange={this.onChange} value={value}>
+        {userList.map(({ userName, userId }) => (
+          <Option key={userId} title={userName} value={userId}>
+            {`${userName}-<${userId}>`}
+          </Option>
+        ))}
+      </Select>
+    );
+  }
 }

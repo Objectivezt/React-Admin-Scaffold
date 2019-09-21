@@ -8,26 +8,30 @@ import map from './map';
 const FormItem = Form.Item;
 
 function generator({ defaultProps, defaultRules, type }) {
-  return (WrappedComponent) => {
-    return class BasicComponent extends Component {
+  return WrappedComponent =>
+    class BasicComponent extends Component {
       static contextTypes = {
         form: PropTypes.object,
-        updateActive: PropTypes.func,
+        updateActive: PropTypes.func
       };
+
       constructor(props) {
         super(props);
         this.state = {
-          count: 0,
+          count: 0
         };
       }
+
       componentDidMount() {
         if (this.context.updateActive) {
           this.context.updateActive(this.props.name);
         }
       }
+
       componentWillUnmount() {
         clearInterval(this.interval);
       }
+
       onGetCaptcha = () => {
         let count = 59;
         this.setState({ count });
@@ -41,7 +45,8 @@ function generator({ defaultProps, defaultRules, type }) {
             clearInterval(this.interval);
           }
         }, 1000);
-      }
+      };
+
       render() {
         const { getFieldDecorator } = this.context.form;
         const options = {};
@@ -89,15 +94,14 @@ function generator({ defaultProps, defaultRules, type }) {
         );
       }
     };
-  };
 }
 
 const LoginItem = {};
-Object.keys(map).forEach((item) => {
+Object.keys(map).forEach(item => {
   LoginItem[item] = generator({
     defaultProps: map[item].props,
     defaultRules: map[item].rules,
-    type: item,
+    type: item
   })(map[item].component);
 });
 
