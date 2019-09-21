@@ -2,6 +2,10 @@ const isLocalMenu = process.env.NODE_ENV === 'development';
 
 const ENV_API_CONTEXT = process.env.ENV_API_CONTEXT;
 
+console.log('资源目录上下文:', process.env.ENV_PUBLIC_PATH);
+console.log('API请求目录上下文:', process.env.ENV_API_CONTEXT);
+console.log('环境信息:', process.env.NODE_ENV);
+
 // 默认组件属性
 export {
 	globalDateFormat,
@@ -29,7 +33,7 @@ export { default as localMenuDataArr } from './localMenu';
 
 export { default as localButtonArr } from './localButton';
 
-export const baseUrl = ENV_API_CONTEXT ? '/' + ENV_API_CONTEXT : '/api/';
+export const baseUrl = ENV_API_CONTEXT ? '/' + ENV_API_CONTEXT + '/' : '/';
 
 export { default as baseRouterUrl } from './baseRouterUrl';
 

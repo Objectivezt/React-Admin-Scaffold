@@ -1,8 +1,7 @@
-
-import defaultWebpackConfig from "scaffold-core/dist/webpackConfig";
+import defaultWebpackConfig from 'scaffold-core/dist/webpackConfig';
 
 const path = require('path');
-const ENV_PATH = process.env.NODE_ENV === 'production' ? '/api/' : '/';
+const ENV_PATH = process.env.ENV_PUBLIC_PATH;
 const proxyObj = {
 	proxyName: {
 		target: 'http://objectivezt',
