@@ -1,64 +1,89 @@
-import React from 'react'
-import { Tabs, message } from 'antd'
-import { routerRedux } from 'dva/router'
-import { isInArray } from '@utils/utils'
+import React from 'react';
+import { Tabs, message } from 'antd';
+import { routerRedux } from 'dva/router';
+import { isInArray } from '@utils/utils';
+import PropTypes from 'prop-types';
 
-const { TabPane } = Tabs
+const { TabPane } = Tabs;
 export default class TabLayout extends React.Component {
+  static defaultProps = {
+    history: {},
+    name: '',
+    keys: '',
+    component: {},
+    location: {},
+    whiteRouter: [],
+    noPermission: {},
+    dispatch: () => {},
+    match: ''
+  };
+
+  static propTypes = {
+    history: PropTypes.object,
+    name: PropTypes.string,
+    keys: PropTypes.string,
+    component: PropTypes.element,
+    location: PropTypes.object,
+    whiteRouter: PropTypes.array,
+    noPermission: PropTypes.object,
+    dispatch: PropTypes.func,
+    match: PropTypes.string
+  };
+
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       activeKey: null,
       panes: []
-    }
+    };
   }
 
   componentWillMount() {
-    const { name, keys, component } = this.props
+    const { name, keys, component } = this.props;
     if (keys === '/' || !name) {
-      return
+      return;
     }
     // eslint-disable-next-line react/no-access-state-in-setstate
-    const panes = this.state.panes
-    const activeKey = keys
-    panes.push({ name, key: activeKey, component })
-    this.setState({ panes, activeKey })
+    const panes = this.state.panes;
+    const activeKey = keys;
+    panes.push({ name, key: activeKey, component });
+    this.setState({ panes, activeKey });
   }
 
   componentWillReceiveProps(nextProps) {
-    const { location, whiteRouter, noPermission, name, keys, component } = nextProps
+    const { location, whiteRouter, noPermission, name, keys, component } = nextProps;
     if (!isInArray(whiteRouter, location.pathname)) {
       // eslint-disable-next-line no-shadow
-      const { keys = '/auth/exception/403', component } = noPermission
+      const { keys = '/auth/exception/403', component } = noPermission;
       // eslint-disable-next-line react/no-access-state-in-setstate
-      const panes = this.state.panes
-      panes[panes.length - 1].component = component
-      panes[panes.length - 1].name = name
-      panes[panes.length - 1].key = keys
-      this.setState({ panes, activeKey: keys })
-      return
+      const panes = this.state.panes;
+      panes[panes.length - 1].component = component;
+      panes[panes.length - 1].name = name;
+      panes[panes.length - 1].key = keys;
+      this.setState({ panes, activeKey: keys });
+      return;
     }
     if (keys === '/' || !name) {
-      return
+      return;
     }
-    const panes = this.state.panes
-    const activeKey = keys
-    let isExist = false
+    const panes = this.state.panes;
+    const activeKey = keys;
+    let isExist = false;
     // eslint-disable-next-line no-plusplus
     for (let i = 0; i < panes.length; i++) {
       if (panes[i].key === activeKey) {
-        isExist = true
-        break
+        isExist = true;
+        break;
       }
     }
 
     if (isExist) {
       this.setState({
         activeKey
-      })
+      });
     } else {
-      panes.push({ name, key: activeKey, component })
-      this.setState({ panes, activeKey })
+      panes.push({ name, key: activeKey, component });
+      this.setState({ panes, activeKey });
     }
   }
 
@@ -67,36 +92,36 @@ export default class TabLayout extends React.Component {
       routerRedux.push({
         pathname: activeKey
       })
-    )
-  }
+    );
+  };
 
   onEdit = (targetKey, action) => {
-    this[action](targetKey)
-  }
+    this[action](targetKey);
+  };
 
   remove = targetKey => {
     if (this.state.panes.length === 1) {
-      message.warning('窗口不能全部关闭')
-      return
+      message.warning('窗口不能全部关闭');
+      return;
     }
     // eslint-disable-next-line react/no-access-state-in-setstate
-    let activeKey = this.state.activeKey
-    let lastIndex
+    let activeKey = this.state.activeKey;
+    let lastIndex;
     this.state.panes.forEach((pane, i) => {
       if (pane.key === targetKey) {
-        lastIndex = i - 1
+        lastIndex = i - 1;
       }
-    })
+    });
     // eslint-disable-next-line react/no-access-state-in-setstate
-    const panes = this.state.panes.filter(pane => pane.key !== targetKey)
+    const panes = this.state.panes.filter(pane => pane.key !== targetKey);
     if (lastIndex >= 0 && activeKey === targetKey) {
-      activeKey = panes[lastIndex].key
+      activeKey = panes[lastIndex].key;
     }
-    this.setState({ panes, activeKey })
-  }
+    this.setState({ panes, activeKey });
+  };
 
   render() {
-    const { location, match, history } = this.props
+    const { location, match, history } = this.props;
     return (
       <div>
         <Tabs
@@ -118,6 +143,6 @@ export default class TabLayout extends React.Component {
           ))}
         </Tabs>
       </div>
-    )
+    );
   }
 }

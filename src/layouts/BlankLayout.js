@@ -1,6 +1,16 @@
 import React from 'react';
-import { Spin } from 'antd'; //eslint-disable-line
+import { Spin } from 'antd';
+import PropTypes from 'prop-types';
+
 export default class BlankLayout extends React.Component {
+  static defaultProps = {
+    history: {}
+  };
+
+  static propTypes = {
+    history: PropTypes.object
+  };
+
   componentDidMount() {
     this.props.history.push({
       pathname: '/tourist'
