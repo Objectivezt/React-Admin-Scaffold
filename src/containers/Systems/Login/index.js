@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 import React, { Component, Fragment } from 'react';
 import Login from '@components/Login';
 import { JSEncrypt } from 'jsencrypt';

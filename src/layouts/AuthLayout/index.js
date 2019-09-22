@@ -57,6 +57,7 @@ export default class AuthLayout extends React.PureComponent {
         }
       })
       .catch(error => {
+        // eslint-disable-next-line
         console.warn(error);
         staticModal('未能检测到用户登录状态', '您可能需要重新登录');
       });

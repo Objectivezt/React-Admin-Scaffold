@@ -2,10 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Carousel, Col, Divider, Row } from 'antd';
 import { GlobalCard } from 'globalUI';
 import { routerRedux } from 'dva/router';
-import Hi from './Hi';
 import styles from './index.less';
-
-const path = require('path');
 
 class HomePage extends Component {
   handleCardMore = () => {
@@ -15,13 +12,9 @@ class HomePage extends Component {
   render() {
     return (
       <Fragment>
-        {/* eslint-disable-next-line */}
-        <iframe src={path.resolve(__dirname, '/iframe/index.html')}></iframe>
         <div className={styles.HeadlineBox}>
           <h2 className={styles.Headline}>————头条信息————</h2>
-          <span className={styles.HeadlineDesc}>
-            <Hi name="scaffold" />
-          </span>
+          <span className={styles.HeadlineDesc}>item</span>
         </div>
         <div className={styles.content}>
           <Row gutter={8}>

@@ -1,21 +1,21 @@
 {
-	"compilerOptions": {
-		"baseUrl": ".",
-		"emitDecoratorMetadata": true,
-		"experimentalDecorators": true,
-		"paths": {
-			"globalUI/*": ["src/common/globalUI/*"],
-			"mock/*": ["./mock/*"],
-			"@": ["./src/*"], // alias  '@/xxx'
-			"@assets/*": ["./src/assets/*"], // alias  '@xxxx'
-			"@common/*": ["./src/common/*"],
-			"@components/*": ["./src/components/*"],
-			"@containers/*": ["./src/containers/*"],
-			"@layouts/*": ["./src/layouts/*"],
-			"@models/*": ["./src/models/*"],
-			"@services/*": ["./src/services/*"],
-			"@styles/*": ["./src/styles/*"],
-			"@utils/*": ["./src/utils/*"],
-		}
-	}
+  "compilerOptions": {
+    "baseUrl": ".",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "paths": {
+      "globalUI/*": ["src/common/globalUI/*"],
+      "mock/*": ["./mock/*"],
+      "@": ["./src/*"], // alias  '@/xxx'
+      "@assets/*": ["./src/assets/*"], // alias  '@xxxx'
+      "@common/*": ["./src/common/*"],
+      "@components/*": ["./src/components/*"],
+      "@containers/*": ["./src/containers/*"],
+      "@layouts/*": ["./src/layouts/*"],
+      "@models/*": ["./src/models/*"],
+      "@services/*": ["./src/services/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@utils/*": ["./src/utils/*"],
+    }
+  }
 }

@@ -73,6 +73,13 @@ export const getRouterData = app => {
     '/tourist/': {
       component: dynamicWrapper(app, [], () => import('@containers/Portal/HomePage'))
     },
+    '/tourist/ts': {
+      component: dynamicWrapper(app, [], () => import('@containers/Portal/TsDemo'))
+    },
+    '/tourist/d3': {
+      component: dynamicWrapper(app, [], () => import('@containers/Portal/D3Demo'))
+    },
+
     '/auth': {
       component: dynamicWrapper(app, ['basic/globalModel', 'user/userModel'], () =>
         import('@layouts/AuthLayout/index')
@@ -94,8 +101,8 @@ export const getRouterData = app => {
       name: '穿梭框'
     },
     '/auth/dataInput/d3': {
-      component: dynamicWrapper(app, [], () => import('@containers/UI/d3')),
-      name: '穿梭框'
+      component: dynamicWrapper(app, [], () => import('@containers/UI/D3')),
+      name: 'D3架构图'
     },
     '/auth/exception/403': {
       component: dynamicWrapper(app, [], () => import('@containers/Exception/403')),
