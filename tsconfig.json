@@ -3,6 +3,7 @@
     "src"
   ],
   "compilerOptions": {
+    "baseUrl": ".",
     /* Basic Options */
     "target": "es2015",
     /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017','ES2018' or 'ESNEXT'. */
@@ -81,6 +82,7 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
+    "emitDecoratorMetadata": true,
     "paths": {
       "globalUI/*": ["src/common/globalUI/*"],
       "mock/*": ["./mock/*"],
