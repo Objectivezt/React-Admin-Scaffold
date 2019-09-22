@@ -10,24 +10,24 @@ export default class TabLayout extends React.Component {
     history: {},
     name: '',
     keys: '',
-    component: {},
+    component: <div>loading</div>,
     location: {},
     whiteRouter: [],
     noPermission: {},
     dispatch: () => {},
-    match: ''
+    match: {}
   };
 
   static propTypes = {
     history: PropTypes.object,
     name: PropTypes.string,
     keys: PropTypes.string,
-    component: PropTypes.element,
+    component: PropTypes.any,
     location: PropTypes.object,
     whiteRouter: PropTypes.array,
     noPermission: PropTypes.object,
     dispatch: PropTypes.func,
-    match: PropTypes.string
+    match: PropTypes.object
   };
 
   constructor(props) {

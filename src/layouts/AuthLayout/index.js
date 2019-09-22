@@ -35,8 +35,8 @@ const tempMenuArr = baseRouterUrl;
 }))
 export default class AuthLayout extends React.PureComponent {
   static childContextTypes = {
-    location: PropTypes.objectOf,
-    storeSubscription: PropTypes.objectOf
+    location: PropTypes.object,
+    storeSubscription: PropTypes.object
   };
 
   constructor(props) {
