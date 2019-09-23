@@ -14,8 +14,9 @@ export default class D3 extends Component {
     return (
       <div>
         <iframe
+          id={'d3id'}
           style={{ width: '100%', height: '500px', overflow: 'visible' }}
-          src={path.resolve(__dirname, '/iframe/index.html')}
+          src={path.resolve(__dirname, '/iframe/index.html?key=123')}
           ref="iframe"
           width="100%"
           scrolling="no"
