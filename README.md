@@ -1,7 +1,7 @@
 # React Single Page Application Scaffold support multiTabPage
 
 > Author: Objectivezt
-> version: 1.0.0
+> version: 0.7.0
 > description: 基于 React 和 Ant Design 的单页应用多页签脚手架
 
 ## 目录结构介绍
@@ -14,31 +14,43 @@
 ├── src  // 最重要的文件夹，编写代码都在这个文件夹下
 │   ├── assets // 可以放图片等公共资源
 │   ├── common // 公共组件数据
-│       ├── globalUI // 对antd的公共封装
-│       ├── i18N // 国际化文件配置
-│       ├── baseRouterUrl.js // 国际化文件配置
-│       ├── config.js // 基础配置
-│       ├── localButton.js // 本地按钮
-│       ├── localMenu.js  //本地菜单
-│       ├── router.js  // 基础路由表
-│       └── theme.js // 主题文件
+│   │   ├── globalUI // 对antd的公共封装
+│   │   ├── i18N // 国际化文件配置
+│   │   ├── baseRouterUrl.js // 国际化文件配置
+│   │   ├── config.js // 基础配置
+│   │   ├── localButton.js // 本地按钮
+│   │   ├── localMenu.js  //本地菜单
+│   │   ├── router.js  // 基础路由表
+│   │   └── theme.js // 主题文件
 │   ├── components // 就是react中基础组件
 │   ├── containers // 页面组件
+│   │   ├── DashBoard // 管理首页
+│   │   ├── Exception // 异常页
+│   │   ├── General // 通用业务组件
+│   │   ├── Portal // 游客入口页
+│   │   ├── Systems // 非业务组件
+│   │   └── UI // UI组件DEMO
 │   ├── layouts // layout模版
-│       ├── AuthLayout // 后台管理通用模版
-│       ├── PageHeaderLayout // 页面头模版
-│       ├── TouristLayout // 前台游客页通用模版
-│       ├── UserLayout // 用户通用模版
-│       ├── BlankLayout // 空白模版
-│       └── TabLayout // 多页签模版
+│   │   ├── AuthLayout // 后台管理通用模版
+│   │   ├── PageHeaderLayout // 页面头模版
+│   │   ├── TouristLayout // 前台游客页通用模版
+│   │   ├── UserLayout // 用户通用模版
+│   │   ├── BlankLayout // 空白模版
+│   │   └── TabLayout // 多页签模版
 │   ├── models // 数据交互及逻辑
+│   │   ├── globalModel.js // 全局基础数据处理
+│   │   └── systems // 非业务需求数据处理
 │   ├── services // 放请求借口方法的文件夹
+│   │   └── systems // 非业务需求类请求
 │   ├── styles // 样式方法
+│   │   ├── index.css // css默认样式支持
+│   │   ├── utils.less // less样式公共方法
+│   │   └── index.less // 公共less方法
 │   ├── utils // 系统工具方法
-│       ├── request.js // 公共请求封装工具类
-│       ├── test.ts // typescript 模版组件
-│       ├── utils.js // 工具类方法
-│       └── utils.stateless.js // 无状态组件的工具类
+│   │   ├── request.js // 公共请求封装工具类
+│   │   ├── test.ts // typescript 模版组件
+│   │   ├── utils.js // 工具类方法
+│   │   └── utils.stateless.js // 无状态组件的工具类
 │   ├── index.ejs // ejs模板引擎
 │   ├── index.js // 入口文件
 │   └── layout.js // 项目的layout跳转路由文件
@@ -66,10 +78,10 @@
 
 > 推荐 IDE - vscode
 
-### VSCode 插件建立
+### VSCode 插件
 
 -   插件
-
+  
 *   Ant Design Snippets
 *   Auto Import
 *   Auto Rename Tag
@@ -100,25 +112,4 @@
 
 ### VSCode 工作区设置 配置
 
-#### git 版本
-
-```json
-
-"editor.formatOnPaste": true,
-"editor.formatOnSave": true,
-"editor.formatOnType": true,
-"editor.snippetSuggestions": "top",
-"eslint.enable": true,
-"files.encoding": "utf8",
-"javascript.format.enable": true,
-"gitlens.advanced.messages": {
-	"suppressShowKeyBindingsNotice": true
-},
-"git.autofetch": true,
-"git.ignoreMissingGitWarning": true,
-"prettier.singleQuote": true,
-"terminal.integrated.rendererType": "dom",
-"workbench.iconTheme": "vscode-icons",
-"eslint.packageManager": "npm",
-
-```
+[config](.vscode/settings.json)

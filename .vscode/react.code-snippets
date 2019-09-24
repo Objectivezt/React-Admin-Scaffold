@@ -1,103 +1,103 @@
 {
-	"scaffold services request": {
-		"scope": "javascriptreact",
-		"prefix": "scaffold services request",
-		"body": [
-			"import request from '@utils/request';",
-		],
-		"description": "导入src/services 目录下文件的通用请求文件"
-	},
-	"scaffold services request post": {
-		"scope": "javascriptreact",
-		"prefix": "scaffold services request post",
-		"body": [
-			"export function queryCurdList(params) {",
-			"return request('systems/queryCurdList', {",
-			"method: 'POST',",
-			"param: params",
-			"});",
-			"}",
-		],
-		"description": "导入src/services 目录下POST请求模版"
-	},
-	"scaffold services request get": {
-		"scope": "javascriptreact",
-		"prefix": "scaffold services request get",
-		"body": [
-			"export function queryCurdColumns(params) {",
-			"return request('systems/queryCurdColumns' + params.add);",
-			"},"
-		],
-		"description": "导入src/services 目录下GET请求模版"
-	},
-	"scaffold model get service": {
-		"scope": "javascriptreact",
-		"prefix": "scaffold model get service",
-		"body": [
-			"import {",
-			"queryList",
-			"} from '@services/user/userServices';",
-		],
-		"description": "导入src/model 目录下导入service模版"
-	},
-	"scaffold model tpl": {
-		"scope": "javascriptreact",
-		"prefix": "scaffold model tpl",
-		"body": [
-			"export default {",
-			"namespace: '',",
-			"state: {},",
-			"effects: {},",
-			"reducers: {}",
-			"};",
-		],
-		"description": "导入src/model 数据模型 目录下model的通用模版"
-	},
-	"scaffold model effects fn(param)": {
-		"scope": "javascriptreact",
-		"prefix": "scaffold model effects fn(param)",
-		"body": [
-			"*getMainList({ payloadMain }, { call, put }) {",
-			"const res = yield call(queryCurdList, payloadMain);",
-			"if (res) {",
-			"const { code, data, msg } = res;",
-			"if (code === '0000') {",
-			"yield put({",
-			"type: 'save',",
-			"payloadMain: {",
-			"resList: data.list,",
-			"resTotal: data.total",
-			"}",
-			"});",
-			"} else {",
-			"//message.error(msg);",
-			"}",
-			"}",
-			"},"
-		],
-		"description": "导入src/model 数据模型下的函数"
-	},
-	"scaffold model effects fn()": {
-		"scope": "javascriptreact",
-		"prefix": "scaffold model effects fn()",
-		"body": [
-			"*getMainColumns(_, { call, put }) {",
-			"const res = yield call(queryCurdColumns);",
-			"if (res) {",
-			"const { code, data, msg } = res;",
-			"if (code === '0000') {",
-			"yield put({",
-			"type: 'save',",
-			"payloadColumns: {",
-			"columns: data.allColumns",
-			"}",
-			"});",
-			"} else {",
-			"//message.error(msg);",
-			"}",
-			"}",
-			"}"
-		],
-		"description": "react antd curd"
-	},
+  "scaffold services request": {
+    "scope": "javascriptreact",
+    "prefix": "scaffold services request",
+    "body": [
+      "import request from '@utils/request';",
+    ],
+    "description": "导入src/services 目录下文件的通用请求文件"
+  },
+  "scaffold services request post": {
+    "scope": "javascriptreact",
+    "prefix": "scaffold services request post",
+    "body": [
+      "export function queryCurdList(params) {",
+      "return request('systems/queryCurdList', {",
+      "method: 'POST',",
+      "param: params",
+      "});",
+      "}",
+    ],
+    "description": "导入src/services 目录下POST请求模版"
+  },
+  "scaffold services request get": {
+    "scope": "javascriptreact",
+    "prefix": "scaffold services request get",
+    "body": [
+      "export function queryCurdColumns(params) {",
+      "return request('systems/queryCurdColumns' + params.add);",
+      "},"
+    ],
+    "description": "导入src/services 目录下GET请求模版"
+  },
+  "scaffold model get service": {
+    "scope": "javascriptreact",
+    "prefix": "scaffold model get service",
+    "body": [
+      "import {",
+      "queryList",
+      "} from '@services/systems/userServices';",
+    ],
+    "description": "导入src/model 目录下导入service模版"
+  },
+  "scaffold model tpl": {
+    "scope": "javascriptreact",
+    "prefix": "scaffold model tpl",
+    "body": [
+      "export default {",
+      "namespace: '',",
+      "state: {},",
+      "effects: {},",
+      "reducers: {}",
+      "};",
+    ],
+    "description": "导入src/model 数据模型 目录下model的通用模版"
+  },
+  "scaffold model effects fn(param)": {
+    "scope": "javascriptreact",
+    "prefix": "scaffold model effects fn(param)",
+    "body": [
+      "*getMainList({ payloadMain }, { call, put }) {",
+      "const res = yield call(queryCurdList, payloadMain);",
+      "if (res) {",
+      "const { code, data, msg } = res;",
+      "if (code === '0000') {",
+      "yield put({",
+      "type: 'save',",
+      "payloadMain: {",
+      "resList: data.list,",
+      "resTotal: data.total",
+      "}",
+      "});",
+      "} else {",
+      "//message.error(msg);",
+      "}",
+      "}",
+      "},"
+    ],
+    "description": "导入src/model 数据模型下的函数"
+  },
+  "scaffold model effects fn()": {
+    "scope": "javascriptreact",
+    "prefix": "scaffold model effects fn()",
+    "body": [
+      "*getMainColumns(_, { call, put }) {",
+      "const res = yield call(queryCurdColumns);",
+      "if (res) {",
+      "const { code, data, msg } = res;",
+      "if (code === '0000') {",
+      "yield put({",
+      "type: 'save',",
+      "payloadColumns: {",
+      "columns: data.allColumns",
+      "}",
+      "});",
+      "} else {",
+      "//message.error(msg);",
+      "}",
+      "}",
+      "}"
+    ],
+    "description": "react antd curd"
+  },
 }

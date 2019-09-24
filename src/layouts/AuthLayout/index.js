@@ -12,7 +12,7 @@ import { ContainerQuery } from 'react-container-query';
 import { Icon, Drawer, Layout, Spin } from 'antd';
 import { Route, Redirect, Switch } from 'dva/router';
 import { connect } from 'dva';
-import { queryCurrentUser } from '@services/user/userServices';
+import { queryCurrentUser } from '@services/systems/userServices';
 import { queryLayout, baseRouterUrl, projectName } from '@common/config';
 import {
   AuthRouterPass,

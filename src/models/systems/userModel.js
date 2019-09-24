@@ -1,8 +1,4 @@
-import {
-  queryMenus,
-  queryCurrentUser,
-  queryUserList
-} from '@services/user/userServices';
+import { queryMenus, queryCurrentUser, queryUserList } from '@services/systems/userServices';
 import { localMenuData, localMenuDataArr } from '@common/config';
 import { message } from 'antd';
 

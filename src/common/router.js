@@ -58,7 +58,7 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, [], () => import('@layouts/BlankLayout'))
     },
     '/user': {
-      component: dynamicWrapper(app, ['basic/globalModel', 'user/userModel'], () =>
+      component: dynamicWrapper(app, ['globalModel', 'systems/userModel'], () =>
         import('@layouts/UserLayout/index')
       )
     },
@@ -81,7 +81,7 @@ export const getRouterData = app => {
     },
 
     '/auth': {
-      component: dynamicWrapper(app, ['basic/globalModel', 'user/userModel'], () =>
+      component: dynamicWrapper(app, ['globalModel', 'systems/userModel'], () =>
         import('@layouts/AuthLayout/index')
       ),
       name: '管理中心'
