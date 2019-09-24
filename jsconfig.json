@@ -3,6 +3,7 @@
     "baseUrl": ".",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
     "paths": {
       "globalUI/*": ["src/common/globalUI/*"],
       "mock/*": ["./mock/*"],
@@ -15,7 +16,7 @@
       "@models/*": ["./src/models/*"],
       "@services/*": ["./src/services/*"],
       "@styles/*": ["./src/styles/*"],
-      "@utils/*": ["./src/utils/*"],
+      "@utils/*": ["./src/utils/*"]
     }
   }
 }

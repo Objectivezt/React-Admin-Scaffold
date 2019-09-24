@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
-import { Button, Col, DatePicker, Form, Icon, Input, Popover, Row } from 'antd';
-import { connect } from 'dva';
-import { GlobalCard, GlobalTable, GlobalModal } from 'globalUI/index';
 import UserListSelect from '@containers/General/UserListSelect';
+import { Button, Col, DatePicker, Form, Icon, Input, Popover, Row } from 'antd';
+import { GlobalCard, GlobalTable, GlobalModal } from 'globalUI/index';
+import { connect } from 'dva';
 import {
   globalFormItemLayout,
   globalFormItemBox,
@@ -10,8 +10,8 @@ import {
   globalDefineListSize
 } from '@common/config';
 import AddModal from './AddModal';
-import UpdateModal from './UpdateModal';
 import InfoModal from './InfoModal';
+import UpdateModal from './UpdateModal';
 
 const FormItem = Form.Item;
 const ButtonGroup = Button.Group;

@@ -1,6 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable import/no-dynamic-require */
-import { createElement } from 'react';
+
+import React, { createElement } from 'react';
 import dynamic from 'dva/dynamic';
 import pathToRegexp from 'path-to-regexp';
 import { isUrl } from '@utils/utils';

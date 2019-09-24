@@ -122,18 +122,19 @@ export default class TabLayout extends React.Component {
 
   render() {
     const { location, match, history } = this.props;
+    const { panes, activeKey } = this.state;
     return (
       <div>
         <Tabs
           hideAdd
           onChange={this.onChange}
-          activeKey={this.state.activeKey}
+          activeKey={activeKey}
           type="editable-card"
           onEdit={this.onEdit}
         >
-          {this.state.panes.map(pane => (
-            <TabPane tab={pane.name} key={pane.key}>
-              <pane.component
+          {panes.map(({ name, key, component: Pane }) => (
+            <TabPane tab={name} key={key}>
+              <Pane
                 history={history}
                 location={location}
                 match={match}

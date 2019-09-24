@@ -1,16 +1,7 @@
 import React, { Fragment } from 'react';
-import {
-  Col,
-  Divider,
-  Form,
-  Icon,
-  Modal,
-  Select,
-  Tooltip,
-  message
-} from 'antd';
 import Ellipsis from '@components/Ellipsis';
 import { globalColProps, globalFormItemLayout } from '@common/config';
+import { Col, Divider, Form, Icon, Modal, Select, Tooltip, message } from 'antd';
 
 const { Option } = Select;
 const FormItem = Form.Item;
@@ -85,13 +76,13 @@ export function CreateDivider(text) {
 /**
  * @description 构造表单项目
  * @param {String} value
- * @param {String} name
+ * @param {String | ReactNode } element
  */
-export function CreateFormItem(value, name) {
+export function CreateFormItem(value, element) {
   return (
     <Col {...globalColProps} key={value}>
       <FormItem label={value} {...globalFormItemLayout}>
-        {name}
+        {element}
       </FormItem>
     </Col>
   );
