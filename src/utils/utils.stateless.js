@@ -1,10 +1,11 @@
 import React, { Fragment } from 'react';
 import Ellipsis from '@components/Ellipsis';
 import { globalColProps, globalFormItemLayout } from '@common/config';
-import { Col, Divider, Form, Icon, Modal, Select, Tooltip, message } from 'antd';
+import { Col, Divider, Form, Icon, Modal, Select, Tooltip, message, Menu } from 'antd';
 
 const { Option } = Select;
 const FormItem = Form.Item;
+const { Item: MenuItem } = Menu;
 
 /**
  * @description 表单问号提示
@@ -114,5 +115,20 @@ export function CreateDynamicFormItem(value, name) {
         {name}
       </FormItem>
     </Col>
+  );
+}
+
+/**
+ * @description 构造菜单项目
+ * @param {String} value
+ * @param {String} id
+ * @param {String} iconType
+ */
+export function CreateMenuItem(name, id, iconType) {
+  return (
+    <MenuItem key={id}>
+      <Icon type={iconType} />
+      {name}
+    </MenuItem>
   );
 }

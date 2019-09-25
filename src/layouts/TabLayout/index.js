@@ -1,10 +1,13 @@
 import React from 'react';
-import { Tabs, message } from 'antd';
-import { routerRedux } from 'dva/router';
-import { isInArray } from '@utils/utils';
 import PropTypes from 'prop-types';
+import { Tabs, message, Menu, Dropdown } from 'antd';
+import { isInArray } from '@utils/utils';
+import { routerRedux } from 'dva/router';
+import { CreateMenuItem } from '@utils/utils.stateless';
+import styles from './index.less';
 
 const { TabPane } = Tabs;
+
 export default class TabLayout extends React.Component {
   static defaultProps = {
     history: {},
@@ -34,7 +37,29 @@ export default class TabLayout extends React.Component {
     super(props);
     this.state = {
       activeKey: null,
-      panes: []
+      panes: [],
+      tabMenuData: [
+        {
+          name: '关闭当前',
+          iconType: 'close',
+          key: 'close'
+        },
+        {
+          name: '关闭其他',
+          iconType: 'close-circle',
+          key: 'closeOther'
+        },
+        {
+          name: '刷新页面',
+          iconType: 'reload',
+          key: 'reload'
+        },
+        {
+          name: '收藏页面',
+          iconType: 'star',
+          key: 'star'
+        }
+      ]
     };
   }
 
@@ -99,6 +124,7 @@ export default class TabLayout extends React.Component {
     this[action](targetKey);
   };
 
+  // 关闭当前窗口
   remove = targetKey => {
     if (this.state.panes.length === 1) {
       message.warning('窗口不能全部关闭');
@@ -120,20 +146,51 @@ export default class TabLayout extends React.Component {
     this.setState({ panes, activeKey });
   };
 
+  // 关闭其他窗口
+  removeOther = targetKey => {
+    if (this.state.panes.length === 1) {
+      message.warning('窗口不能全部关闭');
+      return;
+    }
+    // eslint-disable-next-line react/no-access-state-in-setstate
+    const panes = this.state.panes.filter(pane => pane.key === targetKey);
+    this.setState({ panes });
+  };
+
+  onMenuClick = ({ key }, pathname) => {
+    if (key === 'close') {
+      this.remove(pathname);
+    } else if (key === 'closeOther') {
+      this.removeOther(pathname);
+    }
+  };
+
   render() {
     const { location, match, history } = this.props;
-    const { panes, activeKey } = this.state;
+    const { panes, activeKey, tabMenuData } = this.state;
+    const TabMenu = pathname => (
+      <Menu className={styles.menu} onClick={item => this.onMenuClick(item, pathname)}>
+        {tabMenuData.map(({ name, iconType, key }) => CreateMenuItem(name, key, iconType))}
+      </Menu>
+    );
+
+    const TabMenuDropDown = (name, pathname) => (
+      <Dropdown overlay={TabMenu(pathname)}>
+        <a className="ant-dropdown-link">{name}</a>
+      </Dropdown>
+    );
+
     return (
       <div>
         <Tabs
+          activeKey={activeKey}
           hideAdd
           onChange={this.onChange}
-          activeKey={activeKey}
-          type="editable-card"
           onEdit={this.onEdit}
+          type="editable-card"
         >
           {panes.map(({ name, key, component: Pane }) => (
-            <TabPane tab={name} key={key}>
+            <TabPane tab={TabMenuDropDown(name, key)} key={key} closable={false}>
               <Pane
                 history={history}
                 location={location}

@@ -6,6 +6,7 @@
 
 ## 目录结构介绍
 
+```
 ├── .vscode  IDE 代码基础配置
 ├── build   // 打包OPTION信息
 ├── dist   // 打包输入文件
@@ -66,6 +67,7 @@
 ├── webpack.config.js // 打包前的OPTION处理
 ├── package.lock.json // 项目的依赖锁
 └── package.json // 当前整一个项目的依赖
+```
 
 ## 开发环境 要求
 
@@ -80,35 +82,35 @@
 
 ### VSCode 插件
 
--   插件
-  
-*   Ant Design Snippets
-*   Auto Import
-*   Auto Rename Tag
-*   Beautify
-*   Bracket Pair Colorizer
-*   Code Spell Checker
-*   CSS Peek
-*   css-auto-prefix
-*   Debugger for Chrome
-*   Documnet This
-*   EditerConfig for VS Code
-*   ESLint
-*   GitLens
-*   JS JSX Snippets
-*   Markdown All in One
-*   markdownlint
-*   npm
-*   npm Intellisense
-*   open in browser
-*   Path Autocomplete
-*   Path Intellisense
-*   Prettier - Code formatter
-*   React Component
-*   React/Redux/react-router Snippets
-*   Sort lines
-*   vscode-fileheader
-*   vscode-icons
+- 插件
+
+* Ant Design Snippets
+* Auto Import
+* Auto Rename Tag
+* Beautify
+* Bracket Pair Colorizer
+* Code Spell Checker
+* CSS Peek
+* css-auto-prefix
+* Debugger for Chrome
+* Documnet This
+* EditerConfig for VS Code
+* ESLint
+* GitLens
+* JS JSX Snippets
+* Markdown All in One
+* markdownlint
+* npm
+* npm Intellisense
+* open in browser
+* Path Autocomplete
+* Path Intellisense
+* Prettier - Code formatter
+* React Component
+* React/Redux/react-router Snippets
+* Sort lines
+* vscode-fileheader
+* vscode-icons
 
 ### VSCode 工作区设置 配置
 

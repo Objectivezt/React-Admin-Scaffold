@@ -41,6 +41,8 @@
     "react": "16.2.0",
     "react-container-query": "0.9.1",
     "react-contexify": "^4.1.1",
+    "react-dnd": "^9.4.0",
+    "react-dnd-html5-backend": "^9.4.0",
     "react-document-title": "2.0.3",
     "react-dom": "16.2.0",
     "react-fittext": "1.0.0",

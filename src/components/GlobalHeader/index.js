@@ -1,10 +1,31 @@
 import React, { PureComponent } from 'react';
 import { Avatar, Dropdown, Icon, Layout, Menu, Tooltip, Spin } from 'antd';
+import { CreateMenuItem } from '@utils/utils.stateless';
 import styles from './index.less';
 
 const { Item: MenuItem, Divider: MenuDivider } = Menu;
 const { Header } = Layout;
 export default class GlobalHeader extends PureComponent {
+  state = {
+    tabMenuData: [
+      {
+        name: '门户首页',
+        key: 'news',
+        iconType: 'book'
+      },
+      {
+        name: '关闭当前',
+        key: 'setting',
+        iconType: 'setting'
+      },
+      {
+        name: '刷新页面',
+        key: 'changelog',
+        iconType: 'file-text'
+      }
+    ]
+  };
+
   toggle = () => {
     const { collapsed, onCollapse } = this.props;
     onCollapse(!collapsed);
@@ -12,23 +33,10 @@ export default class GlobalHeader extends PureComponent {
 
   render() {
     const { onMenuClick, currentUser, collapsed } = this.props;
+    const { tabMenuData } = this.state;
     const menu = (
       <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick}>
-        <MenuItem key="news">
-          {' '}
-          <Icon type="book" />
-          门户首页
-        </MenuItem>
-        <MenuItem key="setting">
-          {' '}
-          <Icon type="setting" />
-          基础设置
-        </MenuItem>
-        <MenuItem key="changelog">
-          {' '}
-          <Icon type="file-text" />
-          更新日志
-        </MenuItem>
+        {tabMenuData.map(({ name, key, iconType }) => CreateMenuItem(name, key, iconType))}
         <MenuDivider />
         <MenuItem key="logout">
           <Icon type="logout" />
