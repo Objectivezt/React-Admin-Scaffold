@@ -102,17 +102,33 @@ export const getRouterData = app => {
       name: '穿梭框'
     },
     '/auth/component/d3': {
-      component: dynamicWrapper(app, [], () => import('@containers/UI/D3')),
+      component: dynamicWrapper(app, [], () => import('@containers/Module/D3')),
       name: 'D3架构图'
     },
     '/auth/component/amap': {
-      component: dynamicWrapper(app, [], () => import('@containers/UI/AMap')),
+      component: dynamicWrapper(app, [], () => import('@containers/Module/AMap')),
       name: '高德地图'
     },
     // '/auth/component/editor': {
-    //   component: dynamicWrapper(app, [], () => import('@containers/UI/Editor')),
+    //   component: dynamicWrapper(app, [], () => import('@containers/Module/Editor')),
     //   name: '编辑器'
     // },
+    '/auth/component/split-pane': {
+      component: dynamicWrapper(app, [], () => import('@containers/Module/SplitPane')),
+      name: '分割面板'
+    },
+    '/auth/component/markdown': {
+      component: dynamicWrapper(app, [], () => import('@containers/Module/Markdown')),
+      name: 'Markdown'
+    },
+    '/auth/component/high-light-word': {
+      component: dynamicWrapper(app, [], () => import('@containers/Module/HightLightWords')),
+      name: 'HightLightWords'
+    },
+    '/auth/component/spark-lines': {
+      component: dynamicWrapper(app, [], () => import('@containers/Module/HightLightWords')),
+      name: '趋势图'
+    },
     '/auth/exception/403': {
       component: dynamicWrapper(app, [], () => import('@containers/Exception/403')),
       name: '403'

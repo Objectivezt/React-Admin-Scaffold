@@ -25,7 +25,7 @@ const config = {
   ...custom,
   copy: [
     {
-      from: path.resolve(__dirname, 'src/containers/UI/d3root/'),
+      from: path.resolve(__dirname, 'src/containers/Module/d3root/'),
       to: 'iframe/'
     }
   ],

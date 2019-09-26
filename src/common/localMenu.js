@@ -40,11 +40,23 @@ export default [
       {
         path: 'amap',
         name: '高德地图库'
-      }
+      },
       // {
       //   path: 'editor',
       //   name: '编辑器'
       // }
+      {
+        path: 'split-pane',
+        name: '分割面板'
+      },
+      {
+        path: 'markdown',
+        name: 'MarkDown'
+      },
+      {
+        path: 'high-light-word',
+        name: '文字高亮'
+      }
     ]
   }
 ];
