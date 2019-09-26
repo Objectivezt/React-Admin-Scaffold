@@ -56,6 +56,10 @@ export default [
       {
         path: 'high-light-word',
         name: '文字高亮'
+      },
+      {
+        path: 'spark-lines',
+        name: '趋势图'
       }
     ]
   }

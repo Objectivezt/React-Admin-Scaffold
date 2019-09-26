@@ -126,8 +126,8 @@ export const getRouterData = app => {
       name: 'HightLightWords'
     },
     '/auth/component/spark-lines': {
-      component: dynamicWrapper(app, [], () => import('@containers/Module/HightLightWords')),
-      name: '趋势图'
+      component: dynamicWrapper(app, [], () => import('@containers/Module/SparkLine')),
+      name: 'sparkLines'
     },
     '/auth/exception/403': {
       component: dynamicWrapper(app, [], () => import('@containers/Exception/403')),
