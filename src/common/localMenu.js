@@ -25,11 +25,26 @@ export default [
       {
         path: 'transfer',
         name: '穿梭框'
-      },
+      }
+    ]
+  },
+  {
+    path: 'auth/component',
+    name: '精选组件',
+    icon: 'sliders',
+    children: [
       {
         path: 'd3',
-        name: 'd3'
+        name: 'd3图表'
+      },
+      {
+        path: 'amap',
+        name: '高德地图库'
       }
+      // {
+      //   path: 'editor',
+      //   name: '编辑器'
+      // }
     ]
   }
 ];

@@ -5,7 +5,7 @@
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "globalUI/*": ["src/common/globalUI/*"],
+      "globalUI/*": ["./src/common/globalUI/*"],
       "mock/*": ["./mock/*"],
       "@": ["./src/*"], // alias  '@/xxx'
       "@assets/*": ["./src/assets/*"], // alias  '@xxxx'
@@ -16,7 +16,8 @@
       "@models/*": ["./src/models/*"],
       "@services/*": ["./src/services/*"],
       "@styles/*": ["./src/styles/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@utils/*": ["./src/utils/*"],
+      "@setting/*": ["./src/setting/*"]
     }
   }
 }

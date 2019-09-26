@@ -19,7 +19,8 @@ const config = {
   alias: {
     mock: path.resolve(__dirname, 'mock/'),
     globalUI: path.resolve(__dirname, 'src/common/globalUI/'),
-    ...createAlias(__dirname)
+    ...createAlias(__dirname),
+    '@setting': path.resolve(__dirname, 'src/setting/')
   },
   ...custom,
   copy: [

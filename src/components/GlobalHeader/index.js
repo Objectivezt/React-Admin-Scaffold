@@ -14,12 +14,12 @@ export default class GlobalHeader extends PureComponent {
         iconType: 'book'
       },
       {
-        name: '关闭当前',
+        name: '基础设置',
         key: 'setting',
         iconType: 'setting'
       },
       {
-        name: '刷新页面',
+        name: '更新日志',
         key: 'changelog',
         iconType: 'file-text'
       }

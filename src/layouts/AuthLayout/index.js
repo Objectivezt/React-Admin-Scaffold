@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import DocumentTitle from 'react-document-title';
 import GlobalFooter from '@components/GlobalFooter';
 import GlobalHeader from '@components/GlobalHeader';
@@ -9,11 +9,13 @@ import TabLayout from '@layouts/TabLayout';
 import classNames from 'classnames';
 import logo from '@assets/favicon.ico';
 import { ContainerQuery } from 'react-container-query';
-import { Icon, Drawer, Layout, Spin } from 'antd';
-import { Route, Redirect, Switch } from 'dva/router';
+import { Icon, Drawer, Layout, Spin, Breadcrumb } from 'antd';
+import { Route, Redirect, Switch, Link } from 'dva/router';
 import { connect } from 'dva';
 import { queryCurrentUser } from '@services/systems/userServices';
 import { queryLayout, baseRouterUrl, projectName } from '@common/config';
+import { staticModal } from '@utils/utils.stateless';
+import DrawerSetting from '@setting/DrawerSetting';
 import {
   AuthRouterPass,
   formatterMenu,
@@ -22,7 +24,6 @@ import {
   isInArray,
   isUrl
 } from '@utils/utils';
-import { staticModal } from '@utils/utils.stateless';
 import styles from './index.less';
 
 const { Content } = Layout;
@@ -146,6 +147,15 @@ export default class AuthLayout extends React.PureComponent {
     }
   };
 
+  itemRender = (route, params, routes, paths) => {
+    const last = routes.indexOf(route) === routes.length - 1;
+    return last ? (
+      <span>{route.name}</span>
+    ) : (
+      <Link to={paths.join('/')}>{route.name}</Link>
+    );
+  };
+
   render() {
     const {
       collapsed,
@@ -185,7 +195,9 @@ export default class AuthLayout extends React.PureComponent {
           closable={false}
           onClose={() => this.handleDrawer(false)}
           visible={this.state.visibleDrawer}
-        />
+        >
+          <DrawerSetting changeMultiPage={this.handleMultiPage} />
+        </Drawer>
         <SliderMenu
           collapsed={collapsed}
           location={location}
@@ -196,38 +208,36 @@ export default class AuthLayout extends React.PureComponent {
         <Layout style={collapsed ? { marginLeft: 80 } : { marginLeft: 256 }}>
           <GlobalHeader
             collapsed={collapsed}
-            currentUser={{ name: '滔' }}
+            currentUser={{ name: '6' }}
             onCollapse={this.handleMenuCollapse}
             onMenuClick={this.handleMenuClick}
           />
-          <Content className={styles.context}>
+          <Content className={!isMultiPage ? styles.context : styles.context_multi_page}>
             {isMultiPage ? (
               <TabLayout {...tasParams} />
             ) : (
-              <Switch>
-                {redirectData.map(item => (
-                  <Redirect key={item.from} exact from={item.from} to={item.to} />
-                ))}
-                {getRoutes(match.path, routerData).map(item => (
-                  <Route
-                    key={item.key}
-                    path={item.path}
-                    component={item.component}
-                    exact={item.exact}
-                    redirectPath="/auth/exception/403"
-                  />
-                ))}
-                <Redirect exact from="/" to={bashRedirect} />
-                <Route render={NotFound} />
-              </Switch>
+              <Fragment>
+                <Switch>
+                  <Breadcrumb itemRender={this.itemRender} routes={menuData} />
+                  {redirectData.map(item => (
+                    <Redirect key={item.from} exact from={item.from} to={item.to} />
+                  ))}
+                  {getRoutes(match.path, routerData).map(item => (
+                    <Route
+                      key={item.key}
+                      path={item.path}
+                      component={item.component}
+                      exact={item.exact}
+                      redirectPath="/auth/exception/403"
+                    />
+                  ))}
+                  {bashRedirect ? <Redirect exact from="/" to={bashRedirect} /> : null}
+                  <Route render={NotFound} />
+                </Switch>
+              </Fragment>
             )}
           </Content>
           <GlobalFooter links={[]} copyright={Copyright} />
-          {/* <Button
-						icon="setting"
-						onClick={() => this.handleDrawer(true)}
-						className={styles.setting}
-					/> */}
         </Layout>
       </Layout>
     );

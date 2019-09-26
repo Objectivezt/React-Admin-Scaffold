@@ -48,17 +48,17 @@ export default class TabLayout extends React.Component {
           name: '关闭其他',
           iconType: 'close-circle',
           key: 'closeOther'
-        },
-        {
-          name: '刷新页面',
-          iconType: 'reload',
-          key: 'reload'
-        },
-        {
-          name: '收藏页面',
-          iconType: 'star',
-          key: 'star'
         }
+        // {
+        //   name: '刷新页面',
+        //   iconType: 'reload',
+        //   key: 'reload'
+        // },
+        // {
+        //   name: '收藏页面',
+        //   iconType: 'star',
+        //   key: 'star'
+        // }
       ]
     };
   }
@@ -82,9 +82,12 @@ export default class TabLayout extends React.Component {
       const { keys = '/auth/exception/403', component } = noPermission;
       // eslint-disable-next-line react/no-access-state-in-setstate
       const panes = this.state.panes;
-      panes[panes.length - 1].component = component;
-      panes[panes.length - 1].name = name;
-      panes[panes.length - 1].key = keys;
+      console.log(this.state);
+      if (panes.length > 0) {
+        panes[panes.length - 1].component = component;
+        panes[panes.length - 1].name = name;
+        panes[panes.length - 1].key = keys;
+      }
       this.setState({ panes, activeKey: keys });
       return;
     }
@@ -181,26 +184,24 @@ export default class TabLayout extends React.Component {
     );
 
     return (
-      <div>
-        <Tabs
-          activeKey={activeKey}
-          hideAdd
-          onChange={this.onChange}
-          onEdit={this.onEdit}
-          type="editable-card"
-        >
-          {panes.map(({ name, key, component: Pane }) => (
-            <TabPane tab={TabMenuDropDown(name, key)} key={key} closable={false}>
-              <Pane
-                history={history}
-                location={location}
-                match={match}
-                onCloseCurrentTab={(pathname, action) => this.onEdit(pathname, action)}
-              />
-            </TabPane>
-          ))}
-        </Tabs>
-      </div>
+      <Tabs
+        activeKey={activeKey}
+        hideAdd
+        onChange={this.onChange}
+        onEdit={this.onEdit}
+        type="editable-card"
+      >
+        {panes.map(({ name, key, component: Pane }) => (
+          <TabPane tab={TabMenuDropDown(name, key)} key={key} closable={false}>
+            <Pane
+              history={history}
+              location={location}
+              match={match}
+              onCloseCurrentTab={(pathname, action) => this.onEdit(pathname, action)}
+            />
+          </TabPane>
+        ))}
+      </Tabs>
     );
   }
 }

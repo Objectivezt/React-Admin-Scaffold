@@ -101,10 +101,18 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, [], () => import('@containers/UI/Transfer')),
       name: '穿梭框'
     },
-    '/auth/dataInput/d3': {
+    '/auth/component/d3': {
       component: dynamicWrapper(app, [], () => import('@containers/UI/D3')),
       name: 'D3架构图'
     },
+    '/auth/component/amap': {
+      component: dynamicWrapper(app, [], () => import('@containers/UI/AMap')),
+      name: '高德地图'
+    },
+    // '/auth/component/editor': {
+    //   component: dynamicWrapper(app, [], () => import('@containers/UI/Editor')),
+    //   name: '编辑器'
+    // },
     '/auth/exception/403': {
       component: dynamicWrapper(app, [], () => import('@containers/Exception/403')),
       name: '403'
