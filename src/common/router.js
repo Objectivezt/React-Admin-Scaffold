@@ -129,6 +129,14 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, [], () => import('@containers/Module/SparkLine')),
       name: 'sparkLines'
     },
+    '/auth/component/g6': {
+      component: dynamicWrapper(app, [], () => import('@containers/Module/G6')),
+      name: 'g6'
+    },
+    '/auth/component/json-view': {
+      component: dynamicWrapper(app, [], () => import('@containers/Module/JSONView')),
+      name: 'JSON-View'
+    },
     '/auth/exception/403': {
       component: dynamicWrapper(app, [], () => import('@containers/Exception/403')),
       name: '403'

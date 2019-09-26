@@ -60,6 +60,14 @@ export default [
       {
         path: 'spark-lines',
         name: '趋势图'
+      },
+      {
+        path: 'g6',
+        name: 'g6'
+      },
+      {
+        path: 'json-view',
+        name: 'json-view'
       }
     ]
   }

@@ -27,6 +27,11 @@ const config = {
     {
       from: path.resolve(__dirname, 'src/containers/Module/d3root/'),
       to: 'iframe/'
+    },
+
+    {
+      from: path.resolve(__dirname, 'src/assets/favicon.ico'),
+      to: '/'
     }
   ],
   entry: 'src/index.js',

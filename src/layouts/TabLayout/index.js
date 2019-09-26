@@ -82,7 +82,6 @@ export default class TabLayout extends React.Component {
       const { keys = '/auth/exception/403', component } = noPermission;
       // eslint-disable-next-line react/no-access-state-in-setstate
       const panes = this.state.panes;
-      console.log(this.state);
       if (panes.length > 0) {
         panes[panes.length - 1].component = component;
         panes[panes.length - 1].name = name;
