@@ -13,7 +13,7 @@ module.exports = {
         'test', // 增加测试
         'chore', // 构建过程或辅助工具的变动
         'revert', // 回滚
-        'upgrade' // 第三方库升级
+        'upgrade' // 升级第三方库
       ]
     ]
   }
