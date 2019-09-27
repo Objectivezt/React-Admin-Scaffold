@@ -1,10 +1,7 @@
 import React, { Fragment } from 'react';
 import DocumentTitle from 'react-document-title';
-import GlobalFooter from '@components/GlobalFooter';
-import GlobalHeader from '@components/GlobalHeader';
 import NotFound from '@containers/Exception/404';
 import PropTypes from 'prop-types';
-import SliderMenu from '@components/SliderMenu';
 import TabLayout from '@layouts/TabLayout';
 import classNames from 'classnames';
 import logo from '@assets/favicon.ico';
@@ -24,6 +21,9 @@ import {
   isInArray,
   isUrl
 } from '@utils/utils';
+import GlobalHeader from './GlobalHeader';
+import GlobalFooter from './GlobalFooter';
+import SliderMenu from './SliderMenu';
 import styles from './index.less';
 
 const { Content } = Layout;
@@ -49,18 +49,22 @@ export default class AuthLayout extends React.PureComponent {
   }
 
   componentDidMount() {
+    const {
+      NO_LOGIN_STATE_TITLE,
+      NO_LOGIN_STATE_CONTEXT
+    } = this.props.globalModel.language.TOURIST_LAYOUT;
     queryCurrentUser()
       .then(({ code }) => {
         if (code === '0000') {
           this.getUserMenu();
         } else {
-          staticModal('未能检测到用户登录状态', '您可能需要重新登录');
+          staticModal(NO_LOGIN_STATE_TITLE, NO_LOGIN_STATE_CONTEXT);
         }
       })
       .catch(error => {
         // eslint-disable-next-line
         console.warn(error);
-        staticModal('未能检测到用户登录状态', '您可能需要重新登录');
+        staticModal(NO_LOGIN_STATE_TITLE, NO_LOGIN_STATE_CONTEXT);
       });
   }
 
@@ -149,11 +153,7 @@ export default class AuthLayout extends React.PureComponent {
 
   itemRender = (route, params, routes, paths) => {
     const last = routes.indexOf(route) === routes.length - 1;
-    return last ? (
-      <span>{route.name}</span>
-    ) : (
-      <Link to={paths.join('/')}>{route.name}</Link>
-    );
+    return last ? <span>{route.name}</span> : <Link to={paths.join('/')}>{route.name}</Link>;
   };
 
   render() {
@@ -167,6 +167,7 @@ export default class AuthLayout extends React.PureComponent {
       userModel,
       history
     } = this.props;
+    const { DRAWER_NAME } = globalModel.language.TOURIST_LAYOUT;
     const tasParams = {
       ...routerData[location.pathname],
       keys: location.pathname,
@@ -190,7 +191,7 @@ export default class AuthLayout extends React.PureComponent {
     const layout = (
       <Layout>
         <Drawer
-          title="基础设置"
+          title={DRAWER_NAME}
           placement="right"
           closable={false}
           onClose={() => this.handleDrawer(false)}

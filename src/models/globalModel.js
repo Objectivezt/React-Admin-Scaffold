@@ -1,4 +1,7 @@
 import { baseRouterUrl, globalModalProps } from '@common/config';
+import i18N from '@common/i18N/index';
+
+const { CN, EN } = i18N;
 
 export default {
   namespace: 'globalModel',
@@ -6,6 +9,7 @@ export default {
     collapsed: false,
     isMultiPage: true,
     baseRouterUrl,
+    language: CN,
     globalModalProps // 全局组件属性配置
   },
   effects: {},
@@ -26,6 +30,14 @@ export default {
       return {
         ...state,
         baseRouterUrl: payloadRouterUrl
+      };
+    },
+    changeLang(state, { payloadLang }) {
+      let lang = 'cn';
+      lang = payloadLang === 'cn' ? CN : EN;
+      return {
+        ...state,
+        language: lang
       };
     }
   }

@@ -97,6 +97,10 @@ export const getRouterData = app => {
       ),
       name: 'CURD'
     },
+    '/auth/systems/curd-ts': {
+      component: dynamicWrapper(app, [], () => import('@containers/Systems/CurdTS/index.tsx')),
+      name: 'CURD-TS'
+    },
     '/auth/dataInput/transfer': {
       component: dynamicWrapper(app, [], () => import('@containers/UI/Transfer')),
       name: '穿梭框'

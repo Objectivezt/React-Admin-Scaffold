@@ -14,6 +14,11 @@ export default [
         path: 'curd',
         name: 'CURD',
         children: []
+      },
+      {
+        path: 'curd-ts',
+        name: 'CURD',
+        children: []
       }
     ]
   },
