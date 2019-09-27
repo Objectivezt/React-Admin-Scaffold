@@ -17,7 +17,7 @@ export default [
       },
       {
         path: 'curd-ts',
-        name: 'CURD',
+        name: 'CURD-TS',
         children: []
       }
     ]
