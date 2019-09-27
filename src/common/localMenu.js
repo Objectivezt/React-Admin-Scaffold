@@ -17,17 +17,17 @@ export default [
       }
     ]
   },
-  {
-    path: 'auth/dataInput',
-    name: '数据录入',
-    icon: 'sliders',
-    children: [
-      {
-        path: 'transfer',
-        name: '穿梭框'
-      }
-    ]
-  },
+  // {
+  //   path: 'auth/dataInput',
+  //   name: '数据录入',
+  //   icon: 'sliders',
+  //   children: [
+  //     {
+  //       path: 'transfer',
+  //       name: '穿梭框'
+  //     }
+  //   ]
+  // },
   {
     path: 'auth/component',
     name: '精选组件',
