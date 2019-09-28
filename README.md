@@ -23,7 +23,7 @@
 │   │   ├── localMenu.js  //本地菜单
 │   │   ├── router.js  // 基础路由表
 │   │   └── theme.js // 主题文件
-│   ├── components // 就是react中基础组件
+│   ├── components // 系统react中基础组件
 │   ├── containers // 页面组件
 │   │   ├── DashBoard // 管理首页
 │   │   ├── Exception // 异常页
@@ -33,7 +33,9 @@
 │   │   └── UI // UI组件DEMO
 │   ├── layouts // layout模版
 │   │   ├── AuthLayout // 后台管理通用模版
-│   │   ├── PageHeaderLayout // 页面头模版
+│   │       ├── GlobalFooter // 通用模版尾部
+│   │       ├── GlobalHeader // 通用模版头部
+│   │       └── SliderMenu // 菜单栏
 │   │   ├── TouristLayout // 前台游客页通用模版
 │   │   ├── UserLayout // 用户通用模版
 │   │   ├── BlankLayout // 空白模版
@@ -43,6 +45,7 @@
 │   │   └── systems // 非业务需求数据处理
 │   ├── services // 放请求借口方法的文件夹
 │   │   └── systems // 非业务需求类请求
+│   ├── setting // 配置类组件
 │   ├── styles // 样式方法
 │   │   ├── index.css // css默认样式支持
 │   │   ├── utils.less // less样式公共方法
@@ -55,18 +58,19 @@
 │   ├── index.ejs // ejs模板引擎
 │   ├── index.js // 入口文件
 │   └── layout.js // 项目的layout跳转路由文件
+├── .editorconfig // 编辑器统一配置
 ├── .eslintignore // 代码检查排除文件
 ├── .eslintrc // 代码检查文件
-├── .editorconfig // 编辑器统一配置
 ├── .gitignore // git上传时忽略的文件
-├── .webpackrc.js // 项目的配置文件
-├── .roadhogrc.mock.js // mock的配置文件
 ├── .prettierrc // 配置自动保存后风格
+├── .roadhogrc.mock.js // mock的配置文件
+├── .webpackrc.js // 项目的配置文件
+├── commitlint.config.js // 代码提交检查
 ├── jsconfig.json // 对js文件进行配置
-├── tsconfig.json // 对typescript文件进行配置
-├── webpack.config.js // 打包前的OPTION处理
 ├── package.lock.json // 项目的依赖锁
-└── package.json // 当前整一个项目的依赖
+├── package.json // 当前整一个项目的依赖
+├── tsconfig.json // 对typescript文件进行配置
+└── webpack.config.js // 打包前的OPTION处理
 ```
 
 ## 开发环境 要求
