@@ -4,6 +4,11 @@
 > version: 0.7.0
 > description: 基于 React 和 Ant Design 的单页应用多页签脚手架
 
+## 技术栈介绍
+
+1. 基础库 react
+2. 数据流 dva.js
+
 ## 目录结构介绍
 
 ```
@@ -126,17 +131,17 @@
 ```json
   ...
   "dependencies": {
-    "@antv/data-set": "0.8.9", //  
+    "@antv/data-set": "0.8.9", //
     "@antv/g6": "^3.0.7-beta.1", // g6 图表库
     "@babel/polyfill": "7.2.5", //
     "antd": "3.23.4", //  UI库
     "bizcharts": "3.4.3", //  图表库
-    "bizcharts-plugin-slider": "2.1.1",  
+    "bizcharts-plugin-slider": "2.1.1",
     "braft-editor": "^2.3.8", // 编辑器
     "classnames": "2.2.6", //
     "dva": "2.4.1", // 数据流
     "dva-loading": "2.0.6", //
-    "gg-editor": "^3.0.0-beta.1", // 
+    "gg-editor": "^3.0.0-beta.1", //
     "history": "4.7.2", //
     "jsencrypt": "2.3.1", // rsa算法
     "lodash": "4.17.11", //  工具库
@@ -155,9 +160,9 @@
     "react-copy-to-clipboard": "^5.0.1", //
     "react-dnd": "^9.4.0", // 拖拽
     "react-dnd-html5-backend": "^9.4.0", // 拖拽
-    "react-document-title": "2.0.3", // 
+    "react-document-title": "2.0.3", //
     "react-dom": "16.2.0", //
-    "react-fittext": "1.0.0", // 
+    "react-fittext": "1.0.0", //
     "react-highlight-words": "^0.16.0", //
     "react-json-view": "^1.19.1", // json 显示
     "react-markdown": "^4.2.2", // markdown 渲染
@@ -166,7 +171,7 @@
     "react-split-pane": "^0.1.87", // 分屏
     "scaffold-core": "0.0.3-alpha.0.4", // 基础包
     "url-polyfill": "1.1.3" //
-  }, 
+  },
   "devDependencies": {
     "@babel/plugin-transform-typescript": "^7.5.5", //
     "@babel/preset-typescript": "^7.3.3", //
@@ -195,10 +200,10 @@
     "mocha": "5.2.0", // 测试代码库
     "mockjs": "1.0.1-beta3", // mock接口库
     "prettier": "1.18.2", // 风格库
-    "regenerator-runtime": "0.11.1", 
+    "regenerator-runtime": "0.11.1",
     "roadhog": "2.4.9", // 打包器
     "roadhog-api-doc": "0.3.4", // api文档
     "typescript": "^3.6.2" // ts
-  }, 
+  },
   ...
 ```
