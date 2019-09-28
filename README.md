@@ -29,6 +29,7 @@
 │   │   ├── Exception // 异常页
 │   │   ├── General // 通用业务组件
 │   │   ├── Portal // 游客入口页
+│   │   ├── Module // 库Demo
 │   │   ├── Systems // 非业务组件
 │   │   └── UI // UI组件DEMO
 │   ├── layouts // layout模版
