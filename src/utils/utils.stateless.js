@@ -132,3 +132,22 @@ export function CreateMenuItem(name, id, iconType) {
     </MenuItem>
   );
 }
+
+/**
+ * @description 构造FormItem
+ * @param {Object} form
+ * @param {String|ReactNode} label
+ * @param {String} decoratorId
+ * @param {Object} decoratorOptions
+ * @param {ReactNode} components
+ */
+export function createFilterComponents(form, label, decoratorId, decoratorOptions, components) {
+  const { getFieldDecorator } = form;
+  return (
+    <Col>
+      <FormItem {...globalFormItemLayout} label={label}>
+        {getFieldDecorator(decoratorId, decoratorOptions)(components)}
+      </FormItem>
+    </Col>
+  );
+}

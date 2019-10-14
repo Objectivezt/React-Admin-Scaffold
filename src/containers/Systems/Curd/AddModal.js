@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Form, Col, Row, Input, DatePicker } from 'antd';
 import { connect } from 'dva';
 import { globalFormItemLayout, globalFormItemBox } from '@common/config';
+import { createFilterComponents } from '@utils/utils.stateless';
 
 const FormItem = Form.Item;
 
