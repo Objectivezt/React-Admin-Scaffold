@@ -2,7 +2,7 @@ import webpack from 'webpack';
 import fs from 'fs';
 const path = require('path');
 const isNotPrd = process.env.NODE_ENV !== 'production';
-const packageName = 'pure-umi';
+const packageName = 'pure';
 module.exports = webpackConfig => {
   console.log('资源目录上下文:', process.env.ENV_PUBLIC_PATH);
   console.log('API请求目录上下文:', process.env.ENV_API_CONTEXT);

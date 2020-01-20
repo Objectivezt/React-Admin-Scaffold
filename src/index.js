@@ -5,10 +5,10 @@ import './public-path';
 
 function domElementGetter() {
   // Make sure there is a div for us to render into
-  let el = document.getElementById('app2');
+  let el = document.getElementById('react-dva-scaffld');
   if (!el) {
     el = document.createElement('div');
-    el.id = 'app2';
+    el.id = 'react-dva-scaffld';
     document.body.appendChild(el);
   }
 
@@ -18,7 +18,7 @@ function domElementGetter() {
 function render() {
   domElementGetter();
   console.log('render');
-  ReactDOM.render(<App />, document.getElementById('app2'));
+  ReactDOM.render(<App />, document.getElementById('react-dva-scaffld'));
 }
 
 // eslint-disable-next-line no-underscore-dangle
@@ -40,5 +40,5 @@ export async function mount(props) {
 }
 
 export async function unmount() {
-  ReactDOM.unmountComponentAtNode(document.getElementById('app2'));
+  ReactDOM.unmountComponentAtNode(document.getElementById('react-dva-scaffld'));
 }

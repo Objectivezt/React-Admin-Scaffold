@@ -25,7 +25,7 @@ export default class Root extends Component {
     app.use(createLoading());
     app.model(models);
     app.router(layout);
-    app.start('#app2');
+    app.start('#react-dva-scaffld');
   };
 
   componentDidMount() {
