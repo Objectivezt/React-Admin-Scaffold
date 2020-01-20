@@ -15,8 +15,6 @@ const layout = require('./layout').default;
  */
 export default class Root extends Component {
   runDva = () => {
-    // eslint-disable-next-line no-console
-    console.log(sub(1, 2));
     let app = {}; // redbox-react  自动注册
     app = dva({
       history: createHistory()
@@ -25,11 +23,11 @@ export default class Root extends Component {
     app.use(createLoading());
     app.model(models);
     app.router(layout);
-    app.start('#react-dva-scaffld');
+    app.start('#react-dva-scaffold');
   };
 
   componentDidMount() {
-    console.log('run dva instance');
+    console.log(`run dva ${sub(-1, 2)} instance`);
     this.runDva();
   }
 

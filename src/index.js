@@ -5,29 +5,20 @@ import './public-path';
 
 function domElementGetter() {
   // Make sure there is a div for us to render into
-  let el = document.getElementById('react-dva-scaffld');
+  let el = document.getElementById('react-dva-scaffold');
   if (!el) {
     el = document.createElement('div');
-    el.id = 'react-dva-scaffld';
+    el.id = 'react-dva-scaffold';
     document.body.appendChild(el);
   }
-
   return el;
 }
 
 function render() {
   domElementGetter();
   console.log('render');
-  ReactDOM.render(<App />, document.getElementById('react-dva-scaffld'));
+  ReactDOM.render(<App />, document.getElementById('react-dva-scaffold'));
 }
-
-// eslint-disable-next-line no-underscore-dangle
-console.log(123, window.__POWERED_BY_QIANKUN__);
-
-// eslint-disable-next-line no-underscore-dangle
-// if (!window.__POWERED_BY_QIANKUN__) {
-render();
-// }
 
 export async function bootstrap() {
   console.log('react app bootstraped');
@@ -40,5 +31,7 @@ export async function mount(props) {
 }
 
 export async function unmount() {
-  ReactDOM.unmountComponentAtNode(document.getElementById('react-dva-scaffld'));
+  ReactDOM.unmountComponentAtNode(document.getElementById('react-dva-scaffold'));
 }
+
+render();
