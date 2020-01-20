@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
-import { Avatar, Dropdown, Icon, Layout, Menu, Spin, Tooltip } from 'antd';
+import { Avatar, Dropdown, Icon, Layout, Menu, Spin, Tooltip, message } from 'antd';
 import { Route, Switch, routerRedux } from 'dva/router';
+import request from '@utils/request';
 import NotFound from '@containers/Exception/404';
 import bgImages from '@assets/background.png';
 import { getRoutes } from '@utils/utils';
@@ -10,6 +11,14 @@ const { Header, Content } = Layout;
 const { Item: MenuItem, Divider: MenuDivider } = Menu;
 
 export default class TouristLayout extends React.Component {
+  componentDidMount() {
+    request('topics').then(({ success, data }) => {
+      if (success) {
+        message.info(`获取到cNode topics:${data.length}`);
+      }
+    });
+  }
+
   handleMenuClick = ({ key }) => {
     if (key === '1') {
       routerRedux.push('/exception/trigger');

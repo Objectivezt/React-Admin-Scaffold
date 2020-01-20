@@ -19,7 +19,7 @@ const codeMessage = {
   500: '服务器发生错误，请检查服务器。',
   502: '网关错误。',
   503: '服务不可用，服务器暂时过载或维护。',
-  504: '网关超时。',
+  504: '网关超时。'
 };
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
@@ -28,7 +28,7 @@ function checkStatus(response) {
   const errorText = codeMessage[response.status] || response.statusText;
   notification.error({
     message: `请求错误 ${response.status}: ${response.url}`,
-    description: errorText,
+    description: errorText
   });
   const error = new Error(errorText);
   error.name = response.status;
@@ -45,7 +45,7 @@ function checkStatus(response) {
  */
 export default function request(url, options) {
   const defaultOptions = {
-    credentials: 'include',
+    credentials: 'include'
   };
   const newOptions = { ...defaultOptions, ...options };
   if (newOptions.method === 'POST' || newOptions.method === 'PUT') {
@@ -54,43 +54,43 @@ export default function request(url, options) {
       newOptions.headers = {
         Accept: 'application/json',
         'Content-Type': 'application/json; charset=utf-8',
-        ...newOptions.headers,
+        ...newOptions.headers
       };
       newOptions.body = JSON.stringify(newOptions.body);
     } else {
       // newOptions.body is FormData
       newOptions.headers = {
         Accept: 'application/json',
-        ...newOptions.headers,
+        ...newOptions.headers
       };
     }
   }
 
   return fetch(baseUrl + url, newOptions)
     .then(checkStatus)
-    .then((response) => {
+    .then(response => {
       if (newOptions.method === 'DELETE' || response.status === 204) {
         return response.text();
       }
       return response.json();
     })
-    .catch((e) => {
-      const { dispatch } = store;
+    .catch(e => {
+      // const { dispatch } = store;
       const status = e.name;
-      if (status === 401) {
-        dispatch({
-          type: 'login/logout',
-        });
-      }
-      if (status === 403) {
-        dispatch(routerRedux.push('/exception/403'));
-      }
-      if (status <= 504 && status >= 500) {
-        dispatch(routerRedux.push('/exception/500'));
-      }
-      if (status >= 404 && status < 422) {
-        dispatch(routerRedux.push('/exception/404'));
-      }
+      // if (status === 401) {
+      //   dispatch({
+      //     type: 'login/logout',
+      //   });
+      // }
+      // if (status === 403) {
+      //   dispatch(routerRedux.push('/exception/403'));
+      // }
+      // if (status <= 504 && status >= 500) {
+      //   dispatch(routerRedux.push('/exception/500'));
+      // }
+      // if (status >= 404 && status < 422) {
+      //   dispatch(routerRedux.push('/exception/404'));
+      // }
 
       return Promise.reject(e);
     });

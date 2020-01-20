@@ -62,10 +62,15 @@ const config = {
     template: './src/index.ejs'
   },
   outputPath: './dist',
-  publicPath: ENV_PATH,
+  publicPath: '/',
   theme: './src/common/theme.js',
   proxy: {
-    '/test': proxyUrl
+    '/test': proxyUrl,
+    '/api': {
+      target: 'https://cnodejs.org/api/v1',
+      changeOrigin: true,
+      pathRewrite: { '^/api': '' }
+    }
   }
 };
 

@@ -1,26 +1,44 @@
-import '@babel/polyfill';
-import 'url-polyfill';
-import dva from 'dva';
-import createHistory from 'history/createHashHistory';
-import createLoading from 'dva-loading';
-import 'moment/locale/zh-cn';
-import './styles/index.css';
-import { sub } from '@utils/test.ts';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './root';
+import './public-path';
 
-const models = require('./models/globalModel').default;
-const layout = require('./layout').default;
+function domElementGetter() {
+  // Make sure there is a div for us to render into
+  let el = document.getElementById('app2');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'app2';
+    document.body.appendChild(el);
+  }
 
-// eslint-disable-next-line no-console
-console.log(sub(1, 2));
-let app = {}; // redbox-react  自动注册
-app = dva({
-  history: createHistory()
-});
+  return el;
+}
 
-app.use(createLoading());
-app.model(models);
-app.router(layout);
-app.start('#root');
+function render() {
+  domElementGetter();
+  console.log('render');
+  ReactDOM.render(<App />, document.getElementById('app2'));
+}
 
 // eslint-disable-next-line no-underscore-dangle
-export default app._store;
+console.log(123, window.__POWERED_BY_QIANKUN__);
+
+// eslint-disable-next-line no-underscore-dangle
+// if (!window.__POWERED_BY_QIANKUN__) {
+render();
+// }
+
+export async function bootstrap() {
+  console.log('react app bootstraped');
+  domElementGetter();
+}
+
+export async function mount(props) {
+  console.log('react app props', props);
+  render();
+}
+
+export async function unmount() {
+  ReactDOM.unmountComponentAtNode(document.getElementById('app2'));
+}
